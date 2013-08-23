@@ -11,5 +11,16 @@ class User < ActiveRecord::Base
   has_many :friendships_as_proposer, class_name: "Friendship", foreign_key: :proposer_id
   has_many :friendships_as_proposee, class_name: "Friendship", foreign_key: :proposee_id
 
+  def all_friends
+   proposees = self.friendships_as_proposer.map {|friendship| friendship.proposee}
+   proposers = self.friendships_as_proposee.map {|friendship| friendship.proposer}
+   proposees + proposers
+  end
+
+ def confirmed_friends
+   proposees = self.friendships_as_proposer.where({confirmed: true}).map {|friendship| friendship.proposee}
+   proposers = self.friendships_as_proposee.where({confirmed: true}).map {|friendship| friendship.proposer}
+   proposees + proposers
+  end
 
 end
