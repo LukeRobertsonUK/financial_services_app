@@ -1,0 +1,33 @@
+=f.fields_for :firm do |firm_form|
+  %div.field
+    =firm_form.label :name
+    %br
+    =firm_form.text_field :name
+  %div.field
+    =firm_form.label :website
+    %br
+    =firm_form.text_field :website
+  %div.field
+    =firm_form.label :building
+    %br
+    =firm_form.text_field :building
+  %div.field
+    =firm_form.label :street_address
+    %br
+    =firm_form.text_field :street_address
+  %div.field
+    =firm_form.label :city
+    %br
+    =firm_form.text_field :city
+  %div.field
+    =firm_form.label :country
+    %br
+    =firm_form.text_field :country
+  %div.field
+    =firm_form.label :postcode
+    %br
+    =firm_form.text_field :postcode
+  %div.field
+    =firm_form.label :corporate_disclaimer
+    %br
+    =firm_form.text_area :corporate_disclaimer

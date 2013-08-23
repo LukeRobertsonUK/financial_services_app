@@ -31,7 +31,4 @@ def shareable_with(user)
 end
 
 
-
-
-
 end

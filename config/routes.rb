@@ -9,7 +9,7 @@ FinancialServicesApp::Application.routes.draw do
   resources :friendships
   resources :friends
 
-  devise_for :users
+  devise_for :users, controllers: { registrations: 'registrations' }
 
   get '/users', to: "users#index", as: 'users'
 
