@@ -7,14 +7,22 @@ class RegistrationsController < Devise::RegistrationsController
     self.resource.firm = Firm.where(id: params[:firm_id]).first || Firm.new
     respond_with self.resource
 
-    # binding.pry
   end
 
 
   # POST /resource
   def create
-    binding.pry
+    if sign_up_params["firm_attributes"]["name"].blank?
+      sign_up_params.delete("firm_attributes")
+    end
+
     build_resource(sign_up_params)
+
+    unless params["organization_id"].blank?
+      unless sign_up_params["firm_attributes"]
+        resource.firm_id = params["organization_id"].to_i
+      end
+    end
 
     if resource.save
       if resource.active_for_authentication?

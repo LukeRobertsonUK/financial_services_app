@@ -3,6 +3,7 @@ class Firm < ActiveRecord::Base
   has_many :users
   geocoded_by :full_street_address
   after_validation :geocode, :if => :address_changed?
+  default_scope order('name ASC')
 
   def full_street_address
     "#{building}, #{street_address}, #{city}, #{postcode}, #{country}"

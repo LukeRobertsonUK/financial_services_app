@@ -38,6 +38,11 @@
     = f.label :disclaimer
     %br/
     = f.text_area :disclaimer, :autofocus => true
+  %div
+    = label_tag :organization_id, "Which firm to you work for?"
+    %br/
+    = select_tag "organization_id", options_for_select(Firm.all.map{|f| [f.name, f.id]}.unshift(["select from list of enter details below", ""])), options = {}
+
   %div.form_fields
     =render "fields", f: f
   %div= f.submit "Sign up"
