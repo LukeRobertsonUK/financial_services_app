@@ -1,0 +1,8 @@
+%h1 List of Users
+%h3 current user will come here to search for new friends
+
+%ul
+  - @visible_users.each do |user|
+    %li
+      =user.email
+      = link_to "Befriend", new_friendship_path(proposee_id: user.id)
