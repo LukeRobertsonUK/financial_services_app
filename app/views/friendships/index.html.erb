@@ -2,8 +2,10 @@
 
 <table>
   <tr>
+    <th>Proposer</th>
+    <th>Proposee</th>
     <th>Proposer sharing pref</th>
-    <th>Proposess sharing pref</th>
+    <th>Proposee sharing</th>
     <th></th>
     <th></th>
     <th></th>
@@ -11,8 +13,10 @@
 
 <% @friendships.each do |friendship| %>
   <tr>
+    <td><%= friendship.proposer.email %></td>
+    <td><%= friendship.proposee.email %></td>
     <td><%= friendship.proposer_sharing_pref %></td>
-    <td><%= friendship.proposess_sharing_pref %></td>
+    <td><%= friendship.proposee_sharing_pref %></td>
     <td><%= link_to 'Show', friendship %></td>
     <td><%= link_to 'Edit', edit_friendship_path(friendship) %></td>
     <td><%= link_to 'Destroy', friendship, method: :delete, data: { confirm: 'Are you sure?' } %></td>

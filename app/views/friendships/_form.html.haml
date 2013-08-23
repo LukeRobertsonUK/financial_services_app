@@ -12,12 +12,12 @@
     .field
       = f.label :proposer_sharing_pref, "Please give a sharing preference for #{@proposee.email}"
       %br
-      = f.select :proposer_sharing_pref, ["friend", "close friend", "coleague"]
+      = f.select :proposer_sharing_pref, User::SHARING_PREFERENCES
   - if current_user.id == @friendship.proposee_id
     .field
       = f.label :proposee_sharing_pref, "Please give a sharing preference for #{@proposer.email}"
       %br
-      = f.select :proposee_sharing_pref, ["friend", "close friend", "coleague"]
+      = f.select :proposee_sharing_pref, User::SHARING_PREFERENCES
   =f.hidden_field :proposer_id, {value: @friendship.proposer_id}
   =f.hidden_field :proposee_id, {value: @friendship.proposee_id}
   .actions

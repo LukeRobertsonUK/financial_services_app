@@ -1,0 +1,50 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @firm.name %>
+</p>
+
+<p>
+  <b>Website:</b>
+  <%= @firm.website %>
+</p>
+
+<p>
+  <b>Corporate disclaimer:</b>
+  <%= @firm.corporate_disclaimer %>
+</p>
+
+<p>
+  <b>Building:</b>
+  <%= @firm.building %>
+</p>
+
+<p>
+  <b>Street address:</b>
+  <%= @firm.street_address %>
+</p>
+
+<p>
+  <b>Postcode:</b>
+  <%= @firm.postcode %>
+</p>
+
+<p>
+  <b>Country:</b>
+  <%= @firm.country %>
+</p>
+
+<p>
+  <b>Latitude:</b>
+  <%= @firm.latitude %>
+</p>
+
+<p>
+  <b>Longitude:</b>
+  <%= @firm.longitude %>
+</p>
+
+
+<%= link_to 'Edit', edit_firm_path(@firm) %> |
+<%= link_to 'Back', firms_path %>

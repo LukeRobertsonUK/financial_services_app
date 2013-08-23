@@ -1,0 +1,17 @@
+%h1 Incoming friend requests
+%ul
+  - @incoming_friend_requests.each do |friendship|
+    %li
+      =friendship.proposer.email
+      = link_to "accept friendship", edit_friendship_path(friendship)
+      = link_to "deny friendship", friendship, method: :delete, data: { confirm: 'Are you sure?' }
+
+
+
+%h1 List of your friends
+
+%ul
+  - @confirmed_friends.each do |user|
+    %li
+      =user.email
+      = link_to "Edit friendship", edit_friendship_path(Friendship.where({proposer_id:current_user.id, proposee_id: user.id}).first || Friendship.where({proposer_id:user.id, proposee_id: current_user.id}).first )

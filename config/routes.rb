@@ -1,6 +1,10 @@
 FinancialServicesApp::Application.routes.draw do
 
+  resources :firms
+
+
   resources :friendships
+  resources :friends
 
   devise_for :users
 
