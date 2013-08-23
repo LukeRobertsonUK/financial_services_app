@@ -1,5 +1,8 @@
 FinancialServicesApp::Application.routes.draw do
 
+  resources :posts
+
+
   resources :firms
 
 

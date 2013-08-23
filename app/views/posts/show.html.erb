@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Sharing pref:</b>
+  <%= @post.sharing_pref %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @post.user %>
+</p>
+
+<p>
+  <b>Colleague visible:</b>
+  <%= @post.colleague_visible %>
+</p>
+
+<p>
+  <b>Non investor visible:</b>
+  <%= @post.non_investor_visible %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%= @post.title %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%= @post.content %>
+</p>
+
+<p>
+  <b>Post file:</b>
+  <%= @post.post_file %>
+</p>
+
+
+<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %>

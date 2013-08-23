@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130823132702) do
+ActiveRecord::Schema.define(:version => 20130823134930) do
 
   create_table "firms", :force => true do |t|
     t.string   "name"
@@ -40,6 +40,20 @@ ActiveRecord::Schema.define(:version => 20130823132702) do
 
   add_index "friendships", ["proposee_id"], :name => "index_friendships_on_proposee_id"
   add_index "friendships", ["proposer_id"], :name => "index_friendships_on_proposer_id"
+
+  create_table "posts", :force => true do |t|
+    t.string   "sharing_pref"
+    t.integer  "user_id"
+    t.boolean  "colleague_visible"
+    t.boolean  "non_investor_visible"
+    t.string   "title"
+    t.text     "content"
+    t.string   "post_file"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+  end
+
+  add_index "posts", ["user_id"], :name => "index_posts_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  sharing_pref: MyString
+  user: 
+  colleague_visible: false
+  non_investor_visible: false
+  title: MyString
+  content: MyText
+  post_file: MyString
+
+two:
+  sharing_pref: MyString
+  user: 
+  colleague_visible: false
+  non_investor_visible: false
+  title: MyString
+  content: MyText
+  post_file: MyString
