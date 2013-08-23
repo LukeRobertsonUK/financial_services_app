@@ -1,0 +1,14 @@
+-if (@friendship.proposee == current_user) && !@friendship.is_confirmed?
+  %h1
+    Accept friend request from
+    = @proposer.email
+-else
+  %h1
+    Update your relationship with
+    -if @friendship.proposer == current_user
+      = @proposee.email
+    -else
+      = @proposer.email
+
+= render 'form'
+= link_to 'Back', friendships_path
