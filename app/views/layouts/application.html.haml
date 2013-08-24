@@ -6,6 +6,10 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
   %body
+    -if current_user
+      = "you have #{current_user.number_of_black_balls} black balls"
+    -if current_user && current_user.exceeds_black_ball_limit?
+      You have received 10 or more black balls within the last 30 days and, therefore, are unable to send friend requests
     .login
       - if current_user
         = current_user.email

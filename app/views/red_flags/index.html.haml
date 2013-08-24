@@ -1,0 +1,27 @@
+%h1 Wall of Shame
+
+%h2 The following users have been red-flagged as non-investors masquerading as investors. Do you agree?
+%ul
+  - @flagged_users.each do |user|
+    %li
+      =user.email
+      %br
+      -if current_user.has_raised_flag_against(user)
+        You have red flagged this user |
+        = link_to "Lower Flag", lower_flag_path(user, user_id: user.id)
+      -elsif current_user.has_voted_in_defence_of(user)
+        You have voted in support of this user |
+        = link_to "Remove Support", remove_support_path(user, user_id: user.id)
+      -else
+        VOTE:
+        = link_to "NOT an investor", raise_flag_path(user, user_id: user.id)
+        |
+        = link_to "IS an investor", support_user_path(user, user_id: user.id)
+
+      %br
+      Votes in support of red flag:
+      =user.red_flag_votes
+      | Votes in support of the user:
+      =user.favourable_votes
+      | Balance:
+      =user.red_flag_balance

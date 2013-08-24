@@ -5,4 +5,15 @@
   - @visible_users.each do |user|
     %li
       =user.email
-      = link_to "Befriend", new_friendship_path(proposee_id: user.id)
+      =user.business
+      - if user.business == "Investor"
+        -if current_user.has_raised_flag_against(user)
+          (You have red-flagged this user as not an investor.
+          = link_to "lower flag", lower_flag_path(user, user_id: user.id)
+          )
+        -else
+          (Not an investor?
+          = link_to "raise red flag", raise_flag_path(user, user_id: user.id)
+          )
+      -unless current_user.exceeds_black_ball_limit?
+        = link_to "Befriend", new_friendship_path(proposee_id: user.id)

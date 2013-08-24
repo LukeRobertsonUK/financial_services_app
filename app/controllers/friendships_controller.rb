@@ -48,7 +48,7 @@ class FriendshipsController < ApplicationController
   # POST /friendships.json
   def create
     @friendship = Friendship.new(params[:friendship])
-
+    current_user.un_black_ball(@friendship.proposee)
     respond_to do |format|
       if @friendship.save
         format.html { redirect_to @friendship, notice: "Your Friend Request was sent" }
@@ -80,7 +80,13 @@ class FriendshipsController < ApplicationController
   # DELETE /friendships/1
   # DELETE /friendships/1.json
   def destroy
+
     @friendship = Friendship.find(params[:id])
+
+    if params[:black_ball]
+      current_user.black_ball(@friendship.proposer)
+    end
+
     @friendship.destroy
 
     respond_to do |format|
