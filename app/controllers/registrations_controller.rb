@@ -40,4 +40,40 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
 
+
+  # GET /resource/edit
+  def edit
+    @default = resource.firm ? [resource.firm.name, resource.firm.id] : ["select from list or enter details below", ""]
+    @user_written_tags = resource.investment_style_list.reject {|item| User::INVESTMENT_STYLES.values.flatten.include?(item)}
+
+
+    render :edit
+  end
+
+  # PUT /resource
+  # We need to use a copy of the resource because we don't want to change
+  # the current user in place.
+  def update
+
+    account_update_params["investment_style_list"] = (account_update_params["investment_style_list"] << params["extra_tags"].split(", ")).flatten
+    binding.pry
+    self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
+    prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
+
+    if resource.update_with_password(account_update_params)
+      if is_navigational_format?
+        flash_key = update_needs_confirmation?(resource, prev_unconfirmed_email) ?
+          :update_needs_confirmation : :updated
+        set_flash_message :notice, flash_key
+      end
+      sign_in resource_name, resource, :bypass => true
+      respond_with resource, :location => after_update_path_for(resource)
+    else
+      clean_up_passwords resource
+      respond_with resource
+    end
+  end
+
+
+
 end

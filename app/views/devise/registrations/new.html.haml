@@ -23,9 +23,22 @@
     %br/
     = f.password_field :password_confirmation
   %div
-    = f.label :business
+    = f.label :business, "What is your involvement in the investment industry?"
     %br/
-    =f.select(:business, ["Investor", "Broker", "Banker", "Journalist", "Corporate"])
+    =f.select(:business, User::INDUSTRY_INVOLVEMENTS)
+  %div
+    = f.label :investment_style_list, "Select your investment interests"
+    %div.styles_list
+      %ul
+        - User::INVESTMENT_STYLES.each do |key, values|
+          %li
+            = "#{key}:"
+            - User::INVESTMENT_STYLES[key].each do |value|
+              = "#{value}"
+              =f.check_box :investment_style_list, {multiple: true}, "#{value}", nil
+
+      Anything we've missed (comma separated)?
+      =f.text_field :investment_style_list, {multiple: true}
   %div
     = f.label :biography
     %br/
@@ -39,10 +52,9 @@
     %br/
     = f.text_area :disclaimer, :autofocus => true
   %div
-    = label_tag :organization_id, "Which firm to you work for?"
+    = label_tag :organization_id, "Which firm do you work for?"
     %br/
-    = select_tag "organization_id", options_for_select(Firm.all.map{|f| [f.name, f.id]}.unshift(["select from list of enter details below", ""])), options = {}
-
+    = select_tag "organization_id", options_for_select(Firm.all.map{|f| [f.name, f.id]}.unshift(["select from list or enter details below", ""])), options = {}
   %div.form_fields
     =render "fields", f: f
   %div= f.submit "Sign up"
