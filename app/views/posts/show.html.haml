@@ -1,0 +1,27 @@
+%p#notice= notice
+
+%p
+  %b Author:
+  = @post.user.full_name
+%p
+  %b Title:
+  = @post.title
+%p
+  %b Content:
+  = @post.content
+
+
+= link_to "Comment", new_comment_path(post_id: @post.id)
+|
+= link_to 'Edit', edit_post_path(@post)
+|
+= link_to 'Back', posts_path
+
+
+%h3 Comments
+-@post.comments.each do |comment|
+  - if comment.visible_poster_only
+    - if (comment.user == current_user) || (comment.post.user == current_user)
+      =comment.content
+  - else
+    =comment.content

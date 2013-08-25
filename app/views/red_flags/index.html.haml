@@ -6,7 +6,9 @@
     %li
       =user.email
       %br
-      -if current_user.has_raised_flag_against(user)
+      -if current_user == user
+        You have received a red flag
+      -elsif current_user.has_raised_flag_against(user)
         You have red flagged this user |
         = link_to "Lower Flag", lower_flag_path(user, user_id: user.id)
       -elsif current_user.has_voted_in_defence_of(user)

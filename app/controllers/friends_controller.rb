@@ -7,6 +7,8 @@ class FriendsController < ApplicationController
         })
       @confirmed_friends = current_user.confirmed_friends
 
+      @grouped_friends = current_user.grouped_friends
+
     respond_to do |format|
     format.html # index.html.erb
 

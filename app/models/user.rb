@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   has_many :friendships_as_proposer, class_name: "Friendship", foreign_key: :proposer_id
   has_many :friendships_as_proposee, class_name: "Friendship", foreign_key: :proposee_id
   has_many :posts
+  has_many :comments
   belongs_to :firm
   accepts_nested_attributes_for :firm
   acts_as_taggable
@@ -18,7 +19,7 @@ class User < ActiveRecord::Base
   acts_as_votable
 
 
-  INDUSTRY_INVOLVEMENTS = ["Investor", "Broker", "Banker", "Journalist", "Corporate"]
+  INDUSTRY_INVOLVEMENTS = ["Investor", "Broker", "Banker", "Journalist", "Corporate", "Recruiter"]
   SHARING_PREFERENCES = ['Kindred Spirit', 'Respected Peer', 'Industry Participant']
   INVESTMENT_STYLES = {
     "Market Capitalization" => ["Mega-cap", "Large-cap", "Mid-cap", "Small-cap", "Micro-cap"],
@@ -26,6 +27,11 @@ class User < ActiveRecord::Base
     "Time Horizon" => ["Very Long", "Long", "Medium", "Short", "Very Short", "Intra-day"],
     "Style" => ["Value", "Growth", "GARP", "Blend", "Active", "Passive", "Quant", "Long-only", "Hedge", "Arbitrage"]
   }
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+
   def all_friends
    proposees = self.friendships_as_proposer.map {|friendship| friendship.proposee}
    proposers = self.friendships_as_proposee.map {|friendship| friendship.proposer}
@@ -36,6 +42,60 @@ class User < ActiveRecord::Base
    proposees = self.friendships_as_proposer.where({confirmed: true}).map {|friendship| friendship.proposee}
    proposers = self.friendships_as_proposee.where({confirmed: true}).map {|friendship| friendship.proposer}
    proposees + proposers
+  end
+
+  def proposer_friendships_grouped_by_sharing_pref
+    grouped_friendships = self.friendships_as_proposer.group_by{|friendship| friendship.proposer_sharing_pref}
+  end
+
+  def proposee_friendships_grouped_by_sharing_pref
+    self.friendships_as_proposer.where({confirmed: true}).group_by{|friendship| friendship.proposer_sharing_pref}
+  end
+
+  # I know this method needs refactoring... I just needed to get it done.
+  def grouped_friends
+    friends = {"Industry Participant" => [], "Respected Peer" => [], "Kindred Spirit" => [], "Purgatory" => []}
+
+    unless self.friendships_as_proposer.group_by{|friendship| friendship.proposer_sharing_pref}["Industry Participant"].blank?
+      friends["Industry Participant"] += self.friendships_as_proposer.group_by{|friendship| friendship.proposer_sharing_pref}["Industry Participant"].map{|friendship| friendship.proposee}
+    end
+    unless self.friendships_as_proposee.where({confirmed: true}).group_by{|friendship| friendship.proposee_sharing_pref}["Industry Participant"].blank?
+      friends["Industry Participant"] += self.friendships_as_proposee.where({confirmed: true}).group_by{|friendship| friendship.proposee_sharing_pref}["Industry Participant"].map{|friendship| friendship.proposer}
+    end
+    unless self.friendships_as_proposer.group_by{|friendship| friendship.proposer_sharing_pref}["Respected Peer"].blank?
+      friends["Respected Peer"] += self.friendships_as_proposer.group_by{|friendship| friendship.proposer_sharing_pref}["Respected Peer"].map{|friendship| friendship.proposee}
+    end
+    unless self.friendships_as_proposee.where({confirmed: true}).group_by{|friendship| friendship.proposee_sharing_pref}["Respected Peer"].blank?
+      friends["Respected Peer"] += self.friendships_as_proposee.where({confirmed: true}).group_by{|friendship| friendship.proposee_sharing_pref}["Respected Peer"].map{|friendship| friendship.proposer}
+    end
+    unless self.friendships_as_proposer.group_by{|friendship| friendship.proposer_sharing_pref}["Kindred Spirit"].blank?
+      friends["Kindred Spirit"] += self.friendships_as_proposer.group_by{|friendship| friendship.proposer_sharing_pref}["Kindred Spirit"].map{|friendship| friendship.proposee}
+    end
+    unless self.friendships_as_proposee.where({confirmed: true}).group_by{|friendship| friendship.proposee_sharing_pref}["Kindred Spirit"].blank?
+      friends["Kindred Spirit"] += self.friendships_as_proposee.where({confirmed: true}).group_by{|friendship| friendship.proposee_sharing_pref}["Kindred Spirit"].map{|friendship| friendship.proposer}
+    end
+    unless self.friendships_as_proposer.group_by{|friendship| friendship.proposer_sharing_pref}["Purgatory"].blank?
+      friends["Purgatory"] += self.friendships_as_proposer.group_by{|friendship| friendship.proposer_sharing_pref}["Purgatory"].map{|friendship| friendship.proposee}
+    end
+    unless self.friendships_as_proposee.where({confirmed: true}).group_by{|friendship| friendship.proposee_sharing_pref}["Purgatory"].blank?
+      friends["Purgatory"] += self.friendships_as_proposee.where({confirmed: true}).group_by{|friendship| friendship.proposee_sharing_pref}["Purgatory"].map{|friendship| friendship.proposer}
+    end
+    friends["Industry Participant"].sort_by!{|user| user.last_name} unless friends["Industry Participant"].blank?
+    friends["Respected Peer"].sort_by!{|user| user.last_name} unless friends["Respected Peer"].blank?
+    friends["Kindred Spirit"].sort_by!{|user| user.last_name} unless friends["Kindred Spirit"].blank?
+    friends["Purgatory"].sort_by!{|user| user.last_name} unless friends["Purgatory"].blank?
+    friends
+  end
+
+  def friends_visible_posts
+    proposees = self.friendships_as_proposer.map {|friendship| friendship.proposee}
+    proposee_posts = proposees.map{|proposee| proposee.posts}.flatten
+
+    proposers = self.friendships_as_proposee.map {|friendship| friendship.proposer}
+    proposer_posts = proposers.map{|proposer| proposer.posts}.flatten
+
+    posts = proposer_posts + proposee_posts
+    posts.select{|post| post.shareable_with(self)}
   end
 
   def black_ball(user)

@@ -2,7 +2,11 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.all
+    @user_posts = Post.where(user_id:current_user.id)
+
+
+
+    @friends_posts = current_user.friends_visible_posts
 
     respond_to do |format|
       format.html # index.html.erb

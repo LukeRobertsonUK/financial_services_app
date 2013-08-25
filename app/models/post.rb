@@ -1,6 +1,9 @@
 class Post < ActiveRecord::Base
   belongs_to :user
+  has_many :comments
   attr_accessible :colleague_visible, :content, :non_investor_visible, :post_file, :sharing_pref, :title, :user_id
+   default_scope order('updated_at DESC')
+
 
 def shareable_with(user)
     poster_friendship_as_proposer = Friendship.where({proposer_id: self.user_id, proposee_id: user.id}).first

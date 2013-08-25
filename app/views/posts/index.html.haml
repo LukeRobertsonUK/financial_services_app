@@ -1,0 +1,14 @@
+%h1 Your Posts
+%ul
+  -@user_posts.each do |post|
+    %li
+    = post.title
+    = link_to "show", post_path(post)
+
+-unless @friends_posts.blank?
+  %h1 Your Friends' Posts
+  %ul
+    -@friends_posts.each do |post|
+      %li
+      =post.title
+      = link_to "show", post_path(post)

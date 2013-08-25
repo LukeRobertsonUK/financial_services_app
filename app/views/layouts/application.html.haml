@@ -6,6 +6,22 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
   %body
+    #nav
+      %ul
+        %li
+          =link_to "Friends", friends_path
+        %li
+          =link_to "Find Friends", users_path
+        %li
+          =link_to "Wall of Shame", red_flags_path
+        %li
+          =link_to "Edit Profile", edit_user_registration_path
+        %li
+          =link_to "New Post", new_post_path
+        %li
+          =link_to "Posts", posts_path
+
+
     -if current_user
       = "you have #{current_user.number_of_black_balls} black balls"
     -if current_user && current_user.exceeds_black_ball_limit?
