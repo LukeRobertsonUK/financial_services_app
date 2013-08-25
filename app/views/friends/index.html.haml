@@ -10,33 +10,36 @@
 
 %h1 List of your friends
 
--unless @grouped_friends["Kindred Spirit"].blank?
-  %h3 Kindred Spirits
-  %ul
+%h3 Kindred Spirits
+%ul.connectedSortable.droptrue{"data-field" => "kindred_spirit"}
+  -unless @grouped_friends["Kindred Spirit"].blank?
     - @grouped_friends["Kindred Spirit"].each do |user|
-      %li
+      %li{:class => "ui-state-default", "data-user_id" => user.id, :id => "user_#{user.id}"}
         =user.full_name
         = link_to "Edit friendship", edit_friendship_path(Friendship.where({proposer_id:current_user.id, proposee_id: user.id}).first || Friendship.where({proposer_id:user.id, proposee_id: current_user.id}).first )
--unless @grouped_friends["Respected Peer"].blank?
-  %h3 Respected Peers
-  %ul
+
+
+%h3 Respected Peers
+%ul.connectedSortable.droptrue{"data-field" => "respected_peer"}
+  -unless @grouped_friends["Respected Peer"].blank?
     - @grouped_friends["Respected Peer"].each do |user|
-      %li
+      %li{:class => "ui-state-default", "data-user_id" => user.id, :id => "user_#{user.id}"}
         =user.full_name
         = link_to "Edit friendship", edit_friendship_path(Friendship.where({proposer_id:current_user.id, proposee_id: user.id}).first || Friendship.where({proposer_id:user.id, proposee_id: current_user.id}).first )
--unless @grouped_friends["Industry Participant"].blank?
-  %h3 Industry Participants
-  %ul
+
+%h3 Industry Participants
+%ul.connectedSortable.droptrue{"data-field" => "industry_participant"}
+  -unless @grouped_friends["Industry Participant"].blank?
     - @grouped_friends["Industry Participant"].each do |user|
-      %li
+      %li{:class => "ui-state-default", "data-user_id" => user.id, :id => "user_#{user.id}"}
         =user.full_name
         = link_to "Edit friendship", edit_friendship_path(Friendship.where({proposer_id:current_user.id, proposee_id: user.id}).first || Friendship.where({proposer_id:user.id, proposee_id: current_user.id}).first )
 
 %h3 Purgatory
--unless @grouped_friends["Purgatory"].blank?
-  %ul
+%ul.connectedSortable.droptrue{"data-field" => "purgatory"}
+  -unless @grouped_friends["Purgatory"].blank?
     - @grouped_friends["Purgatory"].each do |user|
-      %li
+      %li{:class => "ui-state-default", "data-user_id" => user.id, :id => "user_#{user.id}"}
         =user.full_name
         = link_to "Edit friendship", edit_friendship_path(Friendship.where({proposer_id:current_user.id, proposee_id: user.id}).first || Friendship.where({proposer_id:user.id, proposee_id: current_user.id}).first )
 

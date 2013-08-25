@@ -9,7 +9,14 @@ FinancialServicesApp::Application.routes.draw do
   resources :firms
 
 
-  resources :friendships
+  resources :friendships do
+    member do
+      post :update_sharing_pref, to: 'friendships#update_sharing_pref'
+    end
+  end
+
+
+
   resources :friends
 
   devise_for :users, controllers: { registrations: 'registrations' }

@@ -10,6 +10,26 @@ class FriendshipsController < ApplicationController
     end
   end
 
+  def update_sharing_pref
+  @new_preference = case params["new_preference"]
+    when "respected_peer" then "Respected Peer"
+    when "kindred_spirit" then "Kindred Spirit"
+    when "industry_participant" then "Industry Participant"
+    when "purgatory" then "Purgatory"
+    end
+    @friend_id = params[:id]
+    @friendship = (Friendship.where({proposer_id: current_user.id, proposee_id: @friend_id}) + Friendship.where({proposer_id: @friend_id, proposee_id: current_user.id})).first
+
+    if @friendship.proposer == current_user
+      @friendship.update_attributes(proposer_sharing_pref: @new_preference)
+    else
+      @friendship.update_attributes(proposee_sharing_pref: @new_preference)
+    end
+    respond_to do |format|
+      format.js { render nothing: true }
+    end
+  end
+
   # GET /friendships/1
   # GET /friendships/1.json
   def show
