@@ -25,9 +25,9 @@
     %br/
     = f.text_field :title
   .field
-    = f.label :tag_list, "Tags (separated by commas)"
+    = f.label :tag_tokens, "Tags (separated by commas)"
     %br/
-    = f.text_field :tag_list
+    = f.text_field :tag_tokens, :id => "post_tags", "data-pre" => @post.tags.map(&:attributes).to_json
   .field
     = f.label :content
     %br/

@@ -2,8 +2,9 @@
 %html
   %head
     %title FinancialServicesApp
-    = stylesheet_link_tag    "application", :media => "all"
-    = javascript_include_tag "application"
+    = stylesheet_link_tag  "application", :media => "all"
+    = stylesheet_link_tag "token-input-facebook"
+    = javascript_include_tag "application", "jquery.tokeninput"
     = csrf_meta_tags
   %body
     #nav

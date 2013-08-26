@@ -2,7 +2,8 @@ class Post < ActiveRecord::Base
   include AASM
   belongs_to :user
   has_many :comments
-  attr_accessible :colleague_visible, :content, :non_investor_visible, :post_file, :sharing_pref, :title, :user_id, :tag_list
+  attr_accessible :colleague_visible, :content, :non_investor_visible, :post_file, :sharing_pref, :title, :user_id, :tag_list, :tag_tokens
+  attr_reader :tag_tokens
   default_scope order('updated_at DESC')
   acts_as_taggable
   acts_as_votable
@@ -21,6 +22,14 @@ aasm do
 
 end
 
+def tag_tokens=(ids)
+  tags = ids.split(",")
+  tags.reject! {|id| id.to_i == 0}
+  new_tags = ids.split(",").select{|id| id.to_i == 0}.map{|string| string[7..-5]}
+  r_tags = []
+  r_tags  += ActsAsTaggableOn::Tag.select(:name).find(tags).collect(&:name)
+  self.tag_list = r_tags + new_tags
+end
 
 
 

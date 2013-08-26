@@ -1,16 +1,26 @@
 class PostsController < ApplicationController
+
+
   # GET /posts
   # GET /posts.json
   def index
     @user_posts = Post.where(user_id:current_user.id)
-
     @friends_posts = current_user.friends_visible_posts
+
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @posts }
     end
   end
+
+  def tags
+    @tags = ActsAsTaggableOn::Tag.where("tags.name LIKE ?", "%#{params[:q]}%")
+    respond_to do |format|
+      format.json {render :json => @tags.map(&:attributes)}
+    end
+ end
+
 
   def mark_inappropriate
     @post = Post.find(params[:id])

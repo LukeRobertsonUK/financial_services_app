@@ -21,6 +21,9 @@
         = button_to "IS an investor", support_user_path(id: user.id)
       %br
       Vote Balance:
-      =user.red_flag_balance
+      - if user.votes_at_manual_reset
+        =(user.red_flag_balance - user.votes_at_manual_reset)
+      -else
+        = user.red_flag_balance
       %br
       = button_to "Administrator vote reset", admin_vote_reset_path(id: user.id)

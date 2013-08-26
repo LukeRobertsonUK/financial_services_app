@@ -8,6 +8,7 @@ FinancialServicesApp::Application.routes.draw do
 
 
   resources :posts do
+    # get :autocomplete_tag_name, :on => :collection
     member do
       post 'mark_inappropriate', to: "posts#mark_inappropriate"
     end
@@ -37,6 +38,8 @@ FinancialServicesApp::Application.routes.draw do
   devise_for :users, controllers: { registrations: 'registrations' }
 
   get '/users', to: "users#index", as: 'users'
+
+  get'/tags', to: "tags#index", as: 'tags'
 
   root to: "users#index"
 

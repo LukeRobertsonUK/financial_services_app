@@ -22,6 +22,7 @@ gem 'geocoder'
 gem 'jquery-ui-rails'
 gem 'aasm'
 
+
 group :development do
   gem 'pry-rails'
   gem 'pry-debugger'
