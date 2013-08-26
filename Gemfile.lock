@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    aasm (3.0.20)
     actionmailer (3.2.14)
       actionpack (= 3.2.14)
       mail (~> 2.5.4)
@@ -193,6 +194,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  aasm
   acts-as-taggable-on
   acts_as_votable (~> 0.6.0)
   better_errors

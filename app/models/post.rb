@@ -1,9 +1,28 @@
 class Post < ActiveRecord::Base
+  include AASM
   belongs_to :user
   has_many :comments
   attr_accessible :colleague_visible, :content, :non_investor_visible, :post_file, :sharing_pref, :title, :user_id, :tag_list
   default_scope order('updated_at DESC')
   acts_as_taggable
+  acts_as_votable
+
+aasm do
+  state :ok, initial: true
+  state :inappropriate
+
+  event :make_inappropriate do
+    transitions :from => :ok, :to => :inappropriate
+  end
+
+  event :make_ok do
+    transitions :from => :inappropriate, :to => :ok
+  end
+
+end
+
+
+
 
 def shareable_with(user)
     poster_friendship_as_proposer = Friendship.where({proposer_id: self.user_id, proposee_id: user.id}).first
@@ -32,6 +51,25 @@ def shareable_with(user)
         return false
     end
 end
+
+  def mark_as_inappropriate_by(user)
+    self.upvote_from user, vote_scope: "inappropriate"
+    if votes_at_manual_reset
+      self.make_inappropriate if (self.votes.count - votes_at_manual_reset) == 5
+      self.save!
+    else
+      self.make_inappropriate if self.votes.count == 5
+      self.save!
+    end
+  end
+
+  def manual_vote_reset_by(user)
+    if user.role == "admin"
+      self.make_ok
+      self.votes_at_manual_reset =self.votes.count
+      self.save!
+    end
+  end
 
 
 end

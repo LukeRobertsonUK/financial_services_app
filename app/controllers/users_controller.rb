@@ -35,4 +35,10 @@ class UsersController < ApplicationController
     redirect_to red_flags_path
   end
 
+  def admin_vote_reset
+    @user = User.find(params[:user_id])
+    current_user.manual_vote_reset_for(@user)
+    redirect_to red_flags_path
+  end
+
 end

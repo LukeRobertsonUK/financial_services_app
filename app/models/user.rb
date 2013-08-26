@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
+  include AASM
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
@@ -27,6 +28,21 @@ class User < ActiveRecord::Base
     "Time Horizon" => ["Very Long", "Long", "Medium", "Short", "Very Short", "Intra-day"],
     "Style" => ["Value", "Growth", "GARP", "Blend", "Active", "Passive", "Quant", "Long-only", "Hedge", "Arbitrage"]
   }
+
+aasm do
+  state :ok, initial: true
+  state :wall_of_shamed
+
+  event :wall do
+    transitions :from => :ok, :to => :wall_of_shamed
+  end
+
+  event :make_ok do
+    transitions :from => :wall_of_shamed, :to => :ok
+  end
+
+end
+
 
   def full_name
     "#{first_name} #{last_name}"
@@ -116,19 +132,56 @@ class User < ActiveRecord::Base
 
   def raise_flag(user)
     user.upvote_from self, vote_scope: "red_flag"
+    if user.votes_at_manual_reset
+      user.wall if (user.red_flag_balance - user.votes_at_manual_reset) == 5
+      user.save!
+    else
+      user.wall if user.red_flag_balance == 5
+      user.save!
+    end
   end
 
   def lower_flag(user)
     user.unliked_by :voter => self, vote_scope: "red_flag"
+    if user.votes_at_manual_reset
+      user.make_ok if (user.red_flag_balance - user.votes_at_manual_reset) == 0
+      user.save!
+    else
+      user.make_ok if user.red_flag_balance == 0
+      user.save!
+    end
   end
 
   def vote_in_favour_of(user)
     user.downvote_from self, vote_scope: "red_flag"
+     if user.votes_at_manual_reset
+      user.make_ok if (user.red_flag_balance - user.votes_at_manual_reset) == 0
+      user.save!
+    else
+      user.make_ok if user.red_flag_balance == 0
+      user.save!
+    end
   end
 
   def remove_favourable_vote_for(user)
     user.undisliked_by :voter => self, vote_scope: "red_flag"
+    if user.votes_at_manual_reset
+      user.wall if (user.red_flag_balance - user.votes_at_manual_reset) == 5
+      user.save!
+    else
+      user.wall if user.red_flag_balance == 5
+      user.save!
+    end
   end
+
+  def manual_vote_reset_for(user)
+    if self.role == "admin"
+      user.make_ok
+      user.votes_at_manual_reset =user.red_flag_balance
+      user.save!
+    end
+  end
+
 
   def has_raised_flag_against(user)
     user.votes.where({voter_id: self.id, vote_scope: "red_flag", vote_flag: true}).size > 0

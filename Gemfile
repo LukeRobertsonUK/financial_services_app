@@ -20,6 +20,7 @@ gem 'acts_as_votable', '~> 0.6.0'
 gem 'acts-as-taggable-on'
 gem 'geocoder'
 gem 'jquery-ui-rails'
+gem 'aasm'
 
 group :development do
   gem 'pry-rails'

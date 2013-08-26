@@ -26,7 +26,7 @@ FinancialServicesApp::Application.routes.draw do
   get '/lower_flag', to: "users#lower_flag", as: 'lower_flag'
   get '/support_user', to: "users#support_user", as: 'support_user'
   get '/remove_support', to: "users#remove_support", as: 'remove_support'
-
+  get '/admin_vote_reset', to: "users#admin_vote_reset", as: 'admin_vote_reset'
   root to: "users#index"
 
 
