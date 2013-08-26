@@ -17,15 +17,13 @@ FinancialServicesApp::Application.routes.draw do
 
   resources :firms
 
-  resources :users do
-    member do
+
       post 'raise_flag', to: "users#raise_flag"
       post 'lower_flag', to: "users#lower_flag"
       post 'support_user', to: "users#support_user"
       post 'remove_support', to: "users#remove_support"
       post 'admin_vote_reset', to: "users#admin_vote_reset"
-    end
-  end
+
 
 
   resources :friendships do

@@ -10,17 +10,17 @@
         You have received a red flag
       -elsif current_user.has_raised_flag_against(user)
         You have red flagged this user |
-        = button_to "Lower Flag", lower_flag_user_path(user)
+        = button_to "Lower Flag", lower_flag_path(id: user.id)
       -elsif current_user.has_voted_in_defence_of(user)
         You have voted in support of this user |
-        = button_to "Remove Support", remove_support_user_path(user)
+        = button_to "Remove Support", remove_support_path(id: user.id)
       -else
         VOTE:
-        = button_to "NOT an investor", raise_flag_user_path(user)
+        = button_to "NOT an investor", raise_flag_path(id: user.id)
         |
-        = button_to "IS an investor", support_user_user_path(user)
+        = button_to "IS an investor", support_user_path(id: user.id)
       %br
       Vote Balance:
       =user.red_flag_balance
       %br
-      = button_to "Administrator vote reset", admin_vote_reset_user_path(user)
+      = button_to "Administrator vote reset", admin_vote_reset_path(id: user.id)
