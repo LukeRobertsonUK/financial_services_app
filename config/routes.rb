@@ -1,12 +1,31 @@
 FinancialServicesApp::Application.routes.draw do
 
-  resources :comments
+  resources :comments do
+    member do
+      post 'mark_inappropriate', to: "comments#mark_inappropriate"
+    end
+  end
 
 
-  resources :posts
+  resources :posts do
+    member do
+      post 'mark_inappropriate', to: "posts#mark_inappropriate"
+    end
+  end
+
   resources :red_flags
 
   resources :firms
+
+  resources :users do
+    member do
+      post 'raise_flag', to: "users#raise_flag"
+      post 'lower_flag', to: "users#lower_flag"
+      post 'support_user', to: "users#support_user"
+      post 'remove_support', to: "users#remove_support"
+      post 'admin_vote_reset', to: "users#admin_vote_reset"
+    end
+  end
 
 
   resources :friendships do
@@ -15,20 +34,12 @@ FinancialServicesApp::Application.routes.draw do
     end
   end
 
-
-
   resources :friends
 
   devise_for :users, controllers: { registrations: 'registrations' }
 
   get '/users', to: "users#index", as: 'users'
-  get '/raise_flag', to: "users#raise_flag", as: 'raise_flag'
-  get '/lower_flag', to: "users#lower_flag", as: 'lower_flag'
-  get '/support_user', to: "users#support_user", as: 'support_user'
-  get '/remove_support', to: "users#remove_support", as: 'remove_support'
-  get '/admin_vote_reset_user', to: "users#admin_vote_reset", as: 'admin_vote_reset_user'
-  get '/mark_post_inappropriate', to: "posts#mark_inappropriate", as: 'mark_post_inappropriate'
-  get '/mark_comment_inappropriate', to: "comments#mark_inappropriate", as: 'mark_comment_inappropriate'
+
   root to: "users#index"
 
 

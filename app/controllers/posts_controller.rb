@@ -13,7 +13,7 @@ class PostsController < ApplicationController
   end
 
   def mark_inappropriate
-    @post = Post.find(params[:post_id])
+    @post = Post.find(params[:id])
     @post.mark_as_inappropriate_by(current_user)
     redirect_to post_path(@post)
   end
