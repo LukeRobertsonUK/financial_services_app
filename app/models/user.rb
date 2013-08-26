@@ -132,45 +132,53 @@ end
 
   def raise_flag(user)
     user.upvote_from self, vote_scope: "red_flag"
-    if user.votes_at_manual_reset
-      user.wall if (user.red_flag_balance - user.votes_at_manual_reset) == 5
-      user.save!
-    else
-      user.wall if user.red_flag_balance == 5
-      user.save!
+    unless user.aasm_state == "wall_of_shamed"
+      if user.votes_at_manual_reset
+        user.wall if (user.red_flag_balance - user.votes_at_manual_reset) == 5
+        user.save!
+      else
+        user.wall if user.red_flag_balance == 5
+        user.save!
+      end
     end
   end
 
   def lower_flag(user)
     user.unliked_by :voter => self, vote_scope: "red_flag"
-    if user.votes_at_manual_reset
-      user.make_ok if (user.red_flag_balance - user.votes_at_manual_reset) == 0
-      user.save!
-    else
-      user.make_ok if user.red_flag_balance == 0
-      user.save!
+    unless user.aasm_state == "ok"
+      if user.votes_at_manual_reset
+        user.make_ok if (user.red_flag_balance - user.votes_at_manual_reset) == 0
+        user.save!
+      else
+        user.make_ok if user.red_flag_balance == 0
+        user.save!
+      end
     end
   end
 
   def vote_in_favour_of(user)
     user.downvote_from self, vote_scope: "red_flag"
-     if user.votes_at_manual_reset
-      user.make_ok if (user.red_flag_balance - user.votes_at_manual_reset) == 0
-      user.save!
-    else
-      user.make_ok if user.red_flag_balance == 0
-      user.save!
+    unless user.aasm_state == "ok"
+      if user.votes_at_manual_reset
+        user.make_ok if (user.red_flag_balance - user.votes_at_manual_reset) == 0
+        user.save!
+      else
+        user.make_ok if user.red_flag_balance == 0
+        user.save!
+      end
     end
   end
 
   def remove_favourable_vote_for(user)
     user.undisliked_by :voter => self, vote_scope: "red_flag"
-    if user.votes_at_manual_reset
-      user.wall if (user.red_flag_balance - user.votes_at_manual_reset) == 5
-      user.save!
-    else
-      user.wall if user.red_flag_balance == 5
-      user.save!
+    unless user.aasm_state == "wall_of_shamed"
+      if user.votes_at_manual_reset
+        user.wall if (user.red_flag_balance - user.votes_at_manual_reset) == 5
+        user.save!
+      else
+        user.wall if user.red_flag_balance == 5
+        user.save!
+      end
     end
   end
 

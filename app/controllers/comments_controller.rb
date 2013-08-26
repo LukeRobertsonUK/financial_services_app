@@ -10,6 +10,13 @@ class CommentsController < ApplicationController
     end
   end
 
+ def mark_inappropriate
+    @comment = Comment.find(params[:comment_id])
+    @comment.mark_as_inappropriate_by(current_user)
+    redirect_to post_path(@comment.post)
+  end
+
+
   # GET /comments/1
   # GET /comments/1.json
   def show

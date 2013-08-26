@@ -4,8 +4,6 @@ class PostsController < ApplicationController
   def index
     @user_posts = Post.where(user_id:current_user.id)
 
-
-
     @friends_posts = current_user.friends_visible_posts
 
     respond_to do |format|
@@ -13,6 +11,13 @@ class PostsController < ApplicationController
       format.json { render json: @posts }
     end
   end
+
+  def mark_inappropriate
+    @post = Post.find(params[:post_id])
+    @post.mark_as_inappropriate_by(current_user)
+    redirect_to post_path(@post)
+  end
+
 
   # GET /posts/1
   # GET /posts/1.json

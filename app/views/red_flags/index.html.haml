@@ -23,4 +23,4 @@
       Vote Balance:
       =user.red_flag_balance
       %br
-      = link_to "Administrator vote reset", admin_vote_reset_path(user, user_id: user.id)
+      = link_to "Administrator vote reset", admin_vote_reset_user_path(user, user_id: user.id)

@@ -54,12 +54,14 @@ end
 
   def mark_as_inappropriate_by(user)
     self.upvote_from user, vote_scope: "inappropriate"
-    if votes_at_manual_reset
-      self.make_inappropriate if (self.votes.count - votes_at_manual_reset) == 5
-      self.save!
-    else
-      self.make_inappropriate if self.votes.count == 5
-      self.save!
+    unless self.aasm_state == "inappropriate"
+      if votes_at_manual_reset
+        self.make_inappropriate if (self.votes.count - votes_at_manual_reset) == 5
+        self.save!
+      else
+        self.make_inappropriate if self.votes.count == 5
+        self.save!
+      end
     end
   end
 
@@ -69,6 +71,10 @@ end
       self.votes_at_manual_reset =self.votes.count
       self.save!
     end
+  end
+
+  def has_been_flagged_by(user)
+    self.votes({voter_id: user_id}).size >0
   end
 
 
