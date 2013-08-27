@@ -1,9 +1,11 @@
 class Firm < ActiveRecord::Base
-  attr_accessible :building, :corporate_disclaimer, :country, :city, :latitude, :longitude, :name, :postcode, :street_address, :website
+  attr_accessible :building, :corporate_disclaimer, :country, :city, :latitude, :longitude, :name, :postcode, :street_address, :website, :editor_id
   has_many :users
+  belongs_to :editor, class_name: "User"
   geocoded_by :full_street_address
   after_validation :geocode, :if => :address_changed?
   default_scope order('name ASC')
+
 
   def full_street_address
     "#{building}, #{street_address}, #{city}, #{postcode}, #{country}"
@@ -16,4 +18,6 @@ class Firm < ActiveRecord::Base
   def to_string
     "#{name} - #{full_street_address}"
   end
+
+
 end

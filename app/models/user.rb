@@ -13,11 +13,13 @@ class User < ActiveRecord::Base
   has_many :friendships_as_proposee, class_name: "Friendship", foreign_key: :proposee_id
   has_many :posts
   has_many :comments
+  has_one :firm_as_editor, class_name: "Firm", foreign_key: :editor_id
   belongs_to :firm
   accepts_nested_attributes_for :firm
   acts_as_taggable
   acts_as_taggable_on "investment_styles"
   acts_as_votable
+
 
 
   INDUSTRY_INVOLVEMENTS = ["Investor", "Broker", "Banker", "Journalist", "Corporate", "Recruiter"]
@@ -28,6 +30,8 @@ class User < ActiveRecord::Base
     "Time Horizon" => ["Very Long", "Long", "Medium", "Short", "Very Short", "Intra-day"],
     "Style" => ["Value", "Growth", "GARP", "Blend", "Active", "Passive", "Quant", "Long-only", "Hedge", "Arbitrage"]
   }
+
+
 
 aasm do
   state :ok, initial: true
