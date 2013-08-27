@@ -1,0 +1,44 @@
+
+
+
+.investment_styles_list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.investment_styles_list h5 {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.field label {
+  font-weight: bold;
+  font-size: 85%;
+}
+
+.check_box {
+  display: inline-block;
+  background: #eeeeee;
+  border: 2px solid white;
+  padding: 3px;
+  border-radius: 5px;
+}
+
+#firm_select {
+  opacity: 0;
+  display: none;
+}
+
+.form_fields {
+  opacity: 0;
+}
+
+a.clicker {
+  font-size: 85%;
+  text-decoration: underline;
+}
+
+#new_password {
+  opacity: 0;
+  display: none;
+}

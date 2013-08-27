@@ -90,7 +90,7 @@ class RegistrationsController < Devise::RegistrationsController
     drop_down_firm = Firm.where(id: params["organization_id"].to_i).first
 
     unless (params["editing"] && params["editing"] == "true")
-      binding.pry
+
       if account_update_params["firm_attributes"]["name"].blank?
         if drop_down_firm
           account_update_params[:firm_id] = drop_down_firm.id
@@ -99,21 +99,21 @@ class RegistrationsController < Devise::RegistrationsController
       else
         if existing_firm
            account_update_params[:firm_id] = existing_firm.id
+        else
+          new_firm = Firm.new
+          new_firm.name = account_update_params["firm_attributes"]["name"]
+          new_firm.website = account_update_params["firm_attributes"]["website"]
+          new_firm.corporate_disclaimer = account_update_params["firm_attributes"]["corporate_disclaimer"]
+          new_firm.building = account_update_params["firm_attributes"]["building"]
+          new_firm.street_address = account_update_params["firm_attributes"]["street_address"]
+          new_firm.postcode = account_update_params["firm_attributes"]["postcode"]
+          new_firm.country = account_update_params["firm_attributes"]["country"]
+          new_firm.city = account_update_params["firm_attributes"]["city"]
+          new_firm.editor_id = resource.id
+          new_firm.save!
+          account_update_params[:firm_id] = new_firm.id
         end
-        new_firm = Firm.new
-        new_firm.name = account_update_params["firm_attributes"]["name"]
-        new_firm.website = account_update_params["firm_attributes"]["website"]
-        new_firm.corporate_disclaimer = account_update_params["firm_attributes"]["corporate_disclaimer"]
-        new_firm.building = account_update_params["firm_attributes"]["building"]
-        new_firm.street_address = account_update_params["firm_attributes"]["street_address"]
-        new_firm.postcode = account_update_params["firm_attributes"]["postcode"]
-        new_firm.country = account_update_params["firm_attributes"]["country"]
-        new_firm.city = account_update_params["firm_attributes"]["city"]
-        new_firm.editor_id = resource.id
-        new_firm.save!
         account_update_params.delete("firm_attributes")
-        account_update_params[:firm_id] = new_firm.id
-
       end
     end
 

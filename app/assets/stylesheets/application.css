@@ -10,6 +10,7 @@
  *
  *= require token-input-facebook.css
  *= require_self
+ *= require bootstrap-responsive.css
  *= require token-input-facebook.css
  *= require_tree .
  */

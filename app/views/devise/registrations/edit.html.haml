@@ -1,86 +1,97 @@
-%h2
-  Edit #{resource_name.to_s.humanize}
 = nested_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f|
   = devise_error_messages!
-  %div
-    = f.label :first_name
-    %br/
-    = f.text_field :first_name, :autofocus => true
-  %div
-    = f.label :last_name
-    %br/
-    = f.text_field :last_name, :autofocus => true
-  %div
-    = f.label :email
-    %br/
-    = f.email_field :email, :autofocus => true
-  - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-    %div
-      Currently waiting confirmation for: #{resource.unconfirmed_email}
-  %div
-    = f.label :business, "What is your involvement in the investment industry?"
-    %br/
-    =f.select(:business, User::INDUSTRY_INVOLVEMENTS)
-  %div
-    = f.label :investment_style_list, "Select your investment interests"
-    %div.styles_list
-      %ul
-        - User::INVESTMENT_STYLES.each do |key, values|
-          %li
-            = "#{key}:"
-            - User::INVESTMENT_STYLES[key].each do |value|
-              = "#{value}"
-              =f.check_box :investment_style_list, {multiple: true}, "#{value}", nil
-        -unless @user_written_tags.blank?
-          %li
-            Interests added by you:
-            -@user_written_tags.each do |interest|
-              = "#{interest}"
-              = f.check_box :investment_style_list, {multiple: true}, "#{interest}", nil
-      Anything we've missed (comma separated)?
-      = text_field_tag "extra_tags"
-  %div
-    = f.label :biography
-    %br/
-    = f.text_area :biography, :autofocus => true
-  %div
-    = f.label :user_image
-    %br/
-    = f.text_field :user_image, :autofocus => true
-  %div
-    = f.label :disclaimer
-    %br/
-    = f.text_area :disclaimer, :autofocus => true
-  %div
-    = label_tag :organization_id, "Which firm do you work for?"
-    %br/
-    = select_tag "organization_id", options_for_select(Firm.all.map{|f| [f.name, f.id]}.unshift(["select from list or enter details below", ""]), selected: @default), options = {}
-  -if @editable
-    %div
-      = radio_button_tag(:editing, true)
-      = label_tag :Editing, "Edit existing firm details"
-      %br/
-      = radio_button_tag(:editing, false)
-      = label_tag :Editing, "Add new firm details"
+  .row
+    .span4
+      %h1 Edit Your Profile
+  .row
+    .span4
+      %h2 Your Details
+      .field
+        = f.label :first_name
+        %br/
+        = f.text_field :first_name, :autofocus => true
+      .field
+        = f.label :last_name
+        %br/
+        = f.text_field :last_name, :autofocus => true
+      .field
+        = f.label :business, "Role in the industry"
+        %br/
+        =f.select(:business, User::INDUSTRY_INVOLVEMENTS)
+      .field
+        = f.label :email
+        %br/
+        = f.email_field :email, :autofocus => true
+      - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+        %div
+          Currently waiting confirmation for: #{resource.unconfirmed_email}
 
-  %div.form_fields
-    =render "fields", f: f
-  %div
-    = f.label :password
-    %i (leave blank if you don't want to change it)
-    %br/
-    = f.password_field :password, :autocomplete => "off"
-  %div
-    = f.label :password_confirmation
-    %br/
-    = f.password_field :password_confirmation
-  %div
-    = f.label :current_password
-    %i (we need your current password to confirm your changes)
-    %br/
-    = f.password_field :current_password
-  %div= f.submit "Update"
-%h3 Cancel my account
-%p
-  Unhappy? #{button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete}
-= link_to "Back", :back
+
+
+      .field
+        = f.label :user_image
+        %br/
+        = f.text_field :user_image, :autofocus => true
+      %a.clicker change password?
+      #new_password
+        .field
+          = f.label :password, "New Password"
+
+          %br/
+          = f.password_field :password, :autocomplete => "off"
+        .field
+          = f.label :password_confirmation, "New Password Confirmation"
+          %br/
+          = f.password_field :password_confirmation
+      .field
+        = f.label :current_password, "Enter your current password to confirm your changes"
+        %br/
+        = f.password_field :current_password
+      %div= f.submit "Update"
+    .span4
+      %h2 Your Investment Interests
+      .field
+        .investment_styles_list
+          %ul
+            - User::INVESTMENT_STYLES.each do |key, values|
+              %li
+                %h5
+                  = "#{key}"
+                - User::INVESTMENT_STYLES[key].each do |value|
+                  .check_box
+                    = "#{value}"
+                    =f.check_box :investment_style_list, {multiple: true}, "#{value}", nil
+            -unless @user_written_tags.blank?
+              %li
+                %h5 Interests added by you
+                -@user_written_tags.each do |interest|
+                  .check_box
+                    = "#{interest}"
+                    = f.check_box :investment_style_list, {multiple: true}, "#{interest}", nil
+          %h5
+            Anything we've missed (comma separated)?
+          = text_field_tag "extra_tags"
+      %h2 About You
+      .field
+        = f.label :biography
+        %br/
+        = f.text_area :biography, :autofocus => true
+    .span4
+      %h2 Your Organization
+      -if @editable
+        .field.editing
+          = label_tag :editing, "What would you like to do?"
+          %br
+          = select_tag :editing, options_for_select([["Edit my existing firm's details", true], ["Change firms", false]], selected: ["Edit my existing firm's details", true] )
+
+      #firm_select.field
+        = label_tag :organization_id, "Which firm do you work for?"
+        %br/
+        = select_tag "organization_id", options_for_select(Firm.all.map{|f| [f.to_string, f.id]}.unshift(["ENTER MANUALLY", ""]).unshift(["Pick a firm or select 'Enter Manually'", ""]), selected: @default), options = {}
+
+      .form_fields
+        =render "fields", f: f
+      .field
+        = f.label :disclaimer
+        %br/
+        = f.text_area :disclaimer, :autofocus => true

@@ -1,61 +1,73 @@
-%h2 Sign up
 = nested_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
   = devise_error_messages!
-
-  %div
-    = f.label :first_name
-    %br/
-    = f.text_field :first_name, :autofocus => true
-  %div
-    = f.label :last_name
-    %br/
-    = f.text_field :last_name, :autofocus => true
-  %div
-    = f.label :email
-    %br/
-    = f.email_field :email, :autofocus => true
-  %div
-    = f.label :password
-    %br/
-    = f.password_field :password
-  %div
-    = f.label :password_confirmation
-    %br/
-    = f.password_field :password_confirmation
-  %div
-    = f.label :business, "What is your involvement in the investment industry?"
-    %br/
-    =f.select(:business, User::INDUSTRY_INVOLVEMENTS)
-  %div
-    = f.label :investment_style_list, "Select your investment interests"
-    %div.styles_list
-      %ul
-        - User::INVESTMENT_STYLES.each do |key, values|
-          %li
-            = "#{key}:"
-            - User::INVESTMENT_STYLES[key].each do |value|
-              = "#{value}"
-              =f.check_box :investment_style_list, {multiple: true}, "#{value}", nil
-
-      Anything we've missed (comma separated)?
-      =f.text_field :investment_style_list, {multiple: true}
-  %div
-    = f.label :biography
-    %br/
-    = f.text_area :biography, :autofocus => true
-  %div
-    = f.label :user_image
-    %br/
-    = f.text_field :user_image, :autofocus => true
-  %div
-    = f.label :disclaimer
-    %br/
-    = f.text_area :disclaimer, :autofocus => true
-  %div
-    = label_tag :organization_id, "Which firm do you work for?"
-    %br/
-    = select_tag "organization_id", options_for_select(Firm.all.map{|f| [f.to_string, f.id]}.unshift(["select from list or enter details below", ""])), options = {}
-  %div.form_fields
-    =render "fields", f: f
-  %div= f.submit "Sign up"
-= render "devise/shared/links"
+  .row
+    .span4
+      %h1 Sign up!
+    .span8
+      %h1 And fill out your profile...
+  .row
+    .span4
+      %h2 Your Details
+      .field
+        = f.label :first_name
+        %br/
+        = f.text_field :first_name, :autofocus => true
+      .field
+        = f.label :last_name
+        %br/
+        = f.text_field :last_name, :autofocus => true
+      .field
+        = f.label :business, "Role in the industry"
+        %br/
+        =f.select(:business, User::INDUSTRY_INVOLVEMENTS)
+      .field
+        = f.label :email
+        %br/
+        = f.email_field :email, :autofocus => true
+      .field
+        = f.label :password
+        %br/
+        = f.password_field :password
+      .field
+        = f.label :password_confirmation
+        %br/
+        = f.password_field :password_confirmation
+      .field
+        = f.label :user_image
+        %br/
+        = f.text_field :user_image, :autofocus => true
+      .field
+        = f.submit "Sign up"
+    .span4
+      %h2 Your Investment Interests
+      .field
+        .investment_styles_list
+          %ul
+            - User::INVESTMENT_STYLES.each do |key, values|
+              %li
+                %h5
+                  = "#{key}"
+                - User::INVESTMENT_STYLES[key].each do |value|
+                  .check_box
+                    = "#{value}"
+                    =f.check_box :investment_style_list, {multiple: true}, "#{value}", nil
+          %h5
+            Anything we've missed (comma separated)?
+          =f.text_field :investment_style_list, {multiple: true}
+      %h2 About You
+      .field
+        = f.label :biography
+        %br/
+        = f.text_area :biography, :autofocus => true
+    .span4
+      %h2 Your Organization
+      .field
+        = label_tag :organization_id, "Which firm do you work for?"
+        %br/
+        = select_tag "organization_id", options_for_select(Firm.all.map{|f| [f.to_string, f.id]}.unshift(["ENTER MANUALLY", ""]).unshift(["Pick a firm or select 'Enter Manually'", ""])), options = {}
+      .form_fields
+        =render "fields", f: f
+      .field
+        = f.label :disclaimer
+        %br/
+        = f.text_area :disclaimer, :autofocus => true
