@@ -54,7 +54,7 @@
   %div
     = label_tag :organization_id, "Which firm do you work for?"
     %br/
-    = select_tag "organization_id", options_for_select(Firm.all.map{|f| [f.name, f.id]}.unshift(["select from list or enter details below", ""])), options = {}
+    = select_tag "organization_id", options_for_select(Firm.all.map{|f| [f.to_string, f.id]}.unshift(["select from list or enter details below", ""])), options = {}
   %div.form_fields
     =render "fields", f: f
   %div= f.submit "Sign up"

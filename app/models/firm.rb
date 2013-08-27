@@ -13,4 +13,7 @@ class Firm < ActiveRecord::Base
     building_changed? || street_address_changed? || city_changed? || postcode_changed? || country_changed?
   end
 
+  def to_string
+    "#{name} - #{full_street_address}"
+  end
 end

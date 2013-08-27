@@ -12,6 +12,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
+    binding.pry
     if sign_up_params["firm_attributes"]["name"].blank?
       sign_up_params.delete("firm_attributes")
     end
@@ -23,6 +24,9 @@ class RegistrationsController < Devise::RegistrationsController
         resource.firm_id = params["organization_id"].to_i
       end
     end
+
+
+
 
     if resource.save
       if resource.active_for_authentication?
