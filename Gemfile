@@ -21,6 +21,8 @@ gem 'acts-as-taggable-on'
 gem 'geocoder'
 gem 'jquery-ui-rails'
 gem 'aasm'
+gem 'tinymce-rails'
+gem 'jqcloud-rails'
 
 
 group :development do

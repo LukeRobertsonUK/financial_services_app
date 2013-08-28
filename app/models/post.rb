@@ -32,33 +32,35 @@ def tag_tokens=(ids)
 end
 
 
-
 def shareable_with(user)
     poster_friendship_as_proposer = Friendship.where({proposer_id: self.user_id, proposee_id: user.id}).first
     poster_friendship_as_proposee = Friendship.where({proposee_id: self.user_id, proposer_id: user.id}).first
+    binding.pry
+    return false if (user.business != "Investor" && self.non_investor_visible == false)
+    return false if (self.user.firm == user.firm && self.colleague_visible == false)
+        case sharing_pref
+          when User::SHARING_PREFERENCES[2] then
+            if poster_friendship_as_proposer
+              User::SHARING_PREFERENCES.include?(poster_friendship_as_proposer.proposer_sharing_pref)
+            elsif poster_friendship_as_proposee
+              User::SHARING_PREFERENCES.include?(poster_friendship_as_proposee.proposee_sharing_pref)
+            end
+          when User::SHARING_PREFERENCES[1] then
+            if poster_friendship_as_proposer
+              User::SHARING_PREFERENCES.pop.include?(poster_friendship_as_proposer.proposer_sharing_pref)
+            elsif poster_friendship_as_proposee
+              User::SHARING_PREFERENCES.pop.include?(poster_friendship_as_proposee.proposee_sharing_pref)
+            end
+          when User::SHARING_PREFERENCES[0] then
+            if poster_friendship_as_proposer
+              poster_friendship_as_proposer.proposer_sharing_pref == User::SHARING_PREFERENCES[0]
+            elsif poster_friendship_as_proposee
+              poster_friendship_as_proposee.proposee_sharing_pref == User::SHARING_PREFERENCES[0]
+            end
+          else
+            return false
+        end
 
-    case sharing_pref
-      when User::SHARING_PREFERENCES[2] then
-        if poster_friendship_as_proposer
-          User::SHARING_PREFERENCES.include?(poster_friendship_as_proposer.proposer_sharing_pref)
-        elsif poster_friendship_as_proposee
-          User::SHARING_PREFERENCES.include?(poster_friendship_as_proposee.proposee_sharing_pref)
-        end
-      when User::SHARING_PREFERENCES[1] then
-        if poster_friendship_as_proposer
-          User::SHARING_PREFERENCES.pop.include?(poster_friendship_as_proposer.proposer_sharing_pref)
-        elsif poster_friendship_as_proposee
-          User::SHARING_PREFERENCES.pop.include?(poster_friendship_as_proposee.proposee_sharing_pref)
-        end
-      when User::SHARING_PREFERENCES[0] then
-        if poster_friendship_as_proposer
-          poster_friendship_as_proposer.proposer_sharing_pref == User::SHARING_PREFERENCES[0]
-        elsif poster_friendship_as_proposee
-          poster_friendship_as_proposee.proposee_sharing_pref == User::SHARING_PREFERENCES[0]
-        end
-      else
-        return false
-    end
 end
 
   def mark_as_inappropriate_by(user)

@@ -8,7 +8,7 @@
   = @post.title
 %p
   %b Content:
-  = @post.content
+  = raw @post.content
 
 
 = link_to "Comment", new_comment_path(post_id: @post.id)

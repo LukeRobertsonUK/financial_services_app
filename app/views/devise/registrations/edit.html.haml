@@ -1,5 +1,6 @@
 = nested_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f|
   = devise_error_messages!
+  =tinymce
   .row
     .span4
       %h1 Edit Your Profile
@@ -31,7 +32,8 @@
       .field
         = f.label :user_image
         %br/
-        = f.text_field :user_image, :autofocus => true
+        = f.file_field :user_image
+        = f.hidden_field :user_image_cache
       %a.clicker change password?
       #new_password
         .field
@@ -48,6 +50,16 @@
         %br/
         = f.password_field :current_password
       %div= f.submit "Update"
+      - if @user.persisted?
+        - unless @user.user_image.blank?
+          = image_tag @user.user_image.detail.url
+          %br
+          = f.label :remove_user_image
+          = f.check_box :remove_user_image
+
+
+
+
     .span4
       %h2 Your Investment Interests
       .field
@@ -75,7 +87,7 @@
       .field
         = f.label :biography
         %br/
-        = f.text_area :biography, :autofocus => true
+        = f.text_area :biography, :autofocus => true, class: "tinymce"
     .span4
       %h2 Your Organization
       -if @editable
@@ -94,4 +106,4 @@
       .field
         = f.label :disclaimer
         %br/
-        = f.text_area :disclaimer, :autofocus => true
+        = f.text_area :disclaimer, :autofocus => true, class: "tinymce"

@@ -1,6 +1,3 @@
-
-
-
 .investment_styles_list ul {
   list-style-type: none;
   padding: 0;
@@ -38,7 +35,45 @@ a.clicker {
   text-decoration: underline;
 }
 
+div.jqcloud span.w10 {
+  line-height: 60px !important;
+  text-shadow: 0.0em 0.0em 0.2em white;
+}
+
+
+
+
+#user_tag_cloud {
+  background: #eeeeee;
+  border-radius: 10px;
+  height: 400px;
+  width: 50%;
+}
+
+
 #new_password {
   opacity: 0;
   display: none;
+}
+
+#mce_14 {
+  background: white !important;
+}
+
+#mce_19 {
+  background: white !important;
+
+}
+
+#mce_28 {
+  background: white !important;
+  height: 15px;
+}
+
+#mce_28-body {
+  height: 15px !important;
+}
+
+#mce_29 {
+  display: none !important;
 }

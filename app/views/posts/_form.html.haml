@@ -8,33 +8,35 @@
         - @post.errors.full_messages.each do |msg|
           %li= msg
   =f.hidden_field :user_id, {value: current_user.id}
-  .field
-    = f.label :sharing_pref
-    %br/
-    = f.select :sharing_pref, User::SHARING_PREFERENCES
-  .field
-    = f.label :colleague_visible
-    %br/
-    = f.check_box :colleague_visible
-  .field
-    = f.label :non_investor_visible
-    %br/
-    = f.check_box :non_investor_visible
-  .field
-    = f.label :title
-    %br/
-    = f.text_field :title
-  .field
-    = f.label :tag_tokens, "Tags (separated by commas)"
-    %br/
-    = f.text_field :tag_tokens, :id => "post_tags", "data-pre" => @post.tags.map(&:attributes).to_json
-  .field
-    = f.label :content
-    %br/
-    = f.text_area :content
-  .field
-    = f.label :post_file
-    %br/
-    = f.text_field :post_file
-  .actions
-    = f.submit
+  .row
+    .span8
+      .field
+        = f.label :title
+        %br/
+        = f.text_field :title
+      .field
+        = f.label :tag_tokens, "Tags (separated by commas)"
+        %br/
+        = f.text_field :tag_tokens, :id => "post_tags", "data-pre" => @post.tags.map(&:attributes).to_json
+      .field
+        = f.label :content
+        %br/
+        = f.text_area :content, class: "tinymce", rows: 15, cols: 120
+        = tinymce
+    .span4
+      .field
+        = f.label :sharing_pref
+        %br/
+        = f.select :sharing_pref, User::SHARING_PREFERENCES
+      .field.check_box
+        = f.check_box :colleague_visible
+        = f.label :colleague_visible, "Visible to colleagues?"
+      .field.check_box
+        = f.check_box :non_investor_visible
+        = f.label :non_investor_visible, "Visible to non-investors?"
+      .field
+        = f.label :post_file
+        %br/
+        = f.text_field :post_file
+      .actions
+        = f.submit

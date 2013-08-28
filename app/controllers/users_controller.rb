@@ -4,10 +4,11 @@ class UsersController < ApplicationController
     @users = User.all
     @current_users_friends = current_user.all_friends
     @visible_users = @users - @current_users_friends - [current_user]
+    @tag_count = User.tag_counts_on(:investment_styles).map {|tag| {text: tag.name, weight: tag.count}}
 
     respond_to do |format|
       format.html # index.html.erb
-
+      format.json { render json: @tag_count }
     end
   end
 
