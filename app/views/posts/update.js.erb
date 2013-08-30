@@ -8,4 +8,5 @@ setTimeout(function(){
         }, 500);
 
 $('#users_post_list').html("<%= escape_javascript(render partial: 'post', locals: {posts: @user_posts}) %>");
-$('#new_post').html('New Post');
+$('#new_post').fadeIn(500);
+

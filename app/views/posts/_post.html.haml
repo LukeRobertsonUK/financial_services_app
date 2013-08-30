@@ -15,3 +15,6 @@
       =post.attachments.count
       %br
     = link_to "show", post_path(post)
+    -if can? :edit, post
+      .post_edit_buttons
+        = link_to "edit", edit_post_path(post), remote: true

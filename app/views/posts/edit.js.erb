@@ -1,0 +1,11 @@
+$('#remote_post_form').html("<%=escape_javascript(render partial: 'posts/form') %>");
+postTags();
+$('#new_post').fadeOut(500);
+$('.post_edit_buttons').fadeOut(200);
+if ($('#remote_post_form').css('display') === 'none'){
+  $('#remote_post_form').animate({
+        height: "toggle",
+        opacity: 1
+      }, 500);
+}
+

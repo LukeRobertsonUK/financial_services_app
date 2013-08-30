@@ -1,7 +1,1 @@
-// $("#comment_content").val("<%= escape_javascript(@comment.content) %>");
-// $("#comment_visible_poster_only").prop('checked', <%= escape_javascript(@comment.visible_poster_only? ? 'true' : 'false') %>);
-
-// $("#comment_post_id").val("<%= escape_javascript(@post_id.to_s) %>")
-// $("#comment_user_id").val("<%= escape_javascript(@comment.user_id.to_s) %>")
-
 $('#remote_comments_form').html("<%=escape_javascript(render partial: 'posts/comments_form') %>")
