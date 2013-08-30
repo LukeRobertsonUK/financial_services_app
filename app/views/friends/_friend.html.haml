@@ -1,0 +1,6 @@
+- friend = locals[:friend]
+
+%li{:class => "ui-state-default", "data-user_id" => friend.id, :id => "user_#{friend.id}"}
+  =image_tag friend.user_image.mini.url
+  =friend.full_name
+  = link_to "Edit friendship", edit_friendship_path(Friendship.where({proposer_id:current_user.id, proposee_id: friend.id}).first || Friendship.where({proposer_id: friend.id, proposee_id: current_user.id}).first )

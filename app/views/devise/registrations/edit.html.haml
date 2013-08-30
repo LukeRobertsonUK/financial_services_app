@@ -101,7 +101,7 @@
         %br/
         = select_tag "organization_id", options_for_select(Firm.all.map{|f| [f.to_string, f.id]}.unshift(["ENTER MANUALLY", ""]).unshift(["Pick a firm or select 'Enter Manually'", ""]), selected: @default), options = {}
 
-      .form_fields
+      #form_with_firm_fields.field
         =render "fields", f: f
       .field
         = f.label :disclaimer

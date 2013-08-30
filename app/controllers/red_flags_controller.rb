@@ -1,5 +1,5 @@
 class RedFlagsController < ApplicationController
-
+# load_and_authorize_resource
 
   def index
     @flagged_users = ActsAsVotable::Vote.where(vote_scope: "red_flag").map{|vote| vote.votable}.uniq

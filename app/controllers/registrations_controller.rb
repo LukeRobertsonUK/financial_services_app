@@ -6,12 +6,19 @@ class RegistrationsController < Devise::RegistrationsController
 
     self.resource.firm = Firm.where(id: params[:firm_id]).first || Firm.new
     respond_with self.resource
+    @default = resource.firm ? [resource.firm.name, resource.firm.id] : ["Pick a firm or select 'Enter Manually'", ""]
+
 
   end
 
 
   # POST /resource
   def create
+    unless params["extra_tags"].blank?
+      account_update_params["investment_style_list"] = (account_update_params["investment_style_list"] << params["extra_tags"].split(", ")).flatten
+    end
+
+
     existing_firm =  Firm.where({
       name: sign_up_params["firm_attributes"]["name"],
       city: sign_up_params["firm_attributes"]["city"],
@@ -23,6 +30,7 @@ class RegistrationsController < Devise::RegistrationsController
       build_resource(sign_up_params)
       resource.firm_id = existing_firm.id
    else
+
       if sign_up_params["firm_attributes"]["name"].blank?
         sign_up_params.delete("firm_attributes")
       end
@@ -49,6 +57,9 @@ class RegistrationsController < Devise::RegistrationsController
         respond_with resource, :location => after_inactive_sign_up_path_for(resource)
       end
     else
+      @user_written_tags = resource.user_written_tags
+      @default = params["organization_id"].blank? ? ["Pick a firm or select 'Enter Manually'", ""] : [Firm.find(params["organization_id"]).name, params["organization_id"]]
+
       clean_up_passwords resource
       respond_with resource
     end
@@ -57,18 +68,8 @@ class RegistrationsController < Devise::RegistrationsController
 
   # GET /resource/edit
   def edit
-    if self.resource.firm
-      @editable = (self.resource.firm.editor == resource)
-    else
-      @editable = false
-    end
-    @default = resource.firm ? [resource.firm.name, resource.firm.id] : ["select from list or enter details below", ""]
-    @user_written_tags = resource.investment_style_list.reject {|item| User::INVESTMENT_STYLES.values.flatten.include?(item)}
-    if self.resource.firm
-      self.resource.firm = Firm.new unless @editable
-    else
-      self.resource.firm = Firm.new
-    end
+    setup_form_values
+
     render :edit
   end
 
@@ -87,7 +88,7 @@ class RegistrationsController < Devise::RegistrationsController
       city: sign_up_params["firm_attributes"]["city"],
       postcode: sign_up_params["firm_attributes"]["postcode"]
     }).first
-    drop_down_firm = Firm.where(id: params["organization_id"].to_i).first
+    drop_down_firm = Firm.where(id: params["organization_id"].to_i).first unless existing_firm
 
     unless (params["editing"] && params["editing"] == "true")
 
@@ -110,8 +111,8 @@ class RegistrationsController < Devise::RegistrationsController
           new_firm.country = account_update_params["firm_attributes"]["country"]
           new_firm.city = account_update_params["firm_attributes"]["city"]
           new_firm.editor_id = resource.id
-          new_firm.save!
-          account_update_params[:firm_id] = new_firm.id
+          # new_firm.save!
+          # account_update_params[:firm_id] = new_firm.id
         end
         account_update_params.delete("firm_attributes")
       end
@@ -119,17 +120,15 @@ class RegistrationsController < Devise::RegistrationsController
 
 
 
-
-
-
-
-
-
-
     self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
     prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
 
     if resource.update_with_password(account_update_params)
+      if new_firm
+        new_firm.save!
+        resource.firm = new_firm
+        resource.save!
+      end
       unless resource.firm.editor
         resource.firm.editor = resource
         resource.firm.save!
@@ -143,11 +142,29 @@ class RegistrationsController < Devise::RegistrationsController
       sign_in resource_name, resource, :bypass => true
       respond_with resource, :location => after_update_path_for(resource)
     else
+      if new_firm
+        resource.firm = new_firm
+      end
+      setup_form_values
       clean_up_passwords resource
       respond_with resource
     end
   end
 
-
+  private
+  def setup_form_values
+      @user_written_tags = resource.user_written_tags
+      if self.resource.firm
+      @editable = (self.resource.firm.editor == resource)
+    else
+      @editable = false
+    end
+    @default = resource.firm ? [resource.firm.name, resource.firm.id] : ["Pick a firm or select 'Enter Manually'", ""]
+    if self.resource.firm
+      self.resource.firm = Firm.new unless @editable
+    else
+      self.resource.firm = Firm.new
+    end
+  end
 
 end

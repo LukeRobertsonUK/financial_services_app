@@ -27,11 +27,14 @@ class User < ActiveRecord::Base
   SHARING_PREFERENCES = ['Kindred Spirit', 'Respected Peer', 'Industry Participant']
   INVESTMENT_STYLES = {
     "Market Capitalization" => ["Mega-cap", "Large-cap", "Mid-cap", "Small-cap", "Micro-cap"],
-    "Region" => ["Global", "EAFE", "Developed", "Emerging", "Europe", "Asia ex-Japan", "Japan", "Country", "Latin America"],
-    "Time Horizon" => ["Very Long", "Long", "Medium", "Short", "Very Short", "Intra-day"],
+    "Region" => ["Global", "EAFE", "Developed Markers", "Emerging Markets", "Europe", "Asia ex-Japan", "Japan", "Country", "Latin America"],
+    "Time Horizon" => ["Very Long Term", "Long Term", "Medium Term", "Short Term", "Very Short Term", "Intra-day"],
     "Style" => ["Value", "Growth", "GARP", "Blend", "Active", "Passive", "Quant", "Long-only", "Hedge", "Arbitrage"]
   }
 
+def role?(role)
+  self.role == role
+end
 
 
 aasm do
@@ -48,6 +51,9 @@ aasm do
 
 end
 
+  def interests_string
+    investment_styles.map{|style| style.name}.join(", ")
+  end
 
   def full_name
     "#{first_name} #{last_name}"
@@ -218,6 +224,10 @@ end
 
   def red_flag_balance
      red_flag_votes - favourable_votes
+  end
+
+  def user_written_tags
+    investment_style_list.reject {|item| INVESTMENT_STYLES.values.flatten.include?(item)}
   end
 
 end

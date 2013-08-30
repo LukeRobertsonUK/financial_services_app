@@ -1,0 +1,6 @@
+%h5 Attachments
+= f.fields_for :attachments do |attachment_form|
+  .field
+    = attachment_form.file_field :attachment_name
+    = attachment_form.link_to_remove 'Remove'
+= f.link_to_add 'Add', :attachments

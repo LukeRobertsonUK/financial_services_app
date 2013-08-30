@@ -15,5 +15,6 @@
 //= require jquery.ui.all
 //= require jqcloud
 //= require jquery.tokeninput.js
-//= require tinymce-jquery
+// = require tinymce-jquery
+//= require jquery_nested_form
 //= require_tree .

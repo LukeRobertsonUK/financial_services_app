@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-
+load_and_authorize_resource
 
   # GET /posts
   # GET /posts.json

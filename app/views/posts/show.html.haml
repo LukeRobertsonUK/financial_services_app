@@ -1,40 +1,86 @@
 %p#notice= notice
 
-%p
-  %b Author:
-  = @post.user.full_name
-%p
-  %b Title:
-  = @post.title
-%p
-  %b Content:
-  = raw @post.content
+%h1
+  =@post.title
+.row
+  .span8
+    %h4
+      Tags:
+      = @post.tag_string
+    = raw @post.content
+    %br
+    = raw @post.user.disclaimer
+    %br
+    = link_to "Comment", new_comment_path(post_id: @post.id)
+
+    %br
+    -unless @post.user == current_user
+      - if @post.has_been_flagged_by(current_user)
+        You have flagged this post as inapporpriate
+      - else
+        = button_to "flag as inappropriate", mark_inappropriate_post_path(@post)
+
+    %h3 Comments
+    -@post.comments.each do |comment|
+      - if comment.visible_poster_only
+        - if (comment.user == current_user) || (comment.post.user == current_user)
+          =comment.content
+          %br
+          Left by:
+          =comment.user.full_name
+          | At:
+          =comment.created_at
+          %br
+          - if can? :edit, comment
+            = link_to "Edit", edit_comment_path(comment)
+          - if can? :destroy, comment
+            = link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' }
+            %br
+          -if comment.has_been_flagged_by(current_user)
+            You have flagged this comment as inappropriate
+          -else
+            - unless comment.user == current_user
+              =button_to "flag comment as inappropriate", mark_inappropriate_comment_path(comment)
+      - else
+        =comment.content
+        %br
+        Left by:
+        =comment.user.full_name
+        | At:
+        =comment.created_at
+        %br
+          - if can? :edit, comment
+            = link_to "Edit", edit_comment_path(comment)
+          - if can? :destroy, comment
+            = link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' }
+            %br
+        -if comment.has_been_flagged_by(current_user)
+          You have flagged this comment as inappropriate
+        -else
+          -unless comment.user == current_user
+            =button_to "flag comment as inappropriate", mark_inappropriate_comment_path(comment)
+
+  .span4
+    %h3
+      Author:
+      = @post.user.full_name
+    - unless @post.user.user_image.blank?
+      = image_tag @post.user.user_image.thumb.url
+      %br
+    %h4
+      Posted:
+      = @post.created_at
+      %br
+      Last Update:
+      = @post.updated_at
 
 
-= link_to "Comment", new_comment_path(post_id: @post.id)
-|
-= link_to 'Edit', edit_post_path(@post)
-|
-= link_to 'Back', posts_path
-%br
--unless @post.user == current_user
-  - if @post.has_been_flagged_by(current_user)
-    You have flagged this post as inapporpriate
-  - else
-    = button_to "flag as inappropriate", mark_inappropriate_post_path(@post)
+    - if can? :edit, @post
+      = link_to 'Edit', edit_post_path(@post)
+      %br
+      Post sharing level:
+      =@post.sharing_pref
+      %br
+    = link_to 'Back', posts_path
 
-%h3 Comments
--@post.comments.each do |comment|
-  - if comment.visible_poster_only
-    - if (comment.user == current_user) || (comment.post.user == current_user)
-      =comment.content
-      -if comment.has_been_flagged_by(current_user)
-        You have flagged this comment as inappropriate
-      -else
-        =button_to "flag comment as inappropriate", mark_inappropriate_comment_path(comment)
-  - else
-    =comment.content
-    -if comment.has_been_flagged_by(current_user)
-      You have flagged this comment as inappropriate
-    -else
-      =button_to "flag comment as inappropriate", mark_inappropriate_comment_path(comment)
+

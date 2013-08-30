@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-
+load_and_authorize_resource
   def index
     @users = User.all
     @current_users_friends = current_user.all_friends
@@ -11,6 +11,17 @@ class UsersController < ApplicationController
       format.json { render json: @tag_count }
     end
   end
+
+def show
+    @user = User.find(params[:id])
+
+    respond_to do |format|
+      format.html # show.html.haml
+      format.json { render json: @user }
+    end
+  end
+
+
 
   def raise_flag
     @user = User.find(params[:id])

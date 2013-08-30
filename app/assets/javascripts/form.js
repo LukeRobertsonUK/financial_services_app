@@ -1,9 +1,9 @@
 $(function() {
 
   if($('.editing').length > 0){
-    $( ".form_fields").fadeTo(10, 1);
+    $("#form_with_firm_fields").fadeIn(10)
   }else{
-    $("#firm_select").fadeTo(10,1);
+    $("#firm_select").fadeIn(10);
   }
 
   $(".clicker").on('click', function(){
@@ -20,23 +20,23 @@ $(function() {
         height: "toggle",
         opacity: 1
       }, 150);
-      $( ".form_fields").fadeTo(500, 1);
+      $( "#form_with_firm_fields").fadeIn(250);
       }else{
          $("#firm_select").animate({
         height: "toggle",
         opacity: 1
       }, 150);
-        $( ".form_fields").fadeTo(500, 0);
+        $( "#form_with_firm_fields").fadeOut(250);
         $(".box_to_clear").val("");
       }
     })
 
   $( "#organization_id" ).change(function() {
     if($( "#organization_id").val() == ""){
-
-      $( ".form_fields").fadeTo(150, 1);
+      $( "#form_with_firm_fields").fadeIn(250);
       }else{
-        $( ".form_fields").fadeTo(150, 0);
+        $( "#form_with_firm_fields").fadeOut(250);
+        $(".box_to_clear").val("");
       }
     })
 

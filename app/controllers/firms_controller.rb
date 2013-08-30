@@ -1,4 +1,5 @@
 class FirmsController < ApplicationController
+  load_and_authorize_resource
   # GET /firms
   # GET /firms.json
   def index

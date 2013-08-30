@@ -1,5 +1,5 @@
 class TagsController < ApplicationController
-
+# load_and_authorize_resource
     def index
       @exact_tag = ActsAsTaggableOn::Tag.where(name: "#{params[:q]}").first
       @like_tags = ActsAsTaggableOn::Tag.where("tags.name LIKE ?", "%#{params[:q]}%").limit(10)

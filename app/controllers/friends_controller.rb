@@ -1,5 +1,5 @@
 class FriendsController < ApplicationController
-
+  # load_and_authorize_resource
     def index
       @incoming_friend_requests = Friendship.where({
           proposee_id: current_user.id,

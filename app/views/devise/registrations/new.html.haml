@@ -51,9 +51,16 @@
                   .check_box
                     = "#{value}"
                     =f.check_box :investment_style_list, {multiple: true}, "#{value}", nil
+            -unless @user_written_tags.blank?
+              %li
+                %h5 Interests added by you
+                -@user_written_tags.each do |interest|
+                  .check_box
+                    = "#{interest}"
+                    = f.check_box :investment_style_list, {multiple: true}, "#{interest}", nil
           %h5
             Anything we've missed (comma separated)?
-          =f.text_field :investment_style_list, {multiple: true}
+          =text_field_tag "extra_tags"
       %h2 About You
       .field
         = f.label :biography
@@ -65,8 +72,8 @@
       .field
         = label_tag :organization_id, "Which firm do you work for?"
         %br/
-        = select_tag "organization_id", options_for_select(Firm.all.map{|f| [f.to_string, f.id]}.unshift(["ENTER MANUALLY", ""]).unshift(["Pick a firm or select 'Enter Manually'", ""])), options = {}
-      .form_fields
+        = select_tag "organization_id", options_for_select(Firm.all.map{|f| [f.to_string, f.id]}.unshift(["ENTER MANUALLY", ""]).unshift(["Pick a firm or select 'Enter Manually'", ""]), selected: @default), options = {}
+      #form_with_firm_fields.form_fields
         =render "fields", f: f
       .field
         = f.label :disclaimer

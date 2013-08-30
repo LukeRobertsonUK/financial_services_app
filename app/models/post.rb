@@ -1,12 +1,15 @@
 class Post < ActiveRecord::Base
   include AASM
   belongs_to :user
+  has_many :attachments
   has_many :comments
-  attr_accessible :colleague_visible, :content, :non_investor_visible, :post_file, :sharing_pref, :title, :user_id, :tag_list, :tag_tokens
+  attr_accessible :colleague_visible, :content, :non_investor_visible, :post_file, :sharing_pref, :title, :user_id, :tag_list, :tag_tokens, :attachments_attributes
   attr_reader :tag_tokens
+  accepts_nested_attributes_for :attachments
   default_scope order('updated_at DESC')
   acts_as_taggable
   acts_as_votable
+
 
 aasm do
   state :ok, initial: true
@@ -22,6 +25,10 @@ aasm do
 
 end
 
+def tag_string
+    tags.map{|tag| tag.name}.join(", ")
+end
+
 def tag_tokens=(ids)
   tags = ids.split(",")
   tags.reject! {|id| id.to_i == 0}
@@ -35,7 +42,7 @@ end
 def shareable_with(user)
     poster_friendship_as_proposer = Friendship.where({proposer_id: self.user_id, proposee_id: user.id}).first
     poster_friendship_as_proposee = Friendship.where({proposee_id: self.user_id, proposer_id: user.id}).first
-    binding.pry
+
     return false if (user.business != "Investor" && self.non_investor_visible == false)
     return false if (self.user.firm == user.firm && self.colleague_visible == false)
         case sharing_pref

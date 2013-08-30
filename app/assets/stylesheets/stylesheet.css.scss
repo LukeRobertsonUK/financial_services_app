@@ -22,13 +22,17 @@
 }
 
 #firm_select {
-  opacity: 0;
   display: none;
 }
 
-.form_fields {
-  opacity: 0;
+#form_with_firm_fields {
+  display: none;
 }
+
+
+// .form_fields {
+//   opacity: 0;
+// }
 
 a.clicker {
   font-size: 85%;

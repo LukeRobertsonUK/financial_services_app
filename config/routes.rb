@@ -27,17 +27,16 @@ FinancialServicesApp::Application.routes.draw do
 
 
 
-  resources :friendships do
-    member do
-      post :update_sharing_pref, to: 'friendships#update_sharing_pref'
-    end
-  end
+  resources :friendships
 
   resources :friends
 
   devise_for :users, controllers: { registrations: 'registrations' }
 
   get '/users', to: "users#index", as: 'users'
+  get '/users/:id', to: "users#show", as: 'user'
+  post '/users/:user_id/friendships/update_sharing_pref', to: 'friendships#update_sharing_pref'
+
 
   get'/tags', to: "tags#index", as: 'tags'
 

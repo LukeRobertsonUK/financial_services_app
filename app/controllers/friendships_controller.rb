@@ -1,4 +1,5 @@
 class FriendshipsController < ApplicationController
+  load_and_authorize_resource
   # GET /friendships
   # GET /friendships.json
   def index
@@ -11,13 +12,14 @@ class FriendshipsController < ApplicationController
   end
 
   def update_sharing_pref
+
   @new_preference = case params["new_preference"]
     when "respected_peer" then "Respected Peer"
     when "kindred_spirit" then "Kindred Spirit"
     when "industry_participant" then "Industry Participant"
     when "purgatory" then "Purgatory"
     end
-    @friend_id = params[:id]
+    @friend_id = params[:user_id]
     @friendship = (Friendship.where({proposer_id: current_user.id, proposee_id: @friend_id}) + Friendship.where({proposer_id: @friend_id, proposee_id: current_user.id})).first
 
     if @friendship.proposer == current_user
@@ -25,6 +27,8 @@ class FriendshipsController < ApplicationController
     else
       @friendship.update_attributes(proposee_sharing_pref: @new_preference)
     end
+
+
     respond_to do |format|
       format.js { render nothing: true }
     end

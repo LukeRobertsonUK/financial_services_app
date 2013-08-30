@@ -1,0 +1,25 @@
+%h1
+  = @user.full_name
+%h3
+  ="#{@user.business} [#{@user.interests_string}]"
+
+.row
+  .span6
+    - unless @user.user_image.blank?
+      = image_tag @user.user_image.detail.url
+      %br
+    =mail_to @user.email
+    %h3 Biography
+    = raw @user.biography
+  .span6
+    %h3 Organization
+    %h4
+      =@user.firm.name
+    ="#{@user.firm.building} #{@user.firm.street_address}"
+    =@user.firm.city
+    %br
+    =@user.firm.postcode
+    %br
+    =@user.firm.country
+    %h3 Coporate Disclaimer
+    =raw @user.disclaimer

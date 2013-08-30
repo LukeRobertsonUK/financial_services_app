@@ -1,4 +1,4 @@
-= form_for(@post) do |f|
+= nested_form_for(@post) do |f|
   - if @post.errors.any?
     #error_explanation
       %h2
@@ -34,9 +34,7 @@
       .field.check_box
         = f.check_box :non_investor_visible
         = f.label :non_investor_visible, "Visible to non-investors?"
-      .field
-        = f.label :post_file
-        %br/
-        = f.text_field :post_file
+      .form_fieldsd
+        = render "fields", f: f
       .actions
         = f.submit
