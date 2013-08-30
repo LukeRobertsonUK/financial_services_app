@@ -1,4 +1,4 @@
-= nested_form_for(@post) do |f|
+= nested_form_for(@post, remote: true) do |f|
   - if @post.errors.any?
     #error_explanation
       %h2
@@ -27,7 +27,7 @@
       .field
         = f.label :sharing_pref
         %br/
-        = f.select :sharing_pref, User::SHARING_PREFERENCES
+        = f.select :sharing_pref, ['Kindred Spirit', 'Respected Peer', 'Industry Participant']
       .field.check_box
         = f.check_box :colleague_visible
         = f.label :colleague_visible, "Visible to colleagues?"

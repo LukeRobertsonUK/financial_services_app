@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-load_and_authorize_resource
+  load_and_authorize_resource
   def index
     @users = User.all
     @current_users_friends = current_user.all_friends
@@ -14,6 +14,7 @@ load_and_authorize_resource
 
 def show
     @user = User.find(params[:id])
+    @posts = @user.posts.reject!{|post| !post.shareable_with(current_user)}
 
     respond_to do |format|
       format.html # show.html.haml

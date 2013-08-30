@@ -1,0 +1,2 @@
+$('#users_post_list').html("<%= escape_javascript(render partial: 'post', locals: {posts: @user_posts}) %>")
+$('#remote_post_form').html("<%=escape_javascript(render 'form') %>")

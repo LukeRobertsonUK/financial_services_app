@@ -10,7 +10,7 @@
  *
  *= require token-input-facebook.css
  *= require_self
- *= require bootstrap-responsive.css
+ *= require bootstrap.css
  *= require token-input-facebook.css
  *= require jqcloud.css
  *= require_tree .

@@ -1,14 +1,15 @@
-%h1 Your Posts
-%ul
-  -@user_posts.each do |post|
-    %li
-    = post.title
-    = link_to "show", post_path(post)
+#remote_post_form
+  = render "form"
 
--unless @friends_posts.blank?
-  %h1 Your Friends' Posts
+#users_posts
+  %h1 Your Posts
   %ul
-    -@friends_posts.each do |post|
-      %li
-      =post.title
-      = link_to "show", post_path(post)
+    #users_post_list
+      = render partial: 'post', locals: {posts: @user_posts}
+
+#friends_posts
+  -unless @friends_posts.blank?
+    %h1 Your Friends' Posts
+    %ul
+      #friends_post_list
+        = render partial: 'post', locals: {posts: @friends_posts}

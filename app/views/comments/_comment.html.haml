@@ -1,0 +1,38 @@
+
+- if comment.visible_poster_only
+  - if (comment.user == current_user) || (comment.post.user == current_user)
+    =comment.content
+    %br
+    Left by:
+    =comment.user.full_name
+    | At:
+    =comment.created_at
+    %br
+    - if can? :edit, comment
+      = link_to "Edit", edit_comment_path(comment), remote: true
+    - if can? :destroy, comment
+      = link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' }
+      %br
+    -if comment.has_been_flagged_by(current_user)
+      You have flagged this comment as inappropriate
+    -else
+      - unless comment.user == current_user
+        =button_to "flag comment as inappropriate", mark_inappropriate_comment_path(comment)
+- else
+  =comment.content
+  %br
+  Left by:
+  =comment.user.full_name
+  | At:
+  =comment.created_at
+  %br
+    - if can? :edit, comment
+      = link_to "Edit", edit_comment_path(comment), remote: true
+    - if can? :destroy, comment
+      = link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' }
+      %br
+  -if comment.has_been_flagged_by(current_user)
+    You have flagged this comment as inappropriate
+  -else
+    -unless comment.user == current_user
+      =button_to "flag comment as inappropriate", mark_inappropriate_comment_path(comment)

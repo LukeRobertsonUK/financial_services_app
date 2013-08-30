@@ -6,6 +6,8 @@ load_and_authorize_resource
   def index
     @user_posts = Post.where(user_id:current_user.id)
     @friends_posts = current_user.friends_visible_posts
+    @post = Post.new
+
 
 
     respond_to do |format|
@@ -33,6 +35,7 @@ load_and_authorize_resource
   # GET /posts/1.json
   def show
     @post = Post.find(params[:id])
+    @comment = Comment.new
 
     respond_to do |format|
       format.html # show.html.erb
@@ -60,13 +63,18 @@ load_and_authorize_resource
   # POST /posts.json
   def create
     @post = Post.new(params[:post])
+    @user_posts = Post.where(user_id:current_user.id)
 
     respond_to do |format|
       if @post.save
+        format.js {
+           @post= Post.new
+        }
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
         format.json { render json: @post, status: :created, location: @post }
       else
         format.html { render action: "new" }
+        format.js
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
     end

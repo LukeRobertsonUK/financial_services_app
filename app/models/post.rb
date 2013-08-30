@@ -46,23 +46,23 @@ def shareable_with(user)
     return false if (user.business != "Investor" && self.non_investor_visible == false)
     return false if (self.user.firm == user.firm && self.colleague_visible == false)
         case sharing_pref
-          when User::SHARING_PREFERENCES[2] then
+          when "Industry Participant" then
             if poster_friendship_as_proposer
-              User::SHARING_PREFERENCES.include?(poster_friendship_as_proposer.proposer_sharing_pref)
+              ['Kindred Spirit', 'Respected Peer', 'Industry Participant'].include?(poster_friendship_as_proposer.proposer_sharing_pref)
             elsif poster_friendship_as_proposee
-              User::SHARING_PREFERENCES.include?(poster_friendship_as_proposee.proposee_sharing_pref)
+              ['Kindred Spirit', 'Respected Peer', 'Industry Participant'].include?(poster_friendship_as_proposee.proposee_sharing_pref)
             end
-          when User::SHARING_PREFERENCES[1] then
+          when "Respected Peer" then
             if poster_friendship_as_proposer
-              User::SHARING_PREFERENCES.pop.include?(poster_friendship_as_proposer.proposer_sharing_pref)
+              ['Kindred Spirit', 'Respected Peer'].include?(poster_friendship_as_proposer.proposer_sharing_pref)
             elsif poster_friendship_as_proposee
-              User::SHARING_PREFERENCES.pop.include?(poster_friendship_as_proposee.proposee_sharing_pref)
+              ['Kindred Spirit', 'Respected Peer'].include?(poster_friendship_as_proposee.proposee_sharing_pref)
             end
-          when User::SHARING_PREFERENCES[0] then
+          when "Kindred Spirit" then
             if poster_friendship_as_proposer
-              poster_friendship_as_proposer.proposer_sharing_pref == User::SHARING_PREFERENCES[0]
+              poster_friendship_as_proposer.proposer_sharing_pref == "Kindred Spirit"
             elsif poster_friendship_as_proposee
-              poster_friendship_as_proposee.proposee_sharing_pref == User::SHARING_PREFERENCES[0]
+              poster_friendship_as_proposee.proposee_sharing_pref == "Kindred Spirit"
             end
           else
             return false

@@ -23,3 +23,9 @@
     =@user.firm.country
     %h3 Coporate Disclaimer
     =raw @user.disclaimer
+.row
+  .span8
+    %h2 Recent Posts
+    = render partial: 'posts/post', locals: { posts: @posts}
+
+  .span4

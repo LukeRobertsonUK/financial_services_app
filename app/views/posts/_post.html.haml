@@ -1,0 +1,17 @@
+- posts.each do |post|
+  %li
+    = post.title
+    %br
+    =post.user.full_name
+    %br
+    =post.updated_at
+    %br
+    - unless post.comments.blank?
+      comments:
+      =post.comments.count
+      %br
+    - unless post.attachments.blank?
+      attachments:
+      =post.attachments.count
+      %br
+    = link_to "show", post_path(post)
