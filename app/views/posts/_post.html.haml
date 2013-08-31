@@ -1,20 +1,30 @@
-- posts.each do |post|
-  %li
-    = post.title
-    %br
-    =post.user.full_name
-    %br
-    =post.updated_at
-    %br
-    - unless post.comments.blank?
-      comments:
-      =post.comments.count
-      %br
-    - unless post.attachments.blank?
-      attachments:
-      =post.attachments.count
-      %br
-    = link_to "show", post_path(post)
-    -if can? :edit, post
-      .post_edit_buttons
-        = link_to "edit", edit_post_path(post), remote: true
+-if posts.blank?
+  There are no posts matching your search criteria
+-else
+  - posts.each do |post|
+    %li
+      .list_view_of_posts
+        %h3
+          .title_and_photo
+            = post.title
+            -unless post.user_id == current_user.id
+              .mini
+                =image_tag post.user.user_image.mini.url, class: "mini_image"
+        %ul
+          -unless post.user_id == current_user.id
+            %li
+              = "#{post.user.full_name}: #{post.user.business} and #{current_user.relationship_with(post.user)}"
+          %li
+            ="Updated #{distance_of_time_in_words(Time.now, post.updated_at)} ago"
+          - unless post.comments.blank?
+            %li
+              -if current_user.has_commented_on?(post)
+                = "Comments: #{post.comments.count} (you have commented)"
+              -else
+                = "Comments: #{post.comments.count}"
+
+
+        = link_to "show", post_path(post)
+        -if can? :edit, post
+          .post_edit_buttons
+            = link_to "edit", edit_post_path(post), remote: true

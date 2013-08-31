@@ -59,6 +59,30 @@ end
     "#{first_name} #{last_name}"
   end
 
+  def relationship_with(user)
+    proposer = Friendship.where({proposer_id: self.id, proposee_id: user.id}).first
+    proposee = Friendship.where({proposer_id: user.id, proposee_id: self.id}).first
+    if proposer
+      proposer.proposer_sharing_pref
+    elsif proposee
+      proposee.proposee_sharing_pref
+    else
+      "not friends"
+    end
+  end
+
+  def has_posts?
+    self.posts.count >0
+  end
+
+  def has_friends?
+    (Friendship.where(proposer_id: self.id) + Friendship.where(proposee_id: self.id)).count > 0
+  end
+
+  def has_commented_on?(post)
+    post.comments.map{|comment| comment.user}.include?(self)
+  end
+
   def all_friends
    proposees = self.friendships_as_proposer.map {|friendship| friendship.proposee}
    proposers = self.friendships_as_proposee.map {|friendship| friendship.proposer}

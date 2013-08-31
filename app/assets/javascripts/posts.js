@@ -20,6 +20,15 @@
     });
   });
 
+  $('#clear_form').on('click', function(){
+    $('#q_title_or_content_or_tags_name_or_comments_content_cont').val("");
+    $('#q_user_first_name_or_user_last_name_or_user_investment_styles_name_or_user_email_or_user_business_or_user_firm_name_cont').val("");
+    $('.hasDatepicker').val('');
+    $('#post_search').submit();
+
+  })
+
+
 
 
 
@@ -44,7 +53,7 @@
     }else{
       $('#remote_post_form').animate({
         height: "toggle",
-        opacity: 0
+        opacity: 0,
       }, 500);
       $('#new_post').html('New Post');
       $('.post_edit_buttons').fadeIn(200);

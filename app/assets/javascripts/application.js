@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.ui.all
+//= require jquery-ui-1.10.3.custom.js
 //= require jqcloud
 //= require jquery.tokeninput.js
 // = require tinymce-jquery

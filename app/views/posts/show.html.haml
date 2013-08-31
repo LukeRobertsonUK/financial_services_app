@@ -1,62 +1,71 @@
 %p#notice= notice
 
-%h1
-  =@post.title
+.post_title_bar
+  %h1
+    =@post.title
 .row
   .span8
-    %h4
-      Tags:
-      = @post.tag_string
-    = raw @post.content
-    %br
-    = raw @post.user.disclaimer
-    %br
-    = link_to "Comment", new_comment_path(post_id: @post.id)
+    .post_column
+      - if @post.content.blank?
+        This post has no content
+      -else
+        #main_content
+          = raw @post.content
+      - unless @post.tags.blank?
+        %h4
+          Tags:
+          = @post.tag_string
+      .view_disclaimer
+        %a View Disclaimer Text
+      #disclaimer_text
+        = raw @post.user.disclaimer
 
-    %br
-    -unless @post.user == current_user
-      - if @post.has_been_flagged_by(current_user)
-        You have flagged this post as inapporpriate
-      - else
-        = button_to "flag as inappropriate", mark_inappropriate_post_path(@post)
 
-    %h3 Comments
-    #remote_comments_form
-      = render partial: 'comments_form'
+      %br
+      -unless @post.user == current_user
+        - if @post.has_been_flagged_by(current_user)
+          You have flagged this post as inapporpriate
+        - else
+          = button_to "flag as inappropriate", mark_inappropriate_post_path(@post)
 
-    #post_comments
-      = render @post.comments
+      %h3 Comments
+
+      #remote_comments_form
+        = render partial: 'comments_form'
+      #post_comments
+        = render @post.comments
 
 
   .span4
-    %h3
-      Author:
-      = @post.user.full_name
-    - unless @post.user.user_image.blank?
-      = image_tag @post.user.user_image.thumb.url
-      %br
-    %h4
-      Posted:
-      = @post.created_at
-      %br
-      Last Update:
-      = @post.updated_at
+    .post_column
+      %h3
+        Author:
+        = @post.user.full_name
+      - unless @post.user.user_image.blank?
+        = image_tag @post.user.user_image.thumb.url
+        %br
+      %h4
+        Posted:
+        = @post.created_at
+        %br
+        Last Update:
+        = @post.updated_at
 
-    - unless @post.attachments.blank?
-      %h5 Attachments:
-      %ul
-        - @post.attachments.each do |attachment|
-          %li
-            = attachment.attachment_name
+      - unless @post.attachments.blank?
+        %h5 Attachments:
+        %ul
+          - @post.attachments.each do |attachment|
+            %li
+              = attachment.attachment_name
 
-            = link_to "Download", attachment.attachment_name.url
+              = link_to "Download", attachment.attachment_name.url
 
-    - if can? :edit, @post
-      = link_to 'Edit', edit_post_path(@post)
-      %br
-      Post sharing level:
-      =@post.sharing_pref
-      %br
-    = link_to 'Back', posts_path
+      - if can? :edit, @post
+        = link_to 'Edit', edit_post_path(@post)
+        %br
+        Post sharing level:
+        =@post.sharing_pref
+        %br
+      = link_to 'Back', posts_path
 
 

@@ -1,14 +1,157 @@
-#remote_post_form {
-  display: none;
-  opacity: 0;
+
+$title_font: 'Oxygen', sans-serif;
+$roboto: 'Roboto', sans-serif;
+$electric_blue: #2646EA;
+
+body {
+    background: image_url('ETTradingFloor.jpg') no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    }
+
+
+
+#title_bar {
+  background: rgba(0,0,0,0.7);
+  height: 160px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  margin: auto;
+  min-width: 940px;
+  padding-top: 40px;
+  position: relative;
 }
 
-#post_form_button_spacer {
-  height: 30px
+.login {
+  color: white;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  text-align: right;
 }
+
+.login a {
+  text-decoration: none;
+  color: white;
+}
+
+.hoot_box {
+  font-family: $title_font;
+  font-weight: bold;
+  color: white;
+  font-size: 6em;
+}
+
+#nav ul {
+  padding: 0;
+}
+
+#nav ul li  {
+  font-family: $title_font;
+  display: inline-block;
+  font-size: 1.2em;
+  padding-left: 1em;
+  padding-right: 0.5em;
+  list-style: none;
+}
+
+#nav ul li a {
+  text-decoration: none;
+}
+
+.container {
+  margin: auto;
+  background: rgba(255,255,255,0.9);
+  position: relative;
+}
+
+.search_bar_field {
+  display: inline-block;
+  text-align: left;
+
+}
+
+#control_bar {
+  padding-left: 30px;
+  text-align: left;
+  background: image_url('textured_paper.png');
+  padding-bottom: 10px;
+  border-bottom: 1px solid black;
+}
+
+#button_bar {
+  background: image_url('textured_paper.png');
+  padding-left: 30px;
+  padding-bottom: 10px;
+}
+
+#new_post {
+  display: inline;
+  margin-top: 10px;
+
+}
+
+#remote_post_form {
+  display: none;
+  opacity: 1;
+  width: 900px;
+  background: white;
+  border-radius: 5px;
+  box-shadow:rgba(0,0,0,0.5) 0px 0px 24px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.custom_button {
+  font-family: $title_font;
+  font-size: 12px;
+  color: #ffffff;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background: $electric_blue;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+}
+
+.custom_button:hover {
+  color: #fff;
+  background: -moz-linear-gradient(
+    top,
+    #ee2819 0%,
+    #aa0000);
+  background: #DF2E59;
+}
+
+
+.post_column {
+ padding: 10px;
+}
+
+.post_column h2 {
+  font-family: $roboto;
+  font-weight: bold;
+}
+
+.post_column ul {
+  padding-left: 0;
+}
+
+.post_column ul li {
+  list-style: none;
+}
+
+.form_column {
+  padding: 10px;
+}
+
 
 #post_search_form_button{
   display: none;
+
 }
 
 .post_edit_buttons {
@@ -38,6 +181,63 @@
   border-radius: 5px;
 }
 
+.post_title_bar h1 {
+  font-family: $roboto;
+  padding: 10px;
+  border-bottom: 1px solid #dddddd;
+  background: white;
+}
+
+h3 {
+  font-family: $roboto;
+  border-bottom: 2px solid #dddddd
+}
+
+#comment_content {
+  width: 99%;
+  padding: 2px;
+  height: 40px;
+  font-size: 0.8em;
+  line-height: 140%;
+  max-height: 150px;
+  max-width: 99%;
+  border-radius: 5px;
+  border: none;
+}
+
+#remote_comments_form{
+border: 1px solid #dddddd;
+border-radius: 5px;
+background: white;
+}
+
+.comment_submit {
+  padding-left: 5px;
+  background: white;
+  padding-bottom: 0px;
+}
+
+.comments_box {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+#disclaimer_text {
+  display: none;
+  background: white;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #dddddd;
+}
+
+#main_content {
+background: white;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #dddddd;
+
+}
+
 #firm_select {
   display: none;
 }
@@ -61,8 +261,35 @@ div.jqcloud span.w10 {
   text-shadow: 0.0em 0.0em 0.2em white;
 }
 
+.list_view_of_posts {
+  background: white;
+  border: 1px solid #dddddd;
+  margin-bottom: 10px;
+  padding-left: 10px;
+  padding-bottom: 5px;
+  padding-right: 10px;
+  position: relative;
+  border-radius: 5px;
+}
 
+.mini {
+  float: right
+}
+// .mini_image {
+//   float: right;
+// }
 
+.title_and_photo {
+  background: #eeeeee;
+}
+
+.list_view_of_posts h3 {
+  font-family: $roboto;
+  margin-bottom: 5px;
+  background: #eeeeee;
+  padding: 2px;
+
+}
 
 #user_tag_cloud {
   background: #eeeeee;

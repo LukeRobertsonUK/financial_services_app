@@ -2,42 +2,50 @@
 %html
   %head
     %title FinancialServicesApp
+    %link{:href => "http://fonts.googleapis.com/css?family=Oxygen", :rel => "stylesheet", :type => "text/css"}
+    %link{:href => "http://fonts.googleapis.com/css?family=Roboto", :rel => "stylesheet", :type => "text/css"}
     = stylesheet_link_tag  "application", :media => "all"
     = stylesheet_link_tag "token-input-facebook"
     = javascript_include_tag "application", "jquery.tokeninput"
     = csrf_meta_tags
   %body
 
-    #nav
-      %ul
-        %li
-          =link_to "Friends", friends_path
-        %li
-          =link_to "Find Friends", users_path
-        %li
-          =link_to "Wall of Shame", red_flags_path
-        %li
-          =link_to "Edit Profile", edit_user_registration_path
+    #title_bar
+
+      .login
+        - if current_user
+          = current_user.email
+          = link_to "Log out", destroy_user_session_path, method: :delete
+          %br
+        - else
+          = link_to "Sign In", new_user_session_path
+          = link_to "Register", new_user_registration_path
+          %br
         -if current_user
+          = "you have #{current_user.number_of_black_balls} black balls"
+        -if current_user && current_user.exceeds_black_ball_limit?
+          You have received 10 or more black balls within the last 30 days and, therefore, are unable to send friend requests
+      %h1.hoot_box
+        HootBox
+      #nav
+        %ul
           %li
-            =link_to "My Profile", user_path(current_user)
+            =link_to "Home", posts_path
+          %li
+            =link_to "Friends", friends_path
+          %li
+            =link_to "Find Friends", users_path
+          %li
+            =link_to "Wall of Shame", red_flags_path
+          -if current_user
+            %li
+              =link_to "My Profile", user_path(current_user)
+            %li
+              =link_to "Edit Profile", edit_user_registration_path
 
-        %li
-          =link_to "New Post", new_post_path
-        %li
-          =link_to "Posts", posts_path
 
 
-    -if current_user
-      = "you have #{current_user.number_of_black_balls} black balls"
-    -if current_user && current_user.exceeds_black_ball_limit?
-      You have received 10 or more black balls within the last 30 days and, therefore, are unable to send friend requests
-    .login
-      - if current_user
-        = current_user.email
-        = link_to "Log out", destroy_user_session_path, method: :delete
-      - else
-        = link_to "Sign In", new_user_session_path
-        = link_to "Register", new_user_registration_path
+
+
     .container
       = yield

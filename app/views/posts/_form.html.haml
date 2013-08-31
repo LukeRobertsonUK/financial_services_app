@@ -9,7 +9,7 @@
           %li= msg
   =f.hidden_field :user_id, {value: current_user.id}
   .row
-    .span8
+    .span8.form_column
       .field
         = f.label :title
         %br/
@@ -23,7 +23,7 @@
         %br/
         = f.text_area :content, class: "tinymce", rows: 15, cols: 120
         = tinymce
-    .span4
+    .span3.form_column
       .field
         = f.label :sharing_pref
         %br/
