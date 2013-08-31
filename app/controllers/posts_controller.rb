@@ -4,10 +4,13 @@ load_and_authorize_resource
   # GET /posts
   # GET /posts.json
   def index
-    @user_posts = Post.where(user_id:current_user.id)
-    @friends_posts = current_user.friends_visible_posts
+    @q = Post.where(user_id:current_user.id).search(params[:q])
+    @user_posts = @q.result(distinct: true)
+    @array_of_friends_posts_ids = current_user.friends_visible_posts.map{|post| post.id}
+    @r = Post.where(id: @array_of_friends_posts_ids).search(params[:q])
+    @friends_posts = @r.result(distinct: true)
     @post = Post.new
-
+    # @oldest_date = (current_user.all_friends << current_user).min_by{|user| user.created_at}
 
 
     respond_to do |format|

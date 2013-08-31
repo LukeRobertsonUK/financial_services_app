@@ -1,0 +1,2 @@
+$('#users_post_list').html("<%= escape_javascript(render partial: 'post', locals: {posts: @user_posts}) %>");
+$('#friends_post_list').html("<%= escape_javascript(render partial: 'post', locals: {posts: @friends_posts}) %>");

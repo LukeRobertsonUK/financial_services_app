@@ -1,3 +1,17 @@
+#post_search_form
+  = search_form_for @q, remote: true, :url => url_for(:posts_controller => "q", :action => "index") do |f|
+    = f.label :title_or_content_or_tags_name_or_comments_content_cont, "Post Content"
+    = f.text_field :title_or_content_or_tags_name_or_comments_content_cont
+    = f.label :user_first_name_or_user_last_name_or_user_investment_styles_name_or_user_email_or_user_business_or_user_firm_name_cont, "Author"
+    = f.text_field :user_first_name_or_user_last_name_or_user_investment_styles_name_or_user_email_or_user_business_or_user_firm_name_cont
+    = f.label :created_at_gteq, "Date from:"
+    = f.text_field :created_at_gteq, class: "datepicker"
+    = f.label :created_at_lteq, "and:"
+    = f.text_field :created_at_lteq, class: "datepicker"
+    = f.submit "Search", :class => 'button', id: "post_search_form_button"
+
+
+
 #post_form_button_spacer
   %button#new_post New Post
 
