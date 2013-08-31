@@ -4,6 +4,8 @@
   - posts.each do |post|
     %li
       .list_view_of_posts
+        -unless current_user.has_read?(post)
+          %p Unread
         %h3
           .title_and_photo
             = post.title

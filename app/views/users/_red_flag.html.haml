@@ -1,0 +1,8 @@
+-if current_user.has_raised_flag_against(user)
+  (You have red-flagged this user as not an investor.
+  = button_to "lower flag", lower_flag_path(id: user.id), remote: true
+  )
+-else
+  (Not an investor?
+  = button_to "raise red flag", raise_flag_path(id: user.id), remote: true
+  )

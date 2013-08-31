@@ -22,11 +22,9 @@
 
 
       %br
-      -unless @post.user == current_user
-        - if @post.has_been_flagged_by(current_user)
-          You have flagged this post as inapporpriate
-        - else
-          = button_to "flag as inappropriate", mark_inappropriate_post_path(@post)
+      #inappropriate_post
+        =render partial: 'posts/mark_inappropriate', locals: {post: @post}
+
 
       %h3 Comments
 
@@ -44,12 +42,10 @@
       - unless @post.user.user_image.blank?
         = image_tag @post.user.user_image.thumb.url
         %br
-      %h4
-        Posted:
-        = @post.created_at
+      %h3
+        ="Posted: #{@post.created_at.to_formatted_s(:long_ordinal)}"
         %br
-        Last Update:
-        = @post.updated_at
+        ="Updated: #{@post.updated_at.to_formatted_s(:long_ordinal)}"
 
       - unless @post.attachments.blank?
         %h5 Attachments:

@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
 load_and_authorize_resource
+before_filter :log_post_viewing, only: :show
 
   # GET /posts
   # GET /posts.json
@@ -31,7 +32,12 @@ load_and_authorize_resource
   def mark_inappropriate
     @post = Post.find(params[:id])
     @post.mark_as_inappropriate_by(current_user)
-    redirect_to post_path(@post)
+    # redirect_to post_path(@post)
+
+     respond_to do |format|
+      format.js {}
+     end
+
   end
 
 
@@ -116,4 +122,13 @@ load_and_authorize_resource
       format.json { head :no_content }
     end
   end
+
+
+  private
+
+def log_post_viewing
+  PostViewing.find_or_create_by_user_id_and_post_id(current_user.id, params[:id])
+end
+
+
 end

@@ -3,6 +3,7 @@ class Post < ActiveRecord::Base
   belongs_to :user
   has_many :attachments
   has_many :comments
+  has_many :post_viewings
   attr_accessible :colleague_visible, :content, :non_investor_visible, :post_file, :sharing_pref, :title, :user_id, :tag_list, :tag_tokens, :attachments_attributes
   attr_reader :tag_tokens
   accepts_nested_attributes_for :attachments

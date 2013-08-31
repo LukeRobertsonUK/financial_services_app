@@ -11,11 +11,10 @@
       - if can? :destroy, comment
         = link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' }
         %br
-      -if comment.has_been_flagged_by(current_user)
-        You have flagged this comment as inappropriate
-      -else
-        - unless comment.user == current_user
-          =button_to "flag comment as inappropriate", mark_inappropriate_comment_path(comment)
+      #inappropriate_comment
+        =render partial: 'comments/mark_inappropriate_comment', locals: {comment: comment}
+
+
 - else
   .comments_box
     =comment.content
@@ -27,8 +26,5 @@
       - if can? :destroy, comment
         = link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' }
         %br
-    -if comment.has_been_flagged_by(current_user)
-      You have flagged this comment as inappropriate
-    -else
-      -unless comment.user == current_user
-        =button_to "flag comment as inappropriate", mark_inappropriate_comment_path(comment)
+    #inappropriate_comment
+      =render partial: 'comments/mark_inappropriate_comment', locals: {comment: comment}

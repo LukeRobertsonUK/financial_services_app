@@ -1,0 +1,5 @@
+-if comment.has_been_flagged_by(current_user)
+  You have flagged this comment as inappropriate
+-else
+  - unless comment.user == current_user
+    =button_to "flag comment as inappropriate", mark_inappropriate_comment_path(comment), remote: true

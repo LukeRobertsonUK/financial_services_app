@@ -27,13 +27,17 @@ def show
   def raise_flag
     @user = User.find(params[:id])
     current_user.raise_flag(@user)
-    redirect_to red_flags_path
+    respond_to do |format|
+      format.js {}
+    end
   end
 
   def lower_flag
     @user = User.find(params[:id])
     current_user.lower_flag(@user)
-    redirect_to red_flags_path
+    respond_to do |format|
+      format.js {}
+    end
   end
 
   def support_user

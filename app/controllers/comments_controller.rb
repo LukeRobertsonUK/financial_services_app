@@ -14,7 +14,9 @@ class CommentsController < ApplicationController
  def mark_inappropriate
     @comment = Comment.find(params[:id])
     @comment.mark_as_inappropriate_by(current_user)
-    redirect_to post_path(@comment.post)
+    respond_to do |format|
+      format.js {}
+    end
   end
 
 

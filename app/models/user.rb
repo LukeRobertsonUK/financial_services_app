@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
   has_many :posts
   has_many :comments
   has_one :firm_as_editor, class_name: "Firm", foreign_key: :editor_id
+  has_many :post_viewings
   belongs_to :firm
   accepts_nested_attributes_for :firm
   acts_as_taggable
@@ -57,6 +58,14 @@ end
 
   def full_name
     "#{first_name} #{last_name}"
+  end
+
+  def has_read?(post)
+    PostViewing.where({user_id: self.id, post_id: post.id}).count > 0
+  end
+
+  def first_read(post)
+    PostViewing.where({user_id: self.id, post_id: post.id}).first.created_at
   end
 
   def relationship_with(user)

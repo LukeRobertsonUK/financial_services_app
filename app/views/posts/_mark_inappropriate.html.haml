@@ -1,0 +1,5 @@
+-unless post.user == current_user
+  - if post.has_been_flagged_by(current_user)
+    You have flagged this post as inapporpriate
+  - else
+    = button_to "flag as inappropriate", mark_inappropriate_post_path(post), remote: true
