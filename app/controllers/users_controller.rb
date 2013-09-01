@@ -27,6 +27,7 @@ def show
   def raise_flag
     @user = User.find(params[:id])
     current_user.raise_flag(@user)
+    @flagged_users = ActsAsVotable::Vote.where(vote_scope: "red_flag").map{|vote| vote.votable}.uniq
     respond_to do |format|
       format.js {}
     end
@@ -35,6 +36,7 @@ def show
   def lower_flag
     @user = User.find(params[:id])
     current_user.lower_flag(@user)
+    @flagged_users = ActsAsVotable::Vote.where(vote_scope: "red_flag").map{|vote| vote.votable}.uniq
     respond_to do |format|
       format.js {}
     end
@@ -43,13 +45,19 @@ def show
   def support_user
     @user = User.find(params[:id])
     current_user.vote_in_favour_of(@user)
-    redirect_to red_flags_path
+    @flagged_users = ActsAsVotable::Vote.where(vote_scope: "red_flag").map{|vote| vote.votable}.uniq
+    respond_to do |format|
+      format.js {}
+    end
   end
 
   def remove_support
     @user = User.find(params[:id])
     current_user.remove_favourable_vote_for(@user)
-    redirect_to red_flags_path
+    @flagged_users = ActsAsVotable::Vote.where(vote_scope: "red_flag").map{|vote| vote.votable}.uniq
+    respond_to do |format|
+      format.js {}
+    end
   end
 
   def admin_vote_reset
