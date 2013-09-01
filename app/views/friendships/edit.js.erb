@@ -1,0 +1,2 @@
+$('#friend_requests').html("<p>Accept friend request from <%=escape_javascript(" #{@proposer.full_name}") %></p>")
+$('#friend_requests').append("<%=escape_javascript(render partial: 'friendships/form') %>")

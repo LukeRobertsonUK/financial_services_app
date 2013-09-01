@@ -1,0 +1,29 @@
+
+
+%h1 List of your friends
+.row
+  .span3
+    %h3 Kindred Spirits
+    %ul.connectedSortable.droptrue{"data-field" => "kindred_spirit"}
+      -unless grouped_friends["Kindred Spirit"].blank?
+        - grouped_friends["Kindred Spirit"].each do |friend|
+          = render "friends/friend", locals: {friend: friend}
+
+  .span3
+    %h3 Respected Peers
+    %ul.connectedSortable.droptrue{"data-field" => "respected_peer"}
+      -unless grouped_friends["Respected Peer"].blank?
+        - grouped_friends["Respected Peer"].each do |friend|
+          = render "friends/friend", locals: {friend: friend}
+  .span3
+    %h3 Industry Participants
+    %ul.connectedSortable.droptrue{"data-field" => "industry_participant"}
+      -unless grouped_friends["Industry Participant"].blank?
+        - grouped_friends["Industry Participant"].each do |friend|
+          = render "friends/friend", locals: {friend: friend}
+  .span3
+    %h3 Purgatory
+    %ul.connectedSortable.droptrue{"data-field" => "purgatory"}
+      -unless grouped_friends["Purgatory"].blank?
+        - grouped_friends["Purgatory"].each do |friend|
+          = render "friends/friend", locals: {friend: friend}

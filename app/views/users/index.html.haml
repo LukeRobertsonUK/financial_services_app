@@ -16,4 +16,4 @@
         #red_flag_raiser
           =render partial: 'users/red_flag', locals: {user: user}
       -unless current_user.exceeds_black_ball_limit?
-        = link_to "Befriend", new_friendship_path(proposee_id: user.id)
+        = link_to "Befriend", new_friendship_path(proposee_id: user.id), remote: true

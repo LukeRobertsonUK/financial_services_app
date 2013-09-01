@@ -57,6 +57,7 @@ class FriendshipsController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
+      format.js {}
       format.json { render json: @friendship }
     end
   end
@@ -66,6 +67,11 @@ class FriendshipsController < ApplicationController
     @friendship = Friendship.find(params[:id])
     @proposer = @friendship.proposer
     @proposee = @friendship.proposee
+    respond_to do |format|
+      format.html # new.html.erb
+      format.js {}
+
+    end
   end
 
   # POST /friendships
@@ -75,10 +81,14 @@ class FriendshipsController < ApplicationController
     current_user.un_black_ball(@friendship.proposee)
     respond_to do |format|
       if @friendship.save
+        @grouped_friends = current_user.grouped_friends
         format.html { redirect_to @friendship, notice: "Your Friend Request was sent" }
         format.json { render json: @friendship, status: :created, location: @friendship }
+        format.js {}
       else
         format.html { render action: "new" }
+        @grouped_friends = current_user.grouped_friends
+        format.js {}
         format.json { render json: @friendship.errors, status: :unprocessable_entity }
       end
     end
@@ -94,6 +104,7 @@ class FriendshipsController < ApplicationController
       if @friendship.update_attributes(params[:friendship])
         format.html { redirect_to @friendship, notice: friend_notice}
         format.json { head :no_content }
+        format.js {}
       else
         format.html { render action: "edit" }
         format.json { render json: @friendship.errors, status: :unprocessable_entity }

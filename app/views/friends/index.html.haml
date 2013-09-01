@@ -4,37 +4,13 @@
     - @incoming_friend_requests.each do |friendship|
       %li
         =friendship.proposer.email
-        = link_to "accept friendship", edit_friendship_path(friendship)
+        = link_to "accept friendship", edit_friendship_path(friendship), remote: true
         = link_to "deny friendship", friendship, method: :delete, data: { confirm: 'Are you sure?' }
         = link_to "deny with blackball", friendship_path(friendship, black_ball: true), method: :delete, data: { confirm: 'Are you sure?' }
 
-%h1 List of your friends
-.row
-  .span3
-    %h3 Kindred Spirits
-    %ul.connectedSortable.droptrue{"data-field" => "kindred_spirit"}
-      -unless @grouped_friends["Kindred Spirit"].blank?
-        - @grouped_friends["Kindred Spirit"].each do |friend|
-          = render "friend", locals: {friend: friend}
+#drag_and_drop_friend_list
+  = render partial: 'friends/friends_list', locals: {grouped_friends: @grouped_friends}
 
-  .span3
-    %h3 Respected Peers
-    %ul.connectedSortable.droptrue{"data-field" => "respected_peer"}
-      -unless @grouped_friends["Respected Peer"].blank?
-        - @grouped_friends["Respected Peer"].each do |friend|
-          = render "friend", locals: {friend: friend}
-  .span3
-    %h3 Industry Participants
-    %ul.connectedSortable.droptrue{"data-field" => "industry_participant"}
-      -unless @grouped_friends["Industry Participant"].blank?
-        - @grouped_friends["Industry Participant"].each do |friend|
-          = render "friend", locals: {friend: friend}
-  .span3
-    %h3 Purgatory
-    %ul.connectedSortable.droptrue{"data-field" => "purgatory"}
-      -unless @grouped_friends["Purgatory"].blank?
-        - @grouped_friends["Purgatory"].each do |friend|
-          = render "friend", locals: {friend: friend}
 
 
 
