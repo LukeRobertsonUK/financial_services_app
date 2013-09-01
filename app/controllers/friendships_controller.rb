@@ -98,6 +98,10 @@ class FriendshipsController < ApplicationController
     @friendship = Friendship.find(params[:id])
     (@friendship.is_confirmed? || @friendship.proposer == current_user) ? (friend_notice = "Friendship was successfully updated") :  (friend_notice = "You accepted the friend request")
     @friendship.confirmed = true unless @friendship.proposer == current_user
+    @incoming_friend_requests = Friendship.where({
+          proposee_id: current_user.id,
+          confirmed: nil
+        })
     respond_to do |format|
       if @friendship.update_attributes(params[:friendship])
         @grouped_friends = current_user.grouped_friends

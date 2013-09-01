@@ -42,8 +42,9 @@
               =link_to "My Profile", user_path(current_user)
             %li
               =link_to "Edit Profile", edit_user_registration_path
-            %li
-              =link_to "Site Admin", admin_messages_path
+            -if can? :manage, :all
+              %li
+                =link_to "Site Admin", admin_messages_path
 
 
 
