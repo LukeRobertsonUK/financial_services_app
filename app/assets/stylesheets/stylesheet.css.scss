@@ -11,6 +11,17 @@ body {
 
 #friend_requests{
   background: white;
+  position: fixed;
+  padding: 10px;
+  top: 50%;
+  left: 50%;
+  width: 30em;
+  height: 10em;
+  margin-left: -15em;
+  border-radius: 5px;
+  border: 1px solid #dddddd;
+  box-shadow:rgba(0,0,0,0.5) 0px 0px 24px;
+  display: none;
 }
 
 #title_bar {

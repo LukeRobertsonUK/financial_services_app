@@ -1,4 +1,4 @@
-- friend = locals[:friend]
+- friend = locals[:friend] if defined?(locals)
 
 %li{:class => "ui-state-default", "data-user_id" => friend.id, :id => "user_#{friend.id}"}
   =image_tag friend.user_image.mini.url

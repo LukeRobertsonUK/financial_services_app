@@ -81,13 +81,11 @@ class FriendshipsController < ApplicationController
     current_user.un_black_ball(@friendship.proposee)
     respond_to do |format|
       if @friendship.save
-        @grouped_friends = current_user.grouped_friends
         format.html { redirect_to @friendship, notice: "Your Friend Request was sent" }
         format.json { render json: @friendship, status: :created, location: @friendship }
         format.js {}
       else
         format.html { render action: "new" }
-        @grouped_friends = current_user.grouped_friends
         format.js {}
         format.json { render json: @friendship.errors, status: :unprocessable_entity }
       end
@@ -102,10 +100,12 @@ class FriendshipsController < ApplicationController
     @friendship.confirmed = true unless @friendship.proposer == current_user
     respond_to do |format|
       if @friendship.update_attributes(params[:friendship])
+        @grouped_friends = current_user.grouped_friends
         format.html { redirect_to @friendship, notice: friend_notice}
         format.json { head :no_content }
         format.js {}
       else
+        @grouped_friends = current_user.grouped_friends
         format.html { render action: "edit" }
         format.json { render json: @friendship.errors, status: :unprocessable_entity }
       end
@@ -123,9 +123,13 @@ class FriendshipsController < ApplicationController
     end
 
     @friendship.destroy
-
+    @incoming_friend_requests = Friendship.where({
+          proposee_id: current_user.id,
+          confirmed: nil
+        })
     respond_to do |format|
       format.html { redirect_to friendships_url }
+      format.js{}
       format.json { head :no_content }
     end
   end

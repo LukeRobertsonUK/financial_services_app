@@ -1,2 +1,3 @@
 $('#friend_requests').html("<p>Propose new friendship with<%=escape_javascript(" #{@proposee.full_name}") %></p>")
 $('#friend_requests').append("<%=escape_javascript(render partial: 'friendships/form') %>")
+$('#friend_requests').fadeIn(300);
