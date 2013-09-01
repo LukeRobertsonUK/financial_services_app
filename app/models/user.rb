@@ -40,7 +40,7 @@ end
 
 aasm do
   state :ok, initial: true
-  state :wall_of_shamed
+  state :wall_of_shamed, :before_enter => :generate_wall_of_shame_admin_alert
 
   event :wall do
     transitions :from => :ok, :to => :wall_of_shamed
@@ -51,6 +51,15 @@ aasm do
   end
 
 end
+
+  def generate_wall_of_shame_admin_alert
+     AdminMessage.create({
+      subject_id: self.id,
+      subject_class: self.class.name,
+      content: "Added to Wall Of Shame"
+    })
+  end
+
 
   def interests_string
     investment_styles.map{|style| style.name}.join(", ")

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  subject_id: 1
+  subject_class: MyString
+  seen_by_admin: false
+  addressed_by_admin: false
+
+two:
+  subject_id: 1
+  subject_class: MyString
+  seen_by_admin: false
+  addressed_by_admin: false

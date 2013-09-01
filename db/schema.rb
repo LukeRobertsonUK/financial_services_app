@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130831185624) do
+ActiveRecord::Schema.define(:version => 20130901142143) do
+
+  create_table "admin_messages", :force => true do |t|
+    t.integer  "subject_id"
+    t.string   "subject_class"
+    t.boolean  "seen_by_admin"
+    t.boolean  "addressed_by_admin"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.string   "content"
+  end
 
   create_table "attachments", :force => true do |t|
     t.string   "attachment_name"

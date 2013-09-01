@@ -5,6 +5,11 @@ before_filter :log_post_viewing, only: :show
   # GET /posts
   # GET /posts.json
   def index
+
+    if params[:q]
+      params[:q]["updated_at_lteq"] = (DateTime.parse(params[:q]["updated_at_lteq"]) + 1).utc unless params[:q]["updated_at_lteq"].blank?
+    end
+
     @q = Post.where(user_id:current_user.id).search(params[:q])
     @user_posts = @q.result(distinct: true)
     @array_of_friends_posts_ids = current_user.friends_visible_posts.map{|post| post.id}

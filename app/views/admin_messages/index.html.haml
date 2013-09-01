@@ -1,0 +1,12 @@
+%h1 Admin Messsages:
+%ul
+-@admin_messages.each do |message|
+  %li
+    =message.message_string
+    -case message.subject_class
+      -when "User"
+        =link_to "#{message.subject_of_message.full_name}", user_path(message.subject_of_message)
+      -when "Post"
+        =link_to "Review", post_path(message.subject_of_message)
+      -when "Comment"
+        =link_to "Review", post_path(message.subject_of_message.post)

@@ -18,21 +18,23 @@ class RegistrationsController < Devise::RegistrationsController
       account_update_params["investment_style_list"] = (account_update_params["investment_style_list"] << params["extra_tags"].split(", ")).flatten
     end
 
-
-    existing_firm =  Firm.where({
-      name: sign_up_params["firm_attributes"]["name"],
-      city: sign_up_params["firm_attributes"]["city"],
-      postcode: sign_up_params["firm_attributes"]["postcode"]
-    }).first
+    if sign_up_params["firm_attributes"]
+      existing_firm =  Firm.where({
+        name: sign_up_params["firm_attributes"]["name"],
+        city: sign_up_params["firm_attributes"]["city"],
+        postcode: sign_up_params["firm_attributes"]["postcode"]
+      }).first
+    end
 
    if existing_firm
       sign_up_params.delete("firm_attributes")
       build_resource(sign_up_params)
       resource.firm_id = existing_firm.id
    else
-
-      if sign_up_params["firm_attributes"]["name"].blank?
-        sign_up_params.delete("firm_attributes")
+      if sign_up_params["firm_attributes"]
+        if sign_up_params["firm_attributes"]["name"].blank?
+          sign_up_params.delete("firm_attributes")
+        end
       end
       build_resource(sign_up_params)
       unless params["organization_id"].blank?
@@ -41,10 +43,11 @@ class RegistrationsController < Devise::RegistrationsController
    end
 
     if resource.save
-
-      unless resource.firm.editor
-        resource.firm.editor = resource
-        resource.firm.save!
+      if resource.firm
+        unless resource.firm.editor
+          resource.firm.editor = resource
+          resource.firm.save!
+        end
       end
 
       if resource.active_for_authentication?
@@ -129,9 +132,12 @@ class RegistrationsController < Devise::RegistrationsController
         resource.firm = new_firm
         resource.save!
       end
-      unless resource.firm.editor
-        resource.firm.editor = resource
-        resource.firm.save!
+
+      if resource.firm
+        unless resource.firm.editor
+          resource.firm.editor = resource
+          resource.firm.save!
+        end
       end
 
       if is_navigational_format?

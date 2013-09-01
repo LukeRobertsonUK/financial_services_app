@@ -15,13 +15,13 @@
         %br
         = f.text_field :user_first_name_or_user_last_name_or_user_investment_styles_name_or_user_email_or_user_business_or_user_firm_name_cont
       .search_bar_field
-        = f.label :created_at_gteq, "From"
+        = f.label :updated_at_gteq, "From"
         %br
-        = f.text_field :created_at_gteq, class: "datepicker"
+        = f.text_field :updated_at_gteq, class: "datepicker"
       .search_bar_field
-        = f.label :created_at_lteq, "To"
+        = f.label :updated_at_lteq, "To"
         %br
-        = f.text_field :created_at_lteq, class: "datepicker"
+        = f.text_field :updated_at_lteq, class: "datepicker"
       = f.submit "Search", :class => 'button', id: "post_search_form_button"
       %a#clear_form clear?
 

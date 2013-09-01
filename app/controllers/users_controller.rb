@@ -27,7 +27,7 @@ def show
   def raise_flag
     @user = User.find(params[:id])
     current_user.raise_flag(@user)
-    @flagged_users = ActsAsVotable::Vote.where(vote_scope: "red_flag").map{|vote| vote.votable}.uniq
+    @flagged_users = User.where(aasm_state: "wall_of_shamed").sort_by{|user| user.red_flag_votes}.reverse
     respond_to do |format|
       format.js {}
     end
@@ -36,7 +36,7 @@ def show
   def lower_flag
     @user = User.find(params[:id])
     current_user.lower_flag(@user)
-    @flagged_users = ActsAsVotable::Vote.where(vote_scope: "red_flag").map{|vote| vote.votable}.uniq
+    @flagged_users = User.where(aasm_state: "wall_of_shamed").sort_by{|user| user.red_flag_votes}.reverse
     respond_to do |format|
       format.js {}
     end
@@ -45,7 +45,7 @@ def show
   def support_user
     @user = User.find(params[:id])
     current_user.vote_in_favour_of(@user)
-    @flagged_users = ActsAsVotable::Vote.where(vote_scope: "red_flag").map{|vote| vote.votable}.uniq
+    @flagged_users = User.where(aasm_state: "wall_of_shamed").sort_by{|user| user.red_flag_votes}.reverse
     respond_to do |format|
       format.js {}
     end
@@ -54,7 +54,7 @@ def show
   def remove_support
     @user = User.find(params[:id])
     current_user.remove_favourable_vote_for(@user)
-    @flagged_users = ActsAsVotable::Vote.where(vote_scope: "red_flag").map{|vote| vote.votable}.uniq
+    @flagged_users = User.where(aasm_state: "wall_of_shamed").sort_by{|user| user.red_flag_votes}.reverse
     respond_to do |format|
       format.js {}
     end

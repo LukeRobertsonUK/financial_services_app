@@ -6,6 +6,7 @@ FinancialServicesApp::Application.routes.draw do
     end
   end
 
+  resources :admin_messages
 
   resources :posts do
     # get :autocomplete_tag_name, :on => :collection
