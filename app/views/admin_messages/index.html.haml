@@ -10,3 +10,5 @@
         =link_to "Review", post_path(message.subject_of_message)
       -when "Comment"
         =link_to "Review", post_path(message.subject_of_message.post)
+    |
+    = button_to 'Mark Resolved', mark_resolved_admin_message_path(message)

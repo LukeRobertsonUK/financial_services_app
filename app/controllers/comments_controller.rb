@@ -19,6 +19,16 @@ class CommentsController < ApplicationController
     end
   end
 
+  def reset
+    @comment = Comment.find(params[:id])
+    @comment.manual_vote_reset_by(current_user)
+    @post = @comment.post
+    # redirect_to post_path(@comment.post)
+    respond_to do |format|
+      format.js {}
+    end
+  end
+
 
   # GET /comments/1
   # GET /comments/1.json

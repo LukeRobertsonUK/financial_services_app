@@ -3,15 +3,21 @@ FinancialServicesApp::Application.routes.draw do
   resources :comments do
     member do
       post 'mark_inappropriate', to: "comments#mark_inappropriate"
+      post 'reset_comment_vote', to: "comments#reset"
     end
   end
 
-  resources :admin_messages
+  resources :admin_messages do
+    member do
+      post "mark_resolved", to: "admin_messages#mark_resolved"
+    end
+  end
 
   resources :posts do
     # get :autocomplete_tag_name, :on => :collection
     member do
       post 'mark_inappropriate', to: "posts#mark_inappropriate"
+      post 'reset_post_vote', to: "posts#reset"
     end
   end
 

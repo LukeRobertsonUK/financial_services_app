@@ -69,7 +69,12 @@ def show
   def admin_vote_reset
     @user = User.find(params[:id])
     current_user.manual_vote_reset_for(@user)
-    redirect_to red_flags_path
+    @flagged_users = User.where(aasm_state: "wall_of_shamed").sort_by{|user| user.red_flag_votes}.reverse
+
+    # redirect_to red_flags_path
+    respond_to do |format|
+      format.js {}
+    end
   end
 
 end

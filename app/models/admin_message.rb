@@ -1,5 +1,6 @@
 class AdminMessage < ActiveRecord::Base
   attr_accessible :addressed_by_admin, :seen_by_admin, :subject_class, :subject_id, :content
+  default_scope order('created_at DESC')
 
 
 
@@ -12,7 +13,7 @@ class AdminMessage < ActiveRecord::Base
   end
 
   def message_string
-    "#{subject_class}: #{content}"
+    "#{self.created_at.to_formatted_s(:long_ordinal)}: #{subject_class} #{content}"
   end
 
 

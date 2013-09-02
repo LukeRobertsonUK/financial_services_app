@@ -1,0 +1,1 @@
+  $('#users_on_wall_of_shame').html("<%= escape_javascript(render partial: 'red_flags/walled_users', locals: {users: @flagged_users}) %>");

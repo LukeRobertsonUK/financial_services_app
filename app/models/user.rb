@@ -39,7 +39,7 @@ end
 
 
 aasm do
-  state :ok, initial: true
+  state :ok, initial: true, :before_enter => :mark_admin_alert_resolved
   state :wall_of_shamed, :before_enter => :generate_wall_of_shame_admin_alert
 
   event :wall do
@@ -56,10 +56,20 @@ end
      AdminMessage.create({
       subject_id: self.id,
       subject_class: self.class.name,
-      content: "Added to Wall Of Shame"
+      content: "added to Wall of Shame"
     })
   end
 
+def mark_admin_alert_resolved
+  message = AdminMessage.where({
+    subject_id: self.id,
+    subject_class: self.class.name
+    }).first
+
+  (message.addressed_by_admin = true) if message
+  message.save! if message
+
+end
 
   def interests_string
     investment_styles.map{|style| style.name}.join(", ")

@@ -25,6 +25,10 @@
       #inappropriate_post
         =render partial: 'posts/mark_inappropriate', locals: {post: @post}
 
+      - if can? :manage, :all
+        #admin_inappropriate_post_reset
+          = render partial: 'posts/admin_reset_button'
+
 
       %h3 Comments
 
@@ -47,14 +51,7 @@
         %br
         ="Updated: #{@post.updated_at.to_formatted_s(:long_ordinal)}"
 
-      - unless @post.attachments.blank?
-        %h5 Attachments:
-        %ul
-          - @post.attachments.each do |attachment|
-            %li
-              = attachment.attachment_name
 
-              = link_to "Download", attachment.attachment_name.url
 
       - if can? :edit, @post
         = link_to 'Edit', edit_post_path(@post)

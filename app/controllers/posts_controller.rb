@@ -45,6 +45,15 @@ before_filter :log_post_viewing, only: :show
 
   end
 
+  def reset
+    @post = Post.find(params[:id])
+    @post.manual_vote_reset_by(current_user)
+    # redirect_to post_path(@post)
+     respond_to do |format|
+      format.js {}
+     end
+  end
+
 
   # GET /posts/1
   # GET /posts/1.json

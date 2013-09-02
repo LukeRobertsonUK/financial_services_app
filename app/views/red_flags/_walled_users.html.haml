@@ -23,4 +23,4 @@
       = user.red_flag_balance
     %br
     - if can? :admin_vote_reset, user
-      = button_to "Administrator vote reset", admin_vote_reset_path(id: user.id)
+      = button_to "Administrator vote reset", admin_vote_reset_path(id: user.id), remote: true

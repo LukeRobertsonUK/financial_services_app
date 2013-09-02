@@ -1,6 +1,6 @@
 
 - if comment.visible_poster_only
-  - if (comment.user == current_user) || (comment.post.user == current_user)
+  - if ((comment.user == current_user ) || (comment.post.user == current_user)) || (current_user.role == "admin")
     .comments_box
       =comment.content
       %br
@@ -13,7 +13,10 @@
         %br
       #inappropriate_comment
         =render partial: 'comments/mark_inappropriate_comment', locals: {comment: comment}
-
+      -if can? :manage, :all
+        - if comment.aasm_state == "inappropriate"
+          .admin_inappropriate_comment_reset
+            = button_to "Comment OK: Reset Vote", reset_comment_vote_comment_path(id: comment.id), remote: true
 
 - else
   .comments_box
@@ -28,3 +31,7 @@
         %br
     #inappropriate_comment
       =render partial: 'comments/mark_inappropriate_comment', locals: {comment: comment}
+    -if can? :manage, :all
+      - if comment.aasm_state == "inappropriate"
+        .admin_inappropriate_comment_reset
+          = button_to "Comment OK: Reset Vote", reset_comment_vote_comment_path(id: comment.id), remote: true

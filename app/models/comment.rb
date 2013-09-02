@@ -6,7 +6,7 @@ class Comment < ActiveRecord::Base
   acts_as_votable
 
   aasm do
-  state :ok, initial: true
+  state :ok, initial: true, :before_enter => :mark_admin_alert_resolved
   state :inappropriate, :before_enter => :generate_inappropriate_admin_alert
 
   event :make_inappropriate do
@@ -25,10 +25,20 @@ def generate_inappropriate_admin_alert
   AdminMessage.create({
     subject_id: self.id,
     subject_class: self.class.name,
-    content: "Marked Inappropriate"
+    content: "marked inappropriate"
   })
 end
 
+def mark_admin_alert_resolved
+  message = AdminMessage.where({
+    subject_id: self.id,
+    subject_class: self.class.name
+    }).first
+
+  (message.addressed_by_admin = true) if message
+  message.save! if message
+
+end
 
 
 
