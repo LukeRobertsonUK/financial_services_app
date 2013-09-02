@@ -187,10 +187,10 @@ end
     user.upvote_from self, vote_scope: "red_flag"
     unless user.aasm_state == "wall_of_shamed"
       if user.votes_at_manual_reset
-        user.wall if (user.red_flag_balance - user.votes_at_manual_reset) == 5
+        user.wall! if (user.red_flag_balance - user.votes_at_manual_reset) == 5
         user.save!
       else
-        user.wall if user.red_flag_balance == 5
+        user.wall! if user.red_flag_balance == 5
         user.save!
       end
     end
@@ -200,10 +200,10 @@ end
     user.unliked_by :voter => self, vote_scope: "red_flag"
     unless user.aasm_state == "ok"
       if user.votes_at_manual_reset
-        user.make_ok if (user.red_flag_balance - user.votes_at_manual_reset) == 0
+        user.make_ok! if (user.red_flag_balance - user.votes_at_manual_reset) == 0
         user.save!
       else
-        user.make_ok if user.red_flag_balance == 0
+        user.make_ok! if user.red_flag_balance == 0
         user.save!
       end
     end
@@ -213,10 +213,10 @@ end
     user.downvote_from self, vote_scope: "red_flag"
     unless user.aasm_state == "ok"
       if user.votes_at_manual_reset
-        user.make_ok if (user.red_flag_balance - user.votes_at_manual_reset) == 0
+        user.make_ok! if (user.red_flag_balance - user.votes_at_manual_reset) == 0
         user.save!
       else
-        user.make_ok if user.red_flag_balance == 0
+        user.make_ok! if user.red_flag_balance == 0
         user.save!
       end
     end
@@ -226,10 +226,10 @@ end
     user.undisliked_by :voter => self, vote_scope: "red_flag"
     unless user.aasm_state == "wall_of_shamed"
       if user.votes_at_manual_reset
-        user.wall if (user.red_flag_balance - user.votes_at_manual_reset) == 5
+        user.wall! if (user.red_flag_balance - user.votes_at_manual_reset) == 5
         user.save!
       else
-        user.wall if user.red_flag_balance == 5
+        user.wall! if user.red_flag_balance == 5
         user.save!
       end
     end
@@ -237,7 +237,7 @@ end
 
   def manual_vote_reset_for(user)
     if self.role == "admin"
-      user.make_ok
+      user.make_ok!
       user.votes_at_manual_reset =user.red_flag_balance
       user.save!
     end

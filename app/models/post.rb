@@ -88,11 +88,11 @@ end
     self.upvote_from user, vote_scope: "inappropriate"
     unless self.aasm_state == "inappropriate"
       if votes_at_manual_reset
-        self.make_inappropriate if (self.votes.count - votes_at_manual_reset) == 5
+        self.make_inappropriate! if (self.votes.count - votes_at_manual_reset) == 5
         self.save!
 
       else
-        self.make_inappropriate if self.votes.count == 5
+        self.make_inappropriate! if self.votes.count == 5
         self.save!
 
       end
@@ -101,7 +101,7 @@ end
 
   def manual_vote_reset_by(user)
     if user.role == "admin"
-      self.make_ok
+      self.make_ok!
       self.votes_at_manual_reset =self.votes.count
       self.save!
 

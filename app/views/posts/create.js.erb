@@ -4,7 +4,7 @@ $('#remote_post_form').animate({
       }, 500);
 
 setTimeout(function(){
-  $('#remote_post_form').html("<%=escape_javascript(render 'form') %>");
+  $('#remote_post_form').html("<%=escape_javascript(render 'posts/ajax_form') %>");
         }, 500);
 
 $('#users_post_list').html("<%= escape_javascript(render partial: 'post', locals: {posts: @user_posts}) %>");

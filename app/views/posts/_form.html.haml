@@ -1,38 +1,37 @@
-= nested_form_for(@post, remote: true) do |f|
-  - if @post.errors.any?
-    #error_explanation
-      %h2
-        = pluralize(@post.errors.count, "error")
-        prohibited this post from being saved:
-      %ul
-        - @post.errors.full_messages.each do |msg|
-          %li= msg
-  =f.hidden_field :user_id, {value: current_user.id}
-  .row
-    .span8.form_column
-      .field
-        = f.label :title
-        %br/
-        = f.text_field :title
-      .field
-        = f.label :tag_tokens, "Tags (separated by commas)"
-        %br/
-        = f.text_field :tag_tokens, :id => "post_tags", "data-pre" => @post.tags.map(&:attributes).to_json
-      .field
-        = f.label :content
-        %br/
-        = f.text_area :content, class: "tinymce", rows: 15, cols: 120
-        = tinymce
-    .span3.form_column
-      .field
-        = f.label :sharing_pref
-        %br/
-        = f.select :sharing_pref, ['Kindred Spirit', 'Respected Peer', 'Industry Participant']
-      .field.check_box
-        = f.check_box :colleague_visible
-        = f.label :colleague_visible, "Visible to colleagues?"
-      .field.check_box
-        = f.check_box :non_investor_visible
-        = f.label :non_investor_visible, "Visible to non-investors?"
-      .actions
-        = f.submit
+- if @post.errors.any?
+  #error_explanation
+    %h2
+      = pluralize(@post.errors.count, "error")
+      prohibited this post from being saved:
+    %ul
+      - @post.errors.full_messages.each do |msg|
+        %li= msg
+=f.hidden_field :user_id, {value: current_user.id}
+.row
+  .span8.form_column
+    .field
+      = f.label :title
+      %br/
+      = f.text_field :title
+    .field
+      = f.label :tag_tokens, "Tags (separated by commas)"
+      %br/
+      = f.text_field :tag_tokens, :id => "post_tags", "data-pre" => @post.tags.map(&:attributes).to_json
+    .field
+      = f.label :content
+      %br/
+      = f.text_area :content, class: "tinymce", rows: 15, cols: 120
+      = tinymce
+  .span3.form_column
+    .field
+      = f.label :sharing_pref
+      %br/
+      = f.select :sharing_pref, ['Kindred Spirit', 'Respected Peer', 'Industry Participant']
+    .field.check_box
+      = f.check_box :colleague_visible
+      = f.label :colleague_visible, "Visible to colleagues?"
+    .field.check_box
+      = f.check_box :non_investor_visible
+      = f.label :non_investor_visible, "Visible to non-investors?"
+    .actions
+      = f.submit

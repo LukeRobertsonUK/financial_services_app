@@ -28,6 +28,9 @@ def show
     @user = User.find(params[:id])
     current_user.raise_flag(@user)
     @flagged_users = User.where(aasm_state: "wall_of_shamed").sort_by{|user| user.red_flag_votes}.reverse
+    @users = User.all
+    @current_users_friends = current_user.all_friends
+    @visible_users = @users - @current_users_friends - [current_user]
     respond_to do |format|
       format.js {}
     end
@@ -37,6 +40,9 @@ def show
     @user = User.find(params[:id])
     current_user.lower_flag(@user)
     @flagged_users = User.where(aasm_state: "wall_of_shamed").sort_by{|user| user.red_flag_votes}.reverse
+    @users = User.all
+    @current_users_friends = current_user.all_friends
+    @visible_users = @users - @current_users_friends - [current_user]
     respond_to do |format|
       format.js {}
     end
