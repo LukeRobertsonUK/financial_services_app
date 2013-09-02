@@ -1,5 +1,5 @@
-if($('#red_flag_raiser').length >0){
-  $('#red_flag_raiser').html("<%= escape_javascript(render partial: 'users/red_flag') %>");
+if($('#red_flag_raiser_' + <%=@user.id%>).length >0){
+  $('#red_flag_raiser_' + <%=@user.id%>).html("<%= escape_javascript(render partial: 'users/red_flag', locals: {user: @user}) %>");
 }
 
 if($('#users_on_wall_of_shame').length >0){

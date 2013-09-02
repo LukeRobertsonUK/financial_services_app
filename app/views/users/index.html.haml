@@ -6,7 +6,12 @@
 
 
 %h3 current user will come here to search for new friends
-#user_tag_cloud
-#red_flag_raiser
-  =render partial: 'users/red_flag'
+
+
+= search_form_for @q, remote: true, :url => url_for(:users_controller => "q", :action => "index") do |f|
+  = f.text_field :first_name_or_last_name_or_investment_styles_name_or_email_or_business_or_firm_name_cont
+  = f.submit "Search", :class => 'button'
+
+#list_of_users
+  =render partial: 'users/list_of_users'
 

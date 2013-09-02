@@ -26,7 +26,9 @@ class Ability
         # can :read, RedFlags
 
         can :create, Post
-        can :read, Post
+        can :read, Post do |p|
+            (p.shareable_with(user)) || p.user_id == user.id
+        end
         can :edit, Post do |p|
             p.user_id == user.id
         end
@@ -42,7 +44,9 @@ class Ability
         end
 
         can :create, Comment
-        can :read, Comment
+        can :read, Comment do |c|
+            (c.post.shareable_with(user)) || c.post.user_id == user.id
+        end
         can :edit, Comment do |c|
             c.user_id == user.id
         end

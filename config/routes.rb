@@ -8,6 +8,7 @@ FinancialServicesApp::Application.routes.draw do
   end
 
   resources :admin_messages do
+    get 'page/:page', action: :index, on: :collection
     member do
       post "mark_resolved", to: "admin_messages#mark_resolved"
     end
@@ -46,8 +47,10 @@ FinancialServicesApp::Application.routes.draw do
 
 
   get'/tags', to: "tags#index", as: 'tags'
-
+  get '/tag_count.json', to: 'application#tag_count', format: false
+  get '/tag_count_post.json', to: 'application#tag_count_post', format: false
   root to: "users#index"
+
 
 
 end

@@ -12,3 +12,36 @@
         =link_to "Review", post_path(message.subject_of_message.post)
     |
     = button_to 'Mark Resolved', mark_resolved_admin_message_path(message)
+
+= paginate @admin_messages
+
+
+#admin_user_search
+  = search_form_for @q, :url => url_for(:action => "index") do |f|
+    = hidden_field_tag :as, :q
+    = f.text_field :first_name_or_last_name_or_investment_styles_name_or_email_or_business_or_firm_name_cont
+    = f.submit "Search", :class => 'button'
+
+%ul
+-@users.each do |user|
+  %li
+    = user.full_name
+
+= paginate @users, param_name: 'page_2'
+
+
+
+#posts_search
+  = search_form_for @p, :url => url_for(:action => "index") do |f|
+    = hidden_field_tag :as, :p
+    = f.text_field :title_or_content_or_tags_name_or_comments_content_cont
+    = f.submit "Search", :class => 'button'
+
+%ul
+-@posts.each do |post|
+  %li
+    = post.title
+    |
+    =post.updated_at
+
+= paginate @posts, param_name: 'page_3'

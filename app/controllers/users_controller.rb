@@ -1,13 +1,18 @@
 class UsersController < ApplicationController
   load_and_authorize_resource
   def index
-    @users = User.all
+
+    @q = User.search(params[:q])
+    @users = @q.result(:distinct => true)
+
+
     @current_users_friends = current_user.all_friends
     @visible_users = @users - @current_users_friends - [current_user]
     @tag_count = User.tag_counts_on(:investment_styles).map {|tag| {text: tag.name, weight: tag.count}}
 
     respond_to do |format|
       format.html # index.html.erb
+      format.js {}
       format.json { render json: @tag_count }
     end
   end

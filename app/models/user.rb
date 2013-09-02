@@ -9,6 +9,11 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :biography, :user_image, :disclaimer, :business, :firm_id, :firm_attributes, :tag_list, :investment_style_list, :user_image_cache, :remove_user_image
   # attr_accessible :title, :body
+
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+  validates :business, presence: true
+
   mount_uploader :user_image, UserImageUploader
   has_many :friendships_as_proposer, class_name: "Friendship", foreign_key: :proposer_id
   has_many :friendships_as_proposee, class_name: "Friendship", foreign_key: :proposee_id
@@ -21,12 +26,14 @@ class User < ActiveRecord::Base
   acts_as_taggable
   acts_as_taggable_on "investment_styles"
   acts_as_votable
+  default_scope order('last_name')
 
 
 
-  INDUSTRY_INVOLVEMENTS = ["Investor", "Broker", "Banker", "Journalist", "Corporate", "Recruiter"]
+  INDUSTRY_INVOLVEMENTS = ["Investor", "Broker", "Banker", "Journalist", "Corporate", "Recruiter", "Other"]
   SHARING_PREFERENCES = ['Kindred Spirit', 'Respected Peer', 'Industry Participant']
   INVESTMENT_STYLES = {
+    "Asset Classes" => ["Equities", "Fixed Income", "Covertibles", "Futures & Options", "Commodities", "FX", "Rates"],
     "Market Capitalization" => ["Mega-cap", "Large-cap", "Mid-cap", "Small-cap", "Micro-cap"],
     "Region" => ["Global", "EAFE", "Developed Markers", "Emerging Markets", "Europe", "Asia ex-Japan", "Japan", "Country", "Latin America"],
     "Time Horizon" => ["Very Long Term", "Long Term", "Medium Term", "Short Term", "Very Short Term", "Intra-day"],

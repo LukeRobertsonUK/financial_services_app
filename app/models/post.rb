@@ -1,5 +1,8 @@
 class Post < ActiveRecord::Base
   include AASM
+
+  validates :title, presence: true
+
   belongs_to :user
   has_many :attachments
   has_many :comments
@@ -10,7 +13,7 @@ class Post < ActiveRecord::Base
   default_scope order('updated_at DESC')
   acts_as_taggable
   acts_as_votable
-
+  before_destroy :delete_comments
 
 aasm do
   state :ok, initial: true, :before_enter => :mark_admin_alert_resolved
@@ -27,6 +30,11 @@ aasm do
   end
 
 end
+
+def delete_comments
+  Comment.where(post_id: self.id).each{|comment| comment.destroy}
+end
+
 
 
 def generate_inappropriate_admin_alert

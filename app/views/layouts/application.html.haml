@@ -2,6 +2,7 @@
 %html
   %head
     %title FinancialServicesApp
+    %link{:href => "http://fonts.googleapis.com/css?family=Droid+Sans", :rel => "stylesheet", :type => 'text/css'}
     %link{:href => "http://fonts.googleapis.com/css?family=Oxygen", :rel => "stylesheet", :type => "text/css"}
     %link{:href => "http://fonts.googleapis.com/css?family=Roboto", :rel => "stylesheet", :type => "text/css"}
     = stylesheet_link_tag  "application", :media => "all"
@@ -27,29 +28,52 @@
           You have received 10 or more black balls within the last 30 days and, therefore, are unable to send friend requests
       %h1.hoot_box
         HootBox
-      #nav
-        %ul
-          %li
-            =link_to "Home", posts_path
-          %li
-            =link_to "Friends", friends_path
-          %li
-            =link_to "Find Friends", users_path
-          %li
-            =link_to "Wall of Shame", red_flags_path
-          -if current_user
+      - if current_user
+        #nav
+          %ul
             %li
-              =link_to "My Profile", user_path(current_user)
+              =link_to "Home", posts_path
             %li
-              =link_to "Edit Profile", edit_user_registration_path
-            -if can? :manage, :all
+              =link_to "Friends", friends_path
+            %li
+              =link_to "Find Friends", users_path
+            %li
+              =link_to "Wall of Shame", red_flags_path
+            -if current_user
               %li
-                =link_to "Site Admin", admin_messages_path
+                =link_to "My Profile", user_path(current_user)
+              %li
+                =link_to "Edit Profile", edit_user_registration_path
+              -if can? :manage, :all
+                %li
+                  =link_to "Site Admin", admin_messages_path
+      -else
+        %p.introduction Intellectual content from your global network of investment professionals
+
+    -unless current_user
+
+
+      =yield
+      .container.landing_page
 
 
 
 
-    .container
-      = yield
+
+        .row
+          .span6
+            #user_tag_cloud
+              .human_capital
+                %h1 HUMAN
+          .span6
+            #post_tag_cloud
+              .human_capital
+                %h1 CAPITAL
+
+
+
+    -if current_user
+      .container
+        = yield
     #friend_requests
     #incoming_friend_request

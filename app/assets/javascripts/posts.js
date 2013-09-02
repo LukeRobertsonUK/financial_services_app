@@ -1,12 +1,17 @@
  $(function() {
 
+if($('#admin_user_search').length == 0){
   $('#q_title_or_content_or_tags_name_or_comments_content_cont').on('keyup', function(){
     $('#post_search').submit();
   })
+}
+
+if($('#admin_user_search').length == 0){
 
    $('#q_user_first_name_or_user_last_name_or_user_investment_styles_name_or_user_email_or_user_business_or_user_firm_name_cont').on('keyup', function(){
     $('#post_search').submit();
   })
+ }
 
   $(function() {
 
@@ -49,6 +54,7 @@
         height: "toggle",
         opacity: 1
       }, 500);
+
       $('#new_post').html('Hide Form')
     }else{
       $('#remote_post_form').animate({

@@ -16,7 +16,7 @@ class Firm < ActiveRecord::Base
   end
 
   def to_string
-    "#{name} - #{full_street_address}"
+    "#{name}, #{city}"
   end
 
 

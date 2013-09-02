@@ -2,6 +2,7 @@
 $title_font: 'Oxygen', sans-serif;
 $roboto: 'Roboto', sans-serif;
 $electric_blue: #2646EA;
+$droid: 'Droid Sans', sans-serif;
 
 body {
     background: image_url('ETTradingFloor.jpg') no-repeat center center fixed;
@@ -50,7 +51,7 @@ body {
 }
 
 .hoot_box {
-  font-family: $title_font;
+  font-family: $droid;
   font-weight: bold;
   color: white;
   font-size: 6em;
@@ -79,10 +80,42 @@ body {
   position: relative;
 }
 
+.container.landing_page{
+  background: none;
+  position: relative
+}
+
+.human_capital {
+  position: absolute;
+  top: 225px;
+  left: 0%;
+  z-index: 10;
+  text-shadow: 0.0em 0.0em 0.4em white;
+  background: rgba(0,0,0,0.6);
+  width: 100%;
+  text-align: center;
+}
+
+.human_capital h1 {
+  font-size: 6em;
+  color: white;
+  padding: 10px;
+
+}
+
 .search_bar_field {
   display: inline-block;
   text-align: left;
 
+}
+
+
+
+#login_box {
+background: rgba(0,0,0,0.7);
+
+z-index: 20;
+margin_bottom: 20px !important;
 }
 
 #control_bar {
@@ -188,10 +221,11 @@ body {
 
 .check_box {
   display: inline-block;
-  background: #eeeeee;
-  border: 2px solid white;
-  padding: 3px;
-  border-radius: 5px;
+  border: 1px solid #dddddd;
+  padding: 2px;
+  border-radius: 2px;
+  margin-bottom: 3px;
+  background: white;
 }
 
 .post_title_bar h1 {
@@ -269,10 +303,7 @@ a.clicker {
   text-decoration: underline;
 }
 
-div.jqcloud span.w10 {
-  line-height: 60px !important;
-  text-shadow: 0.0em 0.0em 0.2em white;
-}
+
 
 .list_view_of_posts {
   background: white;
@@ -304,13 +335,160 @@ div.jqcloud span.w10 {
 
 }
 
-#user_tag_cloud {
-  background: #eeeeee;
-  border-radius: 10px;
-  height: 400px;
-  width: 50%;
+.welcome {
+  text-align: center;
 }
 
+
+h1.welcome {
+  font-family: $droid;
+  color: white;
+  font-size: 3em;
+}
+
+h1.form_heading {
+  font-family: $title_font;
+  background: white;
+  padding: 10px;
+
+}
+
+.inner_column {
+  padding: 10px;
+  position: relative;
+}
+
+.sign_up_field {
+  display: inline-block;
+
+}
+
+.your_details {
+  display: none;
+}
+
+.investment_interests {
+  display: none;
+}
+
+.your_firm {
+  display: none;
+}
+
+.password_section{
+  display: none;
+}
+
+.tinymce {
+  height: 150px;
+  max-height: 150px;
+  margin-bottom: 10px;
+}
+
+#user_tag_cloud {
+  height: 600px;
+  width: 100%;
+  // box-shadow:rgba(255,255,255,0.5) 0px 0px 25px;
+
+  background: rgba(0,0,0,0.6);
+  position: relative;
+  margin-top: 50px;
+
+}
+
+#post_tag_cloud {
+  height: 600px;
+  width: 100%;
+  // box-shadow:rgba(255,255,255,0.5) 0px 0px 25px;
+  // border-radius: 5px;
+  background: rgba(0,0,0,0.6);
+  position: relative;
+  margin-top: 50px;
+
+}
+
+div.jqcloud span.w10 {
+  color: #0FF !important;
+  line-height: 54px !important;
+  text-shadow: 0.0em 0.0em 0.4em white;
+}
+
+div.jqcloud span.w9 {
+  line-height: 50px !important;
+  text-shadow: 0.0em 0.0em 0.3em white;
+}
+
+div.jqcloud span.w8 {
+  line-height: 44px !important;
+  text-shadow: 0.0em 0.0em 0.2em white;
+}
+
+
+div.jqcloud span.w7 {
+  line-height: 40px !important;
+  text-shadow: 0.0em 0.0em 0.2em white;
+}
+
+div.jqcloud span.w6 {
+  line-height: 34px !important;
+  text-shadow: 0.0em 0.0em 0.2em white;
+}
+
+div.jqcloud span.w5 {
+  line-height: 30px !important;
+  text-shadow: 0.0em 0.0em 0.2em white;
+}
+
+div.jqcloud span.w4 {
+  line-height: 24px !important;
+  text-shadow: 0.0em 0.0em 0.2em white;
+}
+
+div.jqcloud span.w3 {
+  line-height: 20px !important;
+  text-shadow: 0.0em 0.0em 0.2em white;
+}
+
+div.jqcloud span.w2 {
+  line-height: 14px !important;
+  text-shadow: 0.0em 0.0em 0.1em white;
+}
+
+div.jqcloud span.w1 {
+  line-height: 10px !important;
+  text-shadow: 0.0em 0.0em 0.1em white;
+}
+
+
+p.introduction {
+  color: white;
+  font-family: $title_font;
+  font-size: 1.25em;
+}
+
+p.instructions {
+  color: black;
+  font-family: $title_font;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+
+.wrapper {
+  text-align: center;
+  padding-top: 5px;
+}
+
+
+.login_field {
+display: inline-block;
+color: white;
+font-size: 1em;
+margin-bottom: 0.5em;
+padding-left: 1em;
+padding-right: 1em;
+
+}
 
 #new_password {
   opacity: 0;
@@ -337,4 +515,8 @@ div.jqcloud span.w10 {
 
 #mce_29 {
   display: none !important;
+}
+
+.login_bar {
+  border: 1px solid white;
 }

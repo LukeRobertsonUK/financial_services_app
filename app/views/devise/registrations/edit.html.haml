@@ -1,109 +1,126 @@
 = nested_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f|
   = devise_error_messages!
-  =tinymce
   .row
+    .span12
+      #your_details_button.inner_column
+        %p.instructions Please complete sections 1 to 4 of the form below.
+
+        %h1.form_heading 1) Your Details
+  .row.your_details
     .span4
-      %h1 Edit Your Profile
-  .row
-    .span4
-      %h2 Your Details
-      .field
-        = f.label :first_name
-        %br/
-        = f.text_field :first_name, :autofocus => true
-      .field
-        = f.label :last_name
-        %br/
-        = f.text_field :last_name, :autofocus => true
-      .field
-        = f.label :business, "Role in the industry"
-        %br/
-        =f.select(:business, User::INDUSTRY_INVOLVEMENTS)
-      .field
-        = f.label :email
-        %br/
-        = f.email_field :email, :autofocus => true
-      - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-        %div
-          Currently waiting confirmation for: #{resource.unconfirmed_email}
-
-
-
-      .field
-        = f.label :user_image
-        %br/
-        = f.file_field :user_image
-        = f.hidden_field :user_image_cache
-      %a.clicker change password?
-      #new_password
+      .inner_column
         .field
-          = f.label :password, "New Password"
-
+          = f.label :first_name
           %br/
-          = f.password_field :password, :autocomplete => "off"
+          = f.text_field :first_name, :autofocus => true
         .field
-          = f.label :password_confirmation, "New Password Confirmation"
+          = f.label :last_name
           %br/
-          = f.password_field :password_confirmation
-      .field
-        = f.label :current_password, "Enter your current password to confirm your changes"
-        %br/
-        = f.password_field :current_password
-      %div= f.submit "Update"
-      - if @user.persisted?
-        - unless @user.user_image.blank?
-          = image_tag @user.user_image.detail.url
-          %br
-          = f.label :remove_user_image
-          = f.check_box :remove_user_image
+          = f.text_field :last_name, :autofocus => true
+        .field
+          = f.label :email
+          %br/
+          = f.email_field :email, :autofocus => true
+        - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+          %div
+            Currently waiting confirmation for: #{resource.unconfirmed_email}
+        .field
+          = f.label :business, "What is your role in the industry"
+          %br/
+          =f.select(:business, User::INDUSTRY_INVOLVEMENTS, {include_blank: "Select from list"})
+        .field
+          = f.label :user_image
+          %br/
+          = f.file_field :user_image
+          = f.hidden_field :user_image_cache
+        - if @user.persisted?
+          - unless @user.user_image.blank?
+            = image_tag @user.user_image.detail.url
+            %br
+            = f.label :remove_user_image
+            = f.check_box :remove_user_image
 
-
-
-
-    .span4
-      %h2 Your Investment Interests
-      .field
-        .investment_styles_list
-          %ul
-            - User::INVESTMENT_STYLES.each do |key, values|
-              %li
-                %h5
-                  = "#{key}"
-                - User::INVESTMENT_STYLES[key].each do |value|
-                  .check_box
-                    = "#{value}"
-                    =f.check_box :investment_style_list, {multiple: true}, "#{value}", nil
-            -unless @user_written_tags.blank?
-              %li
-                %h5 Interests added by you
-                -@user_written_tags.each do |interest|
-                  .check_box
-                    = "#{interest}"
-                    = f.check_box :investment_style_list, {multiple: true}, "#{interest}", nil
-          %h5
-            Anything we've missed (comma separated)?
-          = text_field_tag "extra_tags"
-      %h2 About You
-      .field
+    .span8
+      .inner_column
+        .field
         = f.label :biography
         %br/
         = f.text_area :biography, :autofocus => true, class: "tinymce"
+        = tinymce
+
+  .row
+    .span12
+      #investment_interests_button.inner_column
+        %h1.form_heading 2) Invesment Interests
+  .row.investment_interests
+    .span12
+      .inner_column
+        .field
+          .investment_styles_list
+            %ul
+              - User::INVESTMENT_STYLES.each do |key, values|
+                %li
+                  %h5
+                    = "#{key}"
+                  - User::INVESTMENT_STYLES[key].each do |value|
+                    .check_box
+                      = "#{value}"
+                      =f.check_box :investment_style_list, {multiple: true}, "#{value}", nil
+              -unless @user_written_tags.blank?
+                %li
+                  %h5 Interests added by you
+                  -@user_written_tags.each do |interest|
+                    .check_box
+                      = "#{interest}"
+                      = f.check_box :investment_style_list, {multiple: true}, "#{interest}", nil
+            %h5
+              Anything we've missed (comma separated)?
+            = text_field_tag "extra_tags"
+  .row
+    .span12
+      #your_firm_button.inner_column
+        %h1.form_heading 3) Your Firm
+
+  .row.your_firm
     .span4
-      %h2 Your Organization
-      -if @editable
-        .field.editing
-          = label_tag :editing, "What would you like to do?"
-          %br
-          = select_tag :editing, options_for_select([["Edit my existing firm's details", true], ["Change firms", false]], selected: ["Edit my existing firm's details", true] )
+      .inner_column
+        -if @editable
+          .field.editing
+            = label_tag :editing, "What would you like to do?"
+            %br
+            = select_tag :editing, options_for_select([["Edit my existing firm's details", true], ["Change firms", false]], selected: ["Edit my existing firm's details", true] )
+        #firm_select.field
+          = label_tag :organization_id, "Which firm do you work for?"
+          %br/
+          = select_tag "organization_id", options_for_select(Firm.all.map{|f| [f.to_string, f.id]}.unshift(["ENTER MANUALLY", ""]).unshift(["Pick a firm or select 'Enter Manually'", ""]), selected: @default), options = {}
+        #form_with_firm_fields.field
+          =render "fields", f: f
+    .span8
+      .inner_column
+        .field
+          = f.label :disclaimer
+          %br/
+          = f.text_area :disclaimer, :autofocus => true, class: "tinymce"
+  .row
+    .span12
+      #password_section_button.inner_column
+        %h1.form_heading 4) Passwords & Sign Up!
 
-      #firm_select.field
-        = label_tag :organization_id, "Which firm do you work for?"
-        %br/
-        = select_tag "organization_id", options_for_select(Firm.all.map{|f| [f.to_string, f.id]}.unshift(["ENTER MANUALLY", ""]).unshift(["Pick a firm or select 'Enter Manually'", ""]), selected: @default), options = {}
+  .row.password_section
+    .span12
+      .inner_column
+        %a.clicker change password?
+        %br
+        #new_password
+          .field.sign_up_field
+            = f.label :password, "New Password"
+            = f.password_field :password, :autocomplete => "off"
+          .field.sign_up_field
+            = f.label :password_confirmation, "New Password Confirmation"
+            = f.password_field :password_confirmation
+        .field.sign_up_field
+          = f.label :current_password, "Enter your current password to confirm your changes"
+          = f.password_field :current_password
+        .field.sign_up_field
+          = f.submit "Update"
 
-      #form_with_firm_fields.field
-        =render "fields", f: f
-      .field
-        = f.label :disclaimer
-        %br/
-        = f.text_area :disclaimer, :autofocus => true, class: "tinymce"

@@ -1,11 +1,24 @@
+<% if @post.errors.empty? %>
+
 $('#remote_post_form').animate({
         height: "toggle",
         opacity: 0
       }, 500);
+<%end%>
+
+
 
 setTimeout(function(){
   $('#remote_post_form').html("<%=escape_javascript(render 'posts/ajax_form') %>");
+    <%if @post.errors.any?%>
+      postTags();
+    <%end%>
+
         }, 500);
+
+
 
 $('#users_post_list').html("<%= escape_javascript(render partial: 'post', locals: {posts: @user_posts}) %>");
 $('#new_post').html('New Post');
+
+
