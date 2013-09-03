@@ -1,4 +1,5 @@
 $('#friend_requests').html("<p>Your friend request was sent</p>")
+$('#red_flag_raiser_' + <%=@user.id%>).html("<%= escape_javascript(render partial: 'users/red_flag', locals: {user: @user}) %>");
 
   setTimeout(function(){
     $('#friend_requests').fadeOut(300);

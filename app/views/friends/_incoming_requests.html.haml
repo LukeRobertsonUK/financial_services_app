@@ -3,14 +3,11 @@
     - @incoming_friend_requests.each do |friendship|
       %li.new_friend_box
         = link_to "#{friendship.proposer.full_name}", user_path(friendship.proposer)
-        =image_tag friendship.proposer.user_image.mini.url, class: "mini_image"
+        = friendship.proposer.business
         %br
-        - unless friendship.proposer.business == "Other"
-          =friendship.proposer.business
-          %br
         -if friendship.proposer.firm
           =friendship.proposer.firm.to_string
-          %br
+        %br
         = link_to "Accept", edit_friendship_path(friendship), remote: true
         |
         = link_to "Deny", friendship, method: :delete, data: { confirm: 'Are you sure you want to deny this request?' }, remote: true

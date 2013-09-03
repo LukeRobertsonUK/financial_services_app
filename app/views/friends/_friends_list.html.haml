@@ -2,7 +2,7 @@
   %h1.form_heading Your Friends & Incoming Requests
   %p.instructions Drag and drop your existing friends between columns to change their sharing priority. Friends in Purgatory will be unable to see any of your posts.
 .row
-  .span2.friends_column
+  .span3.friends_column
     .inner_column
       %h3 Kindred Spirits
       %ul.connectedSortable.droptrue{"data-field" => "kindred_spirit"}
@@ -10,29 +10,28 @@
           - @grouped_friends["Kindred Spirit"].each do |friend|
             = render "friends/friend", locals: {friend: friend}
 
-  .span2
+  .span3
     .inner_column.friends_column
       %h3 Respected Peers
       %ul.connectedSortable.droptrue{"data-field" => "respected_peer"}
         -unless @grouped_friends["Respected Peer"].blank?
           - @grouped_friends["Respected Peer"].each do |friend|
             = render "friends/friend", locals: {friend: friend}
-  .span2
+  .span3
     .inner_column.friends_column
       %h3 Industry Participants
       %ul.connectedSortable.droptrue{"data-field" => "industry_participant"}
         -unless @grouped_friends["Industry Participant"].blank?
           - @grouped_friends["Industry Participant"].each do |friend|
             = render "friends/friend", locals: {friend: friend}
-  .span2
+  .span3
     .inner_column.friends_column
       %h3 Purgatory
       %ul.connectedSortable.droptrue{"data-field" => "purgatory"}
         -unless @grouped_friends["Purgatory"].blank?
           - @grouped_friends["Purgatory"].each do |friend|
             = render "friends/friend", locals: {friend: friend}
-  .span4
-    .inner_column.friends_column
-      %h3 Incoming Friend Requests
-      #incoming_friend_requests_block
-        = render partial: 'friends/incoming_requests'
+
+#incoming_friend_requests_block
+  = render partial: 'friends/incoming_requests'
+%h3#requests Friend Requests:

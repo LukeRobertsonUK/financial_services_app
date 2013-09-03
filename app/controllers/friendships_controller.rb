@@ -79,6 +79,7 @@ class FriendshipsController < ApplicationController
   def create
     @friendship = Friendship.new(params[:friendship])
     current_user.un_black_ball(@friendship.proposee)
+    @user = @friendship.proposee
     respond_to do |format|
       if @friendship.save
         format.html { redirect_to @friendship, notice: "Your Friend Request was sent" }

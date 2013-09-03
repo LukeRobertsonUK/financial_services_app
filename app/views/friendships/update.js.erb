@@ -4,4 +4,6 @@ $('#incoming_friend_requests_block').html("<%=escape_javascript(render partial: 
 runConnectedSortable();
   setTimeout(function(){
     $('#friend_requests').fadeOut(300);
+    checkRequestDisplay();
   }, 300);
+  checkFriendRequests();

@@ -296,4 +296,7 @@ end
     investment_style_list.reject {|item| INVESTMENT_STYLES.values.flatten.include?(item)}
   end
 
+  def connected_with(user)
+    (Friendship.where({proposee_id: self.id, proposer_id: user.id}) + Friendship.where({proposee_id: user.id, proposer_id: self.id})).count > 0
+  end
 end
