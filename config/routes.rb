@@ -49,7 +49,7 @@ FinancialServicesApp::Application.routes.draw do
   get'/tags', to: "tags#index", as: 'tags'
   get '/tag_count.json', to: 'application#tag_count', format: false
   get '/tag_count_post.json', to: 'application#tag_count_post', format: false
-  root to: "users#index"
+  root to: "posts#index"
 
 
 

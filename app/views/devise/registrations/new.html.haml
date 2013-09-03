@@ -4,7 +4,7 @@
     .row
       .span12
         #your_details_button.inner_column
-          %p.instructions Please complete sections 1 to 4 of the form below.
+          %p.instructions Please click on the headings below to complete each section of the form
           %p.instructions Required fields: First Name; Last Name; Email; Industry Role; Password; Password Confirmation
           %h1.form_heading 1) Your Details
     .row.your_details
@@ -23,7 +23,7 @@
             %br/
             = f.email_field :email, :autofocus => true
           .field
-            = f.label :business, "What is your role in the industry"
+            = f.label :business, "What is your role in the industry?"
             %br/
             =f.select(:business, User::INDUSTRY_INVOLVEMENTS, {include_blank: "Select from list"})
           .field
@@ -106,5 +106,5 @@
             = f.label :password_confirmation
             = f.password_field :password_confirmation
           .field.sign_up_field
-            = f.submit "Sign up"
+            = f.submit "Sign up", class: "custom_button"
 

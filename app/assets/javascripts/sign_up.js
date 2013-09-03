@@ -12,21 +12,21 @@ $(function() {
        if($(".investment_interests").css('display') !== 'none' ){
         $(".investment_interests").animate({
           height: "toggle",
-          opacity: 1
+          opacity: 0
           }, 300);
         }
 
         if($(".your_firm").css('display') !== 'none' ){
         $(".your_firm").animate({
           height: "toggle",
-          opacity: 1
+          opacity: 0
           }, 300);
         }
 
         if($(".password_section").css('display') !== 'none' ){
         $(".password_section").animate({
           height: "toggle",
-          opacity: 1
+          opacity: 0
           }, 300);
         }
 
@@ -34,7 +34,7 @@ $(function() {
 
        $(".your_details").animate({
           height: "toggle",
-          opacity: 1
+          opacity: 0
         }, 300);
     }
 
@@ -52,21 +52,21 @@ $(function() {
        if($(".your_details").css('display') !== 'none' ){
         $(".your_details").animate({
           height: "toggle",
-          opacity: 1
+          opacity: 0
           }, 300);
         }
 
         if($(".your_firm").css('display') !== 'none' ){
         $(".your_firm").animate({
           height: "toggle",
-          opacity: 1
+          opacity: 0
           }, 300);
         }
 
         if($(".password_section").css('display') !== 'none' ){
         $(".password_section").animate({
           height: "toggle",
-          opacity: 1
+          opacity: 0
           }, 300);
         }
 
@@ -75,7 +75,7 @@ $(function() {
 
        $(".investment_interests").animate({
           height: "toggle",
-          opacity: 1
+          opacity: 0
         }, 300);
     }
 
@@ -93,21 +93,21 @@ $(function() {
        if($(".your_details").css('display') !== 'none' ){
         $(".your_details").animate({
           height: "toggle",
-          opacity: 1
+          opacity: 0
           }, 300);
         }
 
         if($(".investment_interests").css('display') !== 'none' ){
         $(".investment_interests").animate({
           height: "toggle",
-          opacity: 1
+          opacity: 0
           }, 300);
         }
 
         if($(".password_section").css('display') !== 'none' ){
         $(".password_section").animate({
           height: "toggle",
-          opacity: 1
+          opacity: 0
           }, 300);
         }
 
@@ -115,7 +115,7 @@ $(function() {
 
        $(".your_firm").animate({
           height: "toggle",
-          opacity: 1
+          opacity: 0
         }, 300);
     }
 
@@ -140,14 +140,14 @@ $(function() {
         if($(".investment_interests").css('display') !== 'none' ){
         $(".investment_interests").animate({
           height: "toggle",
-          opacity: 1
+          opacity: 0
           }, 300);
         }
 
         if($(".your_firm").css('display') !== 'none' ){
         $(".your_firm").animate({
           height: "toggle",
-          opacity: 1
+          opacity: 0
           }, 300);
         }
 
@@ -155,7 +155,7 @@ $(function() {
 
        $(".password_section").animate({
           height: "toggle",
-          opacity: 1
+          opacity: 0
         }, 300);
     }
 

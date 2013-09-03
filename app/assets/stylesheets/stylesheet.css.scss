@@ -3,6 +3,8 @@ $title_font: 'Oxygen', sans-serif;
 $roboto: 'Roboto', sans-serif;
 $electric_blue: #2646EA;
 $droid: 'Droid Sans', sans-serif;
+$light_blue: #00CCFF;
+
 
 body {
     background: image_url('ETTradingFloor.jpg') no-repeat center center fixed;
@@ -51,10 +53,11 @@ body {
 }
 
 .hoot_box {
-  font-family: $droid;
+  // font-family: $droid;
   font-weight: bold;
   color: white;
   font-size: 6em;
+  text-shadow: 0.0em 0.0em 0.4em white;
 }
 
 #nav ul {
@@ -149,28 +152,28 @@ margin_bottom: 20px !important;
   margin-right: 20px;
 }
 
-.custom_button {
-  font-family: $title_font;
-  font-size: 12px;
-  color: #ffffff;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: 10px;
-  padding-right: 10px;
-  background: $electric_blue;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-}
+// .custom_button {
+//   font-family: $title_font;
+//   font-size: 12px;
+//   color: #ffffff;
+//   padding-top: 5px;
+//   padding-bottom: 5px;
+//   padding-left: 10px;
+//   padding-right: 10px;
+//   background: $electric_blue;
+//   -moz-border-radius: 5px;
+//   -webkit-border-radius: 5px;
+//   border-radius: 5px;
+// }
 
-.custom_button:hover {
-  color: #fff;
-  background: -moz-linear-gradient(
-    top,
-    #ee2819 0%,
-    #aa0000);
-  background: #DF2E59;
-}
+// .custom_button:hover {
+//   color: #fff;
+//   background: -moz-linear-gradient(
+//     top,
+//     #ee2819 0%,
+//     #aa0000);
+//   background: #DF2E59;
+// }
 
 
 .post_column {
@@ -221,12 +224,29 @@ margin_bottom: 20px !important;
 
 .check_box {
   display: inline-block;
-  border: 1px solid #dddddd;
+  border: 1px solid $light_blue;
   padding: 2px;
   border-radius: 2px;
   margin-bottom: 3px;
   background: white;
+  color: $electric_blue;
+
 }
+
+.custom_button {
+  border: 1px solid $light_blue;
+  background: white;
+
+  color: $electric_blue;
+  border-radius: 2px;
+}
+
+.custom_button:hover {
+  border: 1px solid $electric_blue;
+}
+
+
+
 
 .post_title_bar h1 {
   font-family: $roboto;
