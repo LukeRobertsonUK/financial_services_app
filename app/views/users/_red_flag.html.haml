@@ -1,17 +1,22 @@
 %li
-  =user.email
-  =user.business
-  - if user.business == "Investor"
-
-    -if current_user.has_raised_flag_against(user)
-      (You have red-flagged this user as not an investor.
-      = button_to "lower flag", lower_flag_path(id: user.id), remote: true
-      )
-    -else
-      (Not an investor?
-      = button_to "raise red flag", raise_flag_path(id: user.id), remote: true
-      )
-
-
+  ="#{user.full_name}:"
+  - unless user.business == "Other"
+    ="#{user.business}, "
+  - if user.firm
+    =user.firm.to_string
   -unless current_user.exceeds_black_ball_limit?
-    = link_to "Befriend", new_friendship_path(proposee_id: user.id), remote: true
+    = link_to "Send Friend Request", new_friendship_path(proposee_id: user.id), remote: true
+  - if user.business == "Investor"
+    -if current_user.has_raised_flag_against(user)
+      %br
+      .small_text
+        You have Red-Flagged this user
+        = link_to "Lower Flag", lower_flag_path(id: user.id), {method: :post, remote: true}
+    -else
+      %br
+      .small_text
+        Don't believe this person is an investor?
+        = link_to "Raise Red Flag", raise_flag_path(id: user.id), {method: :post, remote: true}
+
+
+

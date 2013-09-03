@@ -1,26 +1,30 @@
 - users.each do |user|
-  %li
-    =user.email
+  %li.walled_user
+    %h2.wall_of_shame
+      =user.full_name
+    =image_tag user.user_image.thumb.url
     %br
-    -if current_user == user
-      You have received a red flag
-    -elsif current_user.has_raised_flag_against(user)
-      You have red flagged this user |
-      = button_to "Lower Flag", lower_flag_path(id: user.id), remote: true
-    -elsif current_user.has_voted_in_defence_of(user)
-      You have voted in support of this user |
-      = button_to "Remove Support", remove_support_path(id: user.id), remote: true
-    -else
-      VOTE:
-      = button_to "NOT an investor", raise_flag_path(id: user.id), remote: true
-      |
-      = button_to "IS an investor", support_user_path(id: user.id), remote: true
-    %br
+    - unless can? :admin_vote_reset, user
+      -if current_user == user
+        %br
+        You can't vote for yourself!
+      -elsif current_user.has_raised_flag_against(user)
+        You have red flagged this user!
+        %br
+        = link_to "Lower Flag", lower_flag_path(id: user.id), {remote: true, method: :post}
+      -elsif current_user.has_voted_in_defence_of(user)
+        You have supported this user!
+        %br
+        = link_to "Remove Support", remove_support_path(id: user.id), {remote: true, method: :post}
+      -else
+        VOTE!
+        %br
+        = link_to "INTERLOPER", raise_flag_path(id: user.id), {remote: true, method: :post}
+        or
+        = link_to "INVESTOR", support_user_path(id: user.id), {remote: true, method: :post}
+      %br
     Vote Balance:
-    - if user.votes_at_manual_reset
-      =(user.red_flag_balance - user.votes_at_manual_reset)
-    -else
-      = user.red_flag_balance
+    = user.red_flag_balance_for_display
     %br
     - if can? :admin_vote_reset, user
-      = button_to "Administrator vote reset", admin_vote_reset_path(id: user.id), remote: true
+      = link_to "Administrator vote reset", admin_vote_reset_path(id: user.id), {remote: true, method: :post}

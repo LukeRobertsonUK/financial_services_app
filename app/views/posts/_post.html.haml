@@ -2,31 +2,30 @@
   There are no posts matching your search criteria
 -else
   - posts.each do |post|
-    %li
-      .list_view_of_posts
-        -unless current_user.has_read?(post)
-          %p Unread
+    %li.post_list_item
+      %div{class: "#{current_user.has_read(post)}"}
         %h3
-          .title_and_photo
-            = post.title
-            -unless post.user_id == current_user.id
-              .mini
-                =image_tag post.user.user_image.mini.url, class: "mini_image"
+          = post.title
         %ul
           -unless post.user_id == current_user.id
             %li
               = "#{post.user.full_name}: #{post.user.business} and #{current_user.relationship_with(post.user)}"
           %li
-            ="Updated #{distance_of_time_in_words(Time.now, post.updated_at)} ago"
+            ="Date: #{post.created_at.to_formatted_s(:long_ordinal)}"
+          %li
+            ="Updated: #{distance_of_time_in_words(Time.now, post.updated_at)} ago"
           - unless post.comments.blank?
             %li
               -if current_user.has_commented_on?(post)
                 = "Comments: #{post.comments.count} (you have commented)"
               -else
                 = "Comments: #{post.comments.count}"
-
-
-        = link_to "show", post_path(post)
-        -if can? :edit, post
-          .post_edit_buttons
-            = link_to "edit", edit_post_path(post), remote: true
+          -unless post.user_id == current_user.id
+            =image_tag post.user.user_image.mini.url, class: "mini_image"
+          .show_and_edit
+            = link_to "show", post_path(post)
+            -if can? :edit, post
+              |
+              = link_to "edit", edit_post_path(post), remote: true
+              |
+              = link_to "delete", post_path(post), method: :delete, data: { confirm: 'Are you sure?'}, remote: true

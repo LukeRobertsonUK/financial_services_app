@@ -24,9 +24,10 @@
       = tinymce
   .span3.form_column
     .field
-      = f.label :sharing_pref
+      = f.label :sharing_pref, "With whom would you like to share this post?"
       %br/
-      = f.select :sharing_pref, ['Kindred Spirit', 'Respected Peer', 'Industry Participant']
+      = f.select :sharing_pref, ['Kindred Spirit', 'Respected Peer', 'Industry Participant'], include_blank: "Select from list"
+
     .field.check_box
       = f.check_box :colleague_visible
       = f.label :colleague_visible, "Visible to colleagues?"

@@ -31,7 +31,7 @@
   .span6
     .post_column
       #users_posts
-        %h2 Your Posts
+        %h1.form_heading Your Posts
         -if current_user.has_posts?
           %ul
             #users_post_list
@@ -41,7 +41,7 @@
   .span6
     .post_column
       #friends_posts
-        %h2 Posts From Your Peers
+        %h1.form_heading Posts From Your Peers
         - if current_user.has_friends?
           %ul
             #friends_post_list

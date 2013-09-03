@@ -2,6 +2,7 @@ class Post < ActiveRecord::Base
   include AASM
 
   validates :title, presence: true
+  validates :sharing_pref, presence: true
 
   belongs_to :user
   has_many :attachments
@@ -130,6 +131,14 @@ end
   def has_been_flagged_by(user)
         self.votes.where({voter_id: user.id}).size >0
 
+  end
+
+  def visibility
+    case sharing_pref
+    when "Kindred Spirit" then "Kindred Spirits only"
+    when "Respected Peer" then "Kindred Spirits and Respected Peers"
+    when "Industry Participant" then "Kindred Spirits, Respected Peers and Industry Participants"
+    end
   end
 
 

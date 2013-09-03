@@ -86,9 +86,11 @@ end
     "#{first_name} #{last_name}"
   end
 
-  def has_read?(post)
-    PostViewing.where({user_id: self.id, post_id: post.id}).count > 0
+  def has_read(post)
+    ((PostViewing.where({user_id: self.id, post_id: post.id}).count > 0) || self == post.user) ? "read_post" : "unread_post"
   end
+
+
 
   def first_read(post)
     PostViewing.where({user_id: self.id, post_id: post.id}).first.created_at
@@ -215,6 +217,7 @@ end
 
   def lower_flag(user)
     user.unliked_by :voter => self, vote_scope: "red_flag"
+
     unless user.aasm_state == "ok"
       if user.votes_at_manual_reset
         user.make_ok! if (user.red_flag_balance - user.votes_at_manual_reset) == 0
@@ -283,6 +286,10 @@ end
 
   def red_flag_balance
      red_flag_votes - favourable_votes
+  end
+
+  def red_flag_balance_for_display
+    self.votes_at_manual_reset ? (self.red_flag_balance - self.votes_at_manual_reset) : self.red_flag_balance
   end
 
   def user_written_tags

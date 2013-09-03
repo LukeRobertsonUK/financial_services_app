@@ -130,9 +130,12 @@ before_filter :log_post_viewing, only: :show
   def destroy
     @post = Post.find(params[:id])
     @post.destroy
+    @user_posts = Post.where(user_id:current_user.id)
+
 
     respond_to do |format|
       format.html { redirect_to posts_url }
+      format.js {}
       format.json { head :no_content }
     end
   end

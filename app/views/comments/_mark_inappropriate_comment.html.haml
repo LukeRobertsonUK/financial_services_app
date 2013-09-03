@@ -2,4 +2,4 @@
   You have flagged this comment as inappropriate
 -else
   - unless comment.user == current_user
-    =button_to "flag comment as inappropriate", mark_inappropriate_comment_path(comment), remote: true
+    =link_to "Flag comment as inappropriate", mark_inappropriate_comment_path(comment), {remote: true, method: :post}

@@ -1,7 +1,7 @@
 
 $title_font: 'Oxygen', sans-serif;
 $roboto: 'Roboto', sans-serif;
-$electric_blue: #2646EA;
+$electric_blue: #3399DD;
 $droid: 'Droid Sans', sans-serif;
 $light_blue: #00CCFF;
 
@@ -124,15 +124,22 @@ margin_bottom: 20px !important;
 #control_bar {
   padding-left: 30px;
   text-align: left;
-  background: image_url('textured_paper.png');
+
   padding-bottom: 10px;
   border-bottom: 1px solid black;
 }
 
 #button_bar {
-  background: image_url('textured_paper.png');
+
   padding-left: 30px;
   padding-bottom: 10px;
+  height: 35px;
+}
+
+#post_title {
+  width: 100%;
+  font-size: 1.5em;
+  font-size: $title_font;
 }
 
 #new_post {
@@ -144,12 +151,8 @@ margin_bottom: 20px !important;
 #remote_post_form {
   display: none;
   opacity: 1;
-  width: 900px;
-  background: white;
-  border-radius: 5px;
-  box-shadow:rgba(0,0,0,0.5) 0px 0px 24px;
-  margin-left: 20px;
-  margin-right: 20px;
+
+
 }
 
 // .custom_button {
@@ -201,6 +204,7 @@ margin_bottom: 20px !important;
 #post_search_form_button{
   display: none;
 
+
 }
 
 .post_edit_buttons {
@@ -243,6 +247,7 @@ margin_bottom: 20px !important;
 
 .custom_button:hover {
   border: 1px solid $electric_blue;
+  text-decoration: none;
 }
 
 
@@ -286,7 +291,7 @@ background: white;
 
 .comments_box {
   padding: 5px;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid $light_blue;
 }
 
 #disclaimer_text {
@@ -325,26 +330,45 @@ a.clicker {
 
 
 
-.list_view_of_posts {
+.read_post {
   background: white;
   border: 1px solid #dddddd;
   margin-bottom: 10px;
   padding-left: 10px;
   padding-bottom: 5px;
-  padding-right: 10px;
+  padding-right: 50px;
   position: relative;
   border-radius: 5px;
+  overflow: auto;
 }
 
-.mini {
-  float: right
+.unread_post {
+  background: white;
+  border: 1px solid $light_blue;
+  margin-bottom: 10px;
+  padding-left: 10px;
+  padding-bottom: 5px;
+  padding-right: 50px;
+  position: relative;
+  border-radius: 5px;
+  overflow: auto;
+  box-shadow:rgba(0,204,255,0.7) 0px 0px 10px;
 }
-// .mini_image {
-//   float: right;
-// }
+
+
+.post_list_item {
+  position: relative;
+
+}
+.mini_image {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
 
 .title_and_photo {
   background: #eeeeee;
+  position: relative;
 }
 
 .list_view_of_posts h3 {
@@ -353,7 +377,20 @@ a.clicker {
   background: #eeeeee;
   padding: 2px;
 
+
 }
+
+.post_title {
+  width: 80%
+
+}
+
+.show_and_edit {
+  position: absolute;
+  bottom: 10px;
+  right: 10px
+}
+
 
 .welcome {
   text-align: center;
@@ -370,6 +407,9 @@ h1.form_heading {
   font-family: $title_font;
   background: white;
   padding: 10px;
+  color: $electric_blue;
+  border-bottom: 1px solid $light_blue
+
 
 }
 
@@ -539,4 +579,113 @@ padding-right: 1em;
 
 .login_bar {
   border: 1px solid white;
+}
+
+#incoming_friend_requests_block {
+  background: white;
+  z-index: 10;
+}
+
+#incoming_friend_requests_block ul {
+  padding-left: 0px;
+
+}
+
+.friend_box {
+  border: 1px solid $light_blue;
+  text-align: center;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  box-shadow:rgba(0,204,255,0.7) 0px 0px 10px;
+  font-size: 0.8em;
+  list-style: none;
+  padding: 5px;
+
+}
+
+.new_friend_box {
+  border: 1px solid $electric_blue;
+  text-align: left;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  box-shadow:rgba(051,153,221,0.7) 0px 0px 10px;
+  font-size: 0.8em;
+  list-style: none;
+  position: relative;
+  padding-right: 40px;
+  padding-top: 5px;
+  padding_bottom: 5px;
+  padding-left: 5px;
+  margin-top: -3px;
+
+
+}
+
+.friends_column {
+  text-align: center;
+}
+
+.friends_column h3 {
+  font-size: 0.8em;
+
+}
+
+
+#list_of_users ul {
+  padding-left: 0px;
+  list-style: none;
+}
+
+#list_of_users li {
+  list-style: none;
+  margin-bottom: 10px;
+  background: white;
+  padding: 10px;
+  border-bottom: 1px solid $light_blue;
+}
+
+#list_of_suers li a {
+  text-decoration: none;
+}
+
+.small_text submit {
+  background: none
+}
+
+.button_to {
+  display: inline-block;
+
+}
+
+.small_text {
+  font-size: 0.7em;
+  font-style: italic;
+  color: $light_blue;
+  padding-left: 5px;
+}
+
+.small_text a {
+  color: $light_blue
+}
+
+h2.wall_of_shame{
+  font-family: $title_font;
+  line-height: 1.2;
+}
+
+ul.wall_of_shame_list {
+  list-style: none;
+  padding-left: 0px;
+}
+
+.wall_of_shame_list li {
+  border: 1px solid black;
+  display: inline-block;
+  background: white;
+  border: 1px solid $light_blue;
+  border-radius: 5px;
+  text-align: center;
+  padding: 5px;
+
+
 }

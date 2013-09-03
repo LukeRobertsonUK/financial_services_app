@@ -1,41 +1,44 @@
 %p#notice= notice
-
-.post_title_bar
-  %h1
-    =@post.title
+.row
+  .span12
+    .inner_column
+      .post_title_bar
+        %h1.form_heading
+          =@post.title
 .row
   .span8
-    .post_column
-      - if @post.content.blank?
-        This post has no content
-      -else
-        #main_content
-          = raw @post.content
-      - unless @post.tags.blank?
-        %h4
-          Tags:
-          = @post.tag_string
-      .view_disclaimer
-        %a View Disclaimer Text
-      #disclaimer_text
-        = raw @post.user.disclaimer
+    .inner_column
+      .post_column
+        - if @post.content.blank?
+          This post has no content
+        -else
+          #main_content
+            = raw @post.content
+        - unless @post.tags.blank?
+          %h4
+            Tags:
+            = @post.tag_string
+        .view_disclaimer.small_text
+          %a View Disclaimer Text
+        #disclaimer_text
+          = raw @post.user.disclaimer
+
+        - unless can? :manage, :all
+          %br
+          #inappropriate_post.small_text
+            =render partial: 'posts/mark_inappropriate', locals: {post: @post}
+
+        - if can? :manage, :all
+          #admin_inappropriate_post_reset
+            = render partial: 'posts/admin_reset_button'
 
 
-      %br
-      #inappropriate_post
-        =render partial: 'posts/mark_inappropriate', locals: {post: @post}
+        %h3 Comments
 
-      - if can? :manage, :all
-        #admin_inappropriate_post_reset
-          = render partial: 'posts/admin_reset_button'
-
-
-      %h3 Comments
-
-      #remote_comments_form
-        = render partial: 'comments_form'
-      #post_comments
-        = render @post.comments
+        #remote_comments_form
+          = render partial: 'comments_form'
+        #post_comments
+          = render @post.comments
 
 
   .span4
@@ -51,14 +54,22 @@
         %br
         ="Updated: #{@post.updated_at.to_formatted_s(:long_ordinal)}"
 
-
+      -if can? :edit, @post
+        Visible to
+        =@post.visibility
+        %br
+        -unless @post.colleague_visible
+          Not Visible to colleauges
+          %br
+        -unless @post.non_investor_visible
+          Only visible to Investors
+          %br
 
       - if can? :edit, @post
         = link_to 'Edit', edit_post_path(@post)
-        %br
-        Post sharing level:
-        =@post.sharing_pref
-        %br
+      - if can? :destroy, @post
+        = link_to "Delete", post_path(@post), method: :delete, data: { confirm: 'Are you sure?'}
       = link_to 'Back', posts_path
+
 
 

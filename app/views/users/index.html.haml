@@ -1,17 +1,10 @@
-%h1 List of Users
+.inner_column
+  %h1.form_heading
+    Search our user base for new friends
+  = search_form_for @q, remote: true, :url => url_for(:users_controller => "q", :action => "index") do |f|
+    = f.text_field :first_name_or_last_name_or_investment_styles_name_or_email_or_business_or_firm_name_cont
+    = f.submit "Search", :class => 'button'
 
-
-
-
-
-
-%h3 current user will come here to search for new friends
-
-
-= search_form_for @q, remote: true, :url => url_for(:users_controller => "q", :action => "index") do |f|
-  = f.text_field :first_name_or_last_name_or_investment_styles_name_or_email_or_business_or_firm_name_cont
-  = f.submit "Search", :class => 'button'
-
-#list_of_users
-  =render partial: 'users/list_of_users'
+  #list_of_users
+    =render partial: 'users/list_of_users'
 

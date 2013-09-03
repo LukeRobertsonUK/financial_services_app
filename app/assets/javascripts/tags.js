@@ -11,9 +11,14 @@ var postTags = function(){
 
 
 
-// $(function() {
+$(function() {
 
-//   postTags();
+  if($('.fire_off_tokens').length > 0){
+
+     postTags();
+  }
 
 
-// });
+
+
+});
