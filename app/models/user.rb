@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :business, presence: true
+  validates_associated :firm
 
   mount_uploader :user_image, UserImageUploader
   has_many :friendships_as_proposer, class_name: "Friendship", foreign_key: :proposer_id

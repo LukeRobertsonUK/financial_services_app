@@ -126,10 +126,12 @@ class RegistrationsController < Devise::RegistrationsController
     self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
     prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
 
+    if new_firm
+      resource.firm = new_firm
+    end
     if resource.update_with_password(account_update_params)
       if new_firm
         new_firm.save!
-        resource.firm = new_firm
         resource.save!
       end
 
