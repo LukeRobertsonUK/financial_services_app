@@ -4,6 +4,8 @@ $roboto: 'Roboto', sans-serif;
 $electric_blue: #3399DD;
 $droid: 'Droid Sans', sans-serif;
 $light_blue: #00CCFF;
+$light_grey: #cccccc;
+$dark_grey: #888888;
 
 
 body {
@@ -40,10 +42,18 @@ body {
 }
 
 #nav ul li a {
+  font-family: $droid;
   color: white;
   padding-left: 5px;
   padding-right: 5px;
+  background: none;
+  &:hover {
+    color: #fff;
+    background-color: $light_blue;
+  }
 }
+
+
 
 #black_ball_bar {
   background: $light_blue;
@@ -65,12 +75,17 @@ body {
   position: absolute;
   top: 1em;
   right: 1em;
-  text-align: right;
 }
 
 .login a {
   text-decoration: none;
   color: white;
+  font-family: $droid;
+  background: none;
+  &:hover {
+    color: #fff;
+    background-color: $light_blue;
+  }
 }
 
 .hoot_box {
@@ -100,7 +115,8 @@ body {
 
 .container {
   margin: auto;
-  background: rgba(255,255,255,0.9);
+
+  background: rgba(255,255,255,0.95);
   position: relative;
   min-height: 1200px;
 }
@@ -146,28 +162,37 @@ margin_bottom: 20px !important;
 #control_bar {
   padding-left: 30px;
   text-align: left;
-
+  font-family: $droid;
   padding-bottom: 10px;
+  font-weight: bold;
 }
 
 #button_bar {
 
-  padding-left: 30px;
-  padding-bottom: 10px;
+  padding-left: 10px;
+
   height: 35px;
 }
 
 #post_title {
-  width: 100%;
+  // width: 100%;
   font-size: 1.5em;
-  font-size: $title_font;
+  font-size: $droid;
+  color: $electric_blue;
 }
 
 #new_post {
   display: inline;
   margin-top: 10px;
+}
+
+#post_sharing_pref {
+  background: $light_blue;
+  color: white;
+  width: 226px;
 
 }
+
 
 #remote_post_form {
   display: none;
@@ -176,28 +201,6 @@ margin_bottom: 20px !important;
 
 }
 
-// .custom_button {
-//   font-family: $title_font;
-//   font-size: 12px;
-//   color: #ffffff;
-//   padding-top: 5px;
-//   padding-bottom: 5px;
-//   padding-left: 10px;
-//   padding-right: 10px;
-//   background: $electric_blue;
-//   -moz-border-radius: 5px;
-//   -webkit-border-radius: 5px;
-//   border-radius: 5px;
-// }
-
-// .custom_button:hover {
-//   color: #fff;
-//   background: -moz-linear-gradient(
-//     top,
-//     #ee2819 0%,
-//     #aa0000);
-//   background: #DF2E59;
-// }
 
 
 .post_column {
@@ -255,20 +258,110 @@ margin_bottom: 20px !important;
   margin-bottom: 3px;
   background: white;
   color: $electric_blue;
+}
+
+.form_check_box {
+  width: 100%;
+}
+
+form.edit_post input[type=submit] {
+  width: 226px;
+  margin-top: -1px;
+  border: none;
+  color: white;
+  font-family: $droid;
+  background: $light_blue;
+  text-decoration: none;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  border-radius: 2px;
+   &:hover {
+    color: #fff;
+    background-color: $electric_blue;
+  }
+}
+
+form.new_post input[type=submit] {
+  width: 226px;
+  margin-top: -1px;
+  border: none;
+  color: white;
+  font-family: $droid;
+  background: $light_blue;
+  text-decoration: none;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  border-radius: 2px;
+   &:hover {
+    color: #fff;
+    background-color: $electric_blue;
+  }
+}
+
+
+
+
+
+
+
+a.custom_link {
+  color: white;
+  font-family: $droid;
+  background: $electric_blue;
+  text-decoration: none;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  border-radius: 2px;
+   &:hover {
+    color: #fff;
+    background-color: $light_blue;
+  }
 
 }
+
+a.alternative {
+  background: $light_blue;
+  &:hover {
+    color: #fff;
+    background-color: $electric_blue;
+  }
+}
+
+
+a.tone_down {
+  background: $light_grey
+
+}
+
+
+
+
+
+
 
 .custom_button {
-  border: 1px solid $light_blue;
-  background: white;
-
-  color: $electric_blue;
-  border-radius: 2px;
-}
-
-.custom_button:hover {
-  border: 1px solid $electric_blue;
+  margin-top: -1px;
+  border: none;
+  color: white;
+  font-family: $droid;
+  background: $light_blue;
   text-decoration: none;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  border-radius: 2px;
+   &:hover {
+    color: #fff;
+    background-color: $electric_blue;
+  }
+
 }
 
 
@@ -364,6 +457,20 @@ a.clicker {
   overflow: auto;
 }
 
+.read_post li {
+  font-family: $droid;
+  color: $dark_grey;
+  padding-left: 5px;
+}
+
+
+.read_post h3 {
+  font-family: $droid;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
 .unread_post {
   background: white;
   border: 2px solid $light_blue;
@@ -374,9 +481,23 @@ a.clicker {
   position: relative;
   border-radius: 5px;
   overflow: auto;
-  box-shadow:rgba(0,204,255,0.7) 0px 0px 10px;
+  box-shadow:rgba(0,204,255,0.8) 0px 0px 15px;
 }
 
+.unread_post li {
+  font-family: $droid;
+  color: black;
+  padding-left: 5px;
+}
+
+
+.unread_post h3 {
+  font-family: $droid;
+  color: $electric_blue;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
 
 .post_list_item {
   position: relative;
@@ -386,6 +507,8 @@ a.clicker {
   position: absolute;
   top: 10px;
   right: 10px;
+
+  border-radius: 3px;
 }
 
 .title_and_photo {
@@ -404,8 +527,14 @@ a.clicker {
 
 .post_title {
   width: 80%
+}
+
+#post_title  {
+  width: 614px;
+
 
 }
+
 
 .show_and_edit {
   position: absolute;
@@ -426,14 +555,22 @@ h1.welcome {
 }
 
 h1.form_heading {
-  font-family: $title_font;
+  font-family: $droid;
   background: white;
   padding: 10px;
   color: $electric_blue;
-  border-bottom: 1px solid $light_blue
-
+  border-bottom: 2px solid $light_blue;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  padding-left: 5px;
+  padding-right: 10px;
+  padding-top: 10px;
+  padding-bottom: 5px;
 
 }
+
+
+
 
 .inner_column {
   padding: 10px;
@@ -544,7 +681,7 @@ div.jqcloud span.w1 {
 
 p.introduction {
   color: white;
-  font-family: $title_font;
+  font-family: $droid;
   font-size: 1.25em;
 }
 
@@ -559,6 +696,7 @@ p.instructions {
 .wrapper {
   text-align: center;
   padding-top: 5px;
+  font-family: $droid
 }
 
 
@@ -717,22 +855,32 @@ padding-right: 1em;
 }
 
 .small_text {
-  font-size: 0.7em;
+  font-size: 0.8em;
   font-style: italic;
   color: $light_blue;
   padding-left: 0px;
 }
 
 .small_text a {
-  color: $light_blue;
+  color: $electric_blue;
   text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 h2.wall_of_shame{
-  font-family: $title_font;
+  font-family: $droid;
   line-height: 1.2;
   margin-top: 5px;
   margin-bottom: 5px;
+  color: black;
+}
+
+
+h2.wall_of_shame a {
+  color: black;
+  text-decoration: none;
 }
 
 ul.wall_of_shame_list {
@@ -805,9 +953,39 @@ ul.admin_lists {
   margin-bottom: 5px;
   display: block;
   margin: auto;
+  border-radius: 5px;
 }
 
+p.wall_text {
+  font-family: $droid;
+  margin-top: 3px;
+  margin-bottom: 0px;
+}
+
+.wall_card a {
+  color: black;
+}
 
 .centered {
   text-align: center;
+}
+
+p.sorry {
+  font-family: $droid;
+  color: $electric_blue;
+  font-style: italic;
+  padding-left: 10px;
+
+}
+
+.custom_input {
+  border-radius: 5px;
+  border: 1px solid $light_blue
+
+}
+
+
+li.bold_list_item {
+  color: black;
+  font-weight: bold;
 }

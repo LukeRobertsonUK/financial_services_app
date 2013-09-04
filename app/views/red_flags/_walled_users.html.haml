@@ -1,33 +1,31 @@
 - users.each do |user|
   %li.walled_user
     %h2.wall_of_shame
-      =user.full_name
+      = link_to "#{user.full_name}", user_path(user)
     -if user.firm
-      = user.firm.to_string
+      %p.wall_text
+        = user.firm.to_string
     -else
       %br
     =image_tag user.user_image.thumb.url, class: "wall_card"
     - unless can? :admin_vote_reset, user
       -if current_user == user
-        %br
-        You can't vote for yourself!
+        %p.wall_text
+          You can't vote for yourself!
       -elsif current_user.has_raised_flag_against(user)
-        You have red flagged this user!
-        %br
-        = link_to "Lower Flag", lower_flag_path(id: user.id), {remote: true, method: :post}
+        %p.wall_text You have red flagged this user!
+        = link_to "Lower Flag", lower_flag_path(id: user.id), {remote: true, method: :post, class: "custom_link"}
       -elsif current_user.has_voted_in_defence_of(user)
-        You have supported this user!
-        %br
-        = link_to "Remove Support", remove_support_path(id: user.id), {remote: true, method: :post}
+        %p.wall_text You have supported this user!
+        = link_to "Remove Support", remove_support_path(id: user.id), {remote: true, method: :post, class: "custom_link alternative"}
       -else
-        VOTE!
-        %br
-        = link_to "INTERLOPER", raise_flag_path(id: user.id), {remote: true, method: :post}
+        %p Vote Now!
+        = link_to "INTERLOPER", raise_flag_path(id: user.id), {remote: true, method: :post, class: "custom_link"}
         or
-        = link_to "INVESTOR", support_user_path(id: user.id), {remote: true, method: :post}
-      %br
-    Vote Balance:
-    = user.red_flag_balance_for_display
-    %br
+        = link_to "INVESTOR", support_user_path(id: user.id), {remote: true, method: :post, class: "custom_link alternative"}
+        %br
+    %p.wall_text
+      Vote Balance:
+      = user.red_flag_balance_for_display
     - if can? :admin_vote_reset, user
-      = link_to "Administrator vote reset", admin_vote_reset_path(id: user.id), {remote: true, method: :post}
+      = link_to "Administrator vote reset", admin_vote_reset_path(id: user.id), {remote: true, method: :post, class: "custom_link tone_down"}

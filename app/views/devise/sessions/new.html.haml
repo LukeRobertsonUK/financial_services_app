@@ -12,8 +12,8 @@
         %div.login_field
           = f.check_box :remember_me
           = f.label :remember_me
+      %br
       %div.login_field
         = f.submit "Sign in", class: "custom_button"
-      %br
       %div.login_field
         = link_to "Not Registered? Sign up!", new_registration_path(resource_name)

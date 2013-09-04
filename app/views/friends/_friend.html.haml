@@ -4,9 +4,9 @@
   %h2.wall_of_shame
     = link_to "#{friend.full_name}", user_path(friend)
   =image_tag friend.user_image.thumb.url, class: "wall_card"
-  %br
   - unless friend.business == "Other"
-    =friend.business
-    %br
+    %p.wall_text
+      =friend.business
   - if friend.firm
+    %p.wall_text
     =friend.firm.to_string

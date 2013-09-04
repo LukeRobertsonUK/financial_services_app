@@ -1,3 +1,7 @@
+$light_blue: #00CCFF;
+$electric_blue: #3399DD;
+$droid: 'Droid Sans', sans-serif;
+
 body {
   background-color: #fff;
   color: #333;
@@ -19,14 +23,19 @@ pre {
 }
 
 a {
-  color: #000;
-  &:visited {
-    color: #666;
-  }
-  &:hover {
-    color: #fff;
-    background-color: #000;
-  }
+  // color: white;
+  // font-family: $droid;
+  // background: $electric_blue;
+  // text-decoration: none;
+  // padding-left: 5px;
+  // padding-right: 5px;
+  // padding-top: 1px;
+  // padding-bottom: 1px;
+  // border-radius: 2px;
+  //  &:hover {
+  //   color: #fff;
+  //   background-color: $light_blue;
+  // }
 }
 
 div {

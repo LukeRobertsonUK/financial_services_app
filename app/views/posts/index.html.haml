@@ -9,21 +9,21 @@
       .search_bar_field
         = f.label :title_or_content_or_tags_name_or_comments_content_cont, "Post Content"
         %br
-        = f.text_field :title_or_content_or_tags_name_or_comments_content_cont
+        = f.text_field :title_or_content_or_tags_name_or_comments_content_cont, class: "custom_input"
       .search_bar_field
         = f.label :user_first_name_or_user_last_name_or_user_investment_styles_name_or_user_email_or_user_business_or_user_firm_name_cont, "Author"
         %br
-        = f.text_field :user_first_name_or_user_last_name_or_user_investment_styles_name_or_user_email_or_user_business_or_user_firm_name_cont
+        = f.text_field :user_first_name_or_user_last_name_or_user_investment_styles_name_or_user_email_or_user_business_or_user_firm_name_cont, class: "custom_input"
       .search_bar_field
         = f.label :updated_at_gteq, "From"
         %br
-        = f.text_field :updated_at_gteq, class: "datepicker"
+        = f.text_field :updated_at_gteq, class: "datepicker custom_input"
       .search_bar_field
         = f.label :updated_at_lteq, "To"
         %br
-        = f.text_field :updated_at_lteq, class: "datepicker"
+        = f.text_field :updated_at_lteq, class: "datepicker custom_input"
       = f.submit "Search", :class => 'button', id: "post_search_form_button"
-      %a#clear_form clear?
+      %a#clear_form.custom_link clear?
 
 
 
@@ -37,7 +37,7 @@
             #users_post_list
               = render partial: 'post', locals: {posts: @user_posts}
         -else
-          You don't have any posts
+          %p.sorry You don't have any posts
   .span6
     .post_column
       #friends_posts
@@ -47,5 +47,5 @@
             #friends_post_list
               = render partial: 'post', locals: {posts: @friends_posts}
         -else
-          You do not currently have any friends
+          %p.sorry You do not currently have any friends
 

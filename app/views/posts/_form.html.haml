@@ -6,6 +6,7 @@
     %ul
       - @post.errors.full_messages.each do |msg|
         %li= msg
+
 =f.hidden_field :user_id, {value: current_user.id}
 .row
   .span8.form_column
@@ -28,11 +29,11 @@
       %br/
       = f.select :sharing_pref, ['Kindred Spirit', 'Respected Peer', 'Industry Participant'], include_blank: "Select from list"
 
-    .field.check_box
+    .field.check_box.form_check_box
       = f.check_box :colleague_visible
       = f.label :colleague_visible, "Visible to colleagues?"
-    .field.check_box
+    .field.check_box.form_check_box
       = f.check_box :non_investor_visible
       = f.label :non_investor_visible, "Visible to non-investors?"
     .actions
-      = f.submit
+      = f.submit "Submit"

@@ -16,12 +16,10 @@
       .login
         - if current_user
           = current_user.email
-          |
           = link_to "Log out", destroy_user_session_path, method: :delete
           %br
         - else
           = link_to "Sign In", new_user_session_path
-          |
           = link_to "Sign Up", new_user_registration_path
           %br
 
@@ -32,21 +30,21 @@
         #nav
           %ul
             %li
-              =link_to "Home", posts_path
+              =link_to "Home", posts_path, class: "custom_link"
             %li
-              =link_to "Friends", friends_path, id: "friends_alert"
+              =link_to "Friends", friends_path, id: "friends_alert", class: "custom_link"
             %li
-              =link_to "Find Friends", users_path
+              =link_to "Find Friends", users_path, class: "custom_link"
             %li
-              =link_to "Wall of Shame", red_flags_path
+              =link_to "Wall of Shame", red_flags_path, class: "custom_link"
             -if current_user
               %li
-                =link_to "My Profile", user_path(current_user)
+                =link_to "My Profile", user_path(current_user), class: "custom_link"
               %li
-                =link_to "Edit Profile", edit_user_registration_path
+                =link_to "Edit Profile", edit_user_registration_path, class: "custom_link"
               -if can? :manage, :all
                 %li
-                  =link_to "Site Admin", admin_messages_path
+                  =link_to "Site Admin", admin_messages_path, class: "custom_link"
       -else
         %p.introduction &ldquo;Intellectual content from your global network of investment professionals&rdquo;
     -if current_user && current_user.exceeds_black_ball_limit?

@@ -6,18 +6,19 @@
     =user.firm.to_string
   -unless current_user.exceeds_black_ball_limit?
     -unless current_user.connected_with(user)
-      = link_to "Send Friend Request", new_friendship_path(proposee_id: user.id), remote: true
+      = link_to "Send Friend Request", new_friendship_path(proposee_id: user.id), remote: true, class: "custom_button"
   - if user.business == "Investor"
     -if current_user.has_raised_flag_against(user)
       %br
       .small_text
-        You have Red-Flagged this user
-        = link_to "Lower Flag", lower_flag_path(id: user.id), {method: :post, remote: true}
+        You have flagged this user. Changed your mind?
+        = link_to "LOWER FLAG", lower_flag_path(id: user.id), {method: :post, remote: true}
     -else
       %br
       .small_text
         Don't believe this person is an investor?
-        = link_to "Raise Red Flag", raise_flag_path(id: user.id), {method: :post, remote: true}
+        = link_to "RAISE A RED FLAG", raise_flag_path(id: user.id), {method: :post, remote: true}
+
 
 
 

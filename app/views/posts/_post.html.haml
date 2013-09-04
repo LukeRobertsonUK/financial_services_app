@@ -1,5 +1,5 @@
 -if posts.blank?
-  There are no posts matching your search criteria
+  %p.sorry There are no posts matching your search criteria
 -else
   - posts.each do |post|
     %li.post_list_item
@@ -8,10 +8,10 @@
           = post.title
         %ul
           -unless post.user_id == current_user.id
-            %li
+            %li.bold_list_item
               = "#{post.user.full_name}: #{post.user.business} and #{current_user.relationship_with(post.user)}"
           %li
-            ="Date: #{post.created_at.to_formatted_s(:long_ordinal)}"
+            ="Created: #{post.created_at.to_formatted_s(:long_ordinal)}"
           %li
             ="Updated: #{distance_of_time_in_words(Time.now, post.updated_at)} ago"
           - unless post.comments.blank?
@@ -23,9 +23,9 @@
           -unless post.user_id == current_user.id
             =image_tag post.user.user_image.mini.url, class: "mini_image"
           .show_and_edit
-            = link_to "show", post_path(post)
+            = link_to "show", post_path(post), class: "custom_link"
             -if can? :edit, post
-              |
-              = link_to "edit", edit_post_path(post), remote: true
-              |
-              = link_to "delete", post_path(post), method: :delete, data: { confirm: 'Are you sure?'}, remote: true
+              -if current_user == post.user
+                = link_to "edit", edit_post_path(post), remote: true,  class: "custom_link alternative"
+
+              = link_to "delete", post_path(post), method: :delete, data: { confirm: 'Are you sure?'}, remote: true,  class: "custom_link tone_down"
