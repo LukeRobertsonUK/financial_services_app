@@ -30,10 +30,10 @@
       = f.select :sharing_pref, ['Kindred Spirit', 'Respected Peer', 'Industry Participant'], include_blank: "Select from list"
 
     .field.check_box.form_check_box
-      = f.check_box :colleague_visible
+      = f.check_box :colleague_visible, checked: true
       = f.label :colleague_visible, "Visible to colleagues?"
     .field.check_box.form_check_box
-      = f.check_box :non_investor_visible
+      = f.check_box :non_investor_visible, checked: true
       = f.label :non_investor_visible, "Visible to non-investors?"
     .actions
       = f.submit "Submit"
