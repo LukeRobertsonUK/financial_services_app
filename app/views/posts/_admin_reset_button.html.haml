@@ -1,2 +1,2 @@
 -if @post.aasm_state == "inappropriate"
-  = button_to "Post OK: Reset Vote", reset_post_vote_post_path(id: @post.id), remote: true
+  = link_to "Post OK: Reset Vote", reset_post_vote_post_path(id: @post.id), remote: true, method: :post, class: "custom_link admin_button"

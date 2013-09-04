@@ -2,40 +2,37 @@
   .span12
     .inner_column
       %h1.form_heading
-        = @user.full_name
-      - unless @user.business = "Other"
-        %h3
-          =@user.business
+        - if @user.business == "Other"
+          = @user.full_name
+        -else
+          = "#{@user.full_name} (#{@user.business})"
       - unless @user.interests_string.blank?
-        %h3
+        %h2.walled_user
           Investment Interests:
           = @user.interests_string
 
 .row
   .span6
     .inner_column
-
-      = image_tag @user.user_image.detail.url, class: "detail_image"
-      %br
-      =mail_to @user.email
       #main_content
-        %h3 Biography
+        = image_tag @user.user_image.detail.url, class: "detail_image wall_card"
         = raw @user.biography
   .span6
     .inner_column
       -if @user.firm
-        %h3 Organization
-        %h4
-          =@user.firm.name
-        ="#{@user.firm.building} #{@user.firm.street_address}"
-        =@user.firm.city
-        %br
-        =@user.firm.postcode
-        %br
-        =@user.firm.country
-      -unless @user.disclaimer.blank?
-        .view_disclaimer.small_text
-          %a View Disclaimer Text
-
+        #firm_content
+          %h2.walled_user
+            =@user.firm.name
+          ="#{@user.firm.building} #{@user.firm.street_address}"
+          =@user.firm.city
+          %br
+          -if @user.firm.postcode
+            =@user.firm.postcode
+            %br
+          -if @user.firm.country
+            =@user.firm.country
+            %br
+          -unless @user.disclaimer.blank?
+            %a.custom_link.tone_down.view_disclaimer Disclaimer Text
         #disclaimer_text
           =raw @user.disclaimer

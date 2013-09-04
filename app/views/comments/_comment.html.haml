@@ -3,35 +3,35 @@
   - if ((comment.user == current_user ) || (comment.post.user == current_user)) || (current_user.role == "admin")
     .comments_box
       =comment.content
-      %br
-      ="#{comment.user.full_name}: #{comment.created_at.to_formatted_s(:long_ordinal)}"
-      %br
+      %p.wall_text.blue
+        ="#{comment.user.full_name}: #{comment.created_at.to_formatted_s(:long_ordinal)}"
       - if can? :edit, comment
-        = link_to "Edit", edit_comment_path(comment), remote: true
+        -if current_user == comment.user
+          = link_to "Edit", edit_comment_path(comment), remote: true, class: "custom_link alternative"
       - if can? :destroy, comment
-        = link_to 'Delete', comment, method: :delete, data: { confirm: 'Are you sure?' }
-        %br
-      #inappropriate_comment.small_text
-        =render partial: 'comments/mark_inappropriate_comment', locals: {comment: comment}
+        = link_to 'Delete', comment, method: :delete, data: { confirm: 'Are you sure?' },  class: "custom_link tone_down"
       -if can? :manage, :all
         - if comment.aasm_state == "inappropriate"
           .admin_inappropriate_comment_reset
-            = button_to "Comment OK: Reset Vote", reset_comment_vote_comment_path(id: comment.id), remote: true
+            = link_to "Comment OK: Reset Vote", reset_comment_vote_comment_path(id: comment.id), remote: true, method: :post, class: "custom_link admin_button"
+
+      #inappropriate_comment.small_text
+        =render partial: 'comments/mark_inappropriate_comment', locals: {comment: comment}
 
 - else
   .comments_box
     =comment.content
-    %br
-    ="#{comment.user.full_name}: #{comment.created_at.to_formatted_s(:long_ordinal)}"
-    %br
-      - if can? :edit, comment
-        = link_to "Edit", edit_comment_path(comment), remote: true
-      - if can? :destroy, comment
-        = link_to 'Delete', comment, method: :delete, data: { confirm: 'Are you sure?' }, remote: true
-        %br
-    #inappropriate_comment.small_text
-      =render partial: 'comments/mark_inappropriate_comment', locals: {comment: comment}
+    %p.wall_text.blue
+      ="#{comment.user.full_name}: #{comment.created_at.to_formatted_s(:long_ordinal)}"
+    - if can? :edit, comment
+      -if current_user == comment.user
+        = link_to "Edit", edit_comment_path(comment), remote: true,  class: "custom_link alternative"
+    - if can? :destroy, comment
+      = link_to 'Delete', comment, method: :delete, data: { confirm: 'Are you sure?' }, remote: true, class: "custom_link tone_down"
     -if can? :manage, :all
       - if comment.aasm_state == "inappropriate"
         .admin_inappropriate_comment_reset
-          = button_to "Comment OK: Reset Vote", reset_comment_vote_comment_path(id: comment.id), remote: true
+          = link_to "Comment OK: Reset Vote", reset_comment_vote_comment_path(id: comment.id), remote: true, method: :post, class: "custom_link admin_button"
+    #inappropriate_comment.small_text
+      =render partial: 'comments/mark_inappropriate_comment', locals: {comment: comment}
+

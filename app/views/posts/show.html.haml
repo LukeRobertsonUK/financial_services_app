@@ -5,71 +5,68 @@
       .post_title_bar
         %h1.form_heading
           =@post.title
+        - unless @post.tags.blank?
+          %h2.walled_user
+            Tags:
+            = @post.tag_string
 .row
   .span8
     .inner_column
       .post_column
         - if @post.content.blank?
-          This post has no content
+          %p.sorry This post has no content
         -else
           #main_content
             = raw @post.content
-        - unless @post.tags.blank?
-          %h4
-            Tags:
-            = @post.tag_string
-        .view_disclaimer.small_text
-          %a View Disclaimer Text
+            %a.custom_link.tone_down.view_disclaimer Disclaimer Text
+            - if can? :edit, @post
+              = link_to 'Edit', edit_post_path(@post), class: "custom_link alternative"
+            - if can? :destroy, @post
+              = link_to "Delete", post_path(@post), method: :delete, data: { confirm: 'Are you sure?'}, class: "custom_link"
+            - if can? :manage, :all
+              #admin_inappropriate_post_reset
+                = render partial: 'posts/admin_reset_button'
+
+
         #disclaimer_text
           = raw @post.user.disclaimer
 
         - unless can? :manage, :all
-          %br
           #inappropriate_post.small_text
             =render partial: 'posts/mark_inappropriate', locals: {post: @post}
 
-        - if can? :manage, :all
-          #admin_inappropriate_post_reset
-            = render partial: 'posts/admin_reset_button'
 
 
-        %h3 Comments
-
-        #remote_comments_form
-          = render partial: 'comments_form'
-        #post_comments
-          = render @post.comments
+        #comments_content
+          %h3 Comments
+          #remote_comments_form
+            = render partial: 'comments_form'
+          #post_comments
+            = render @post.comments
 
 
   .span4
-    .post_column
-      %h3
-        Author:
+    .post_column.side_bar
+      %h2.walled_user
         = @post.user.full_name
       - unless @post.user.user_image.blank?
-        = image_tag @post.user.user_image.thumb.url, class: "thumb_image"
+        = image_tag @post.user.user_image.thumb.url, class: "thumb_image wall_card"
         %br
       %h3
         ="Posted: #{@post.created_at.to_formatted_s(:long_ordinal)}"
         %br
         ="Updated: #{@post.updated_at.to_formatted_s(:long_ordinal)}"
 
-      -if can? :edit, @post
-        Visible to
-        =@post.visibility
-        %br
-        -unless @post.colleague_visible
-          Not Visible to colleauges
-          %br
-        -unless @post.non_investor_visible
-          Only visible to Investors
-          %br
+      -if (can? :edit, @post) && current_user == @post.user
+        %p.instructions
+          Your post is visible to
+          =@post.visibility
+          -unless @post.colleague_visible
+            It is NOT visible to your colleagues.
+          -unless @post.non_investor_visible
+            It is ONLY visible to Investors.
 
-      - if can? :edit, @post
-        = link_to 'Edit', edit_post_path(@post)
-      - if can? :destroy, @post
-        = link_to "Delete", post_path(@post), method: :delete, data: { confirm: 'Are you sure?'}
-      = link_to 'Back', posts_path
+      = link_to 'Back to Posts', posts_path, class: "custom_link"
 
 
 

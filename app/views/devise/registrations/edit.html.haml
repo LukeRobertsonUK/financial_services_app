@@ -44,7 +44,7 @@
     .span8
       .inner_column
         .field
-        = f.label :biography
+        = f.label :biography, "Tell us a little about yourself..."
         %br/
         = f.text_area :biography, :autofocus => true, class: "tinymce"
         = tinymce
@@ -110,7 +110,7 @@
   .row.password_section
     .span12
       .inner_column
-        %a.clicker change password?
+        %a.clicker.custom_button.tone_down change password?
         %br
         #new_password
           .field.sign_up_field

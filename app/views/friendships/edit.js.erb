@@ -1,3 +1,3 @@
-$('#friend_requests').html("<p>Accept friend request from <%=escape_javascript(" #{@proposer.full_name}") %></p>")
+$('#friend_requests').html("<h2 class='walled_user'>Accept friend request from <%=escape_javascript(" #{@proposer.full_name}") %></h2>")
 $('#friend_requests').append("<%=escape_javascript(render partial: 'friendships/form') %>")
 $('#friend_requests').fadeIn(300);

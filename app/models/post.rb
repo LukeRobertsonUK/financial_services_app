@@ -135,9 +135,9 @@ end
 
   def visibility
     case sharing_pref
-    when "Kindred Spirit" then "Kindred Spirits only"
-    when "Respected Peer" then "Kindred Spirits and Respected Peers"
-    when "Industry Participant" then "Kindred Spirits, Respected Peers and Industry Participants"
+    when "Kindred Spirit" then "Kindred Spirits only."
+    when "Respected Peer" then "Kindred Spirits and Respected Peers."
+    when "Industry Participant" then "Kindred Spirits, Respected Peers and Industry Participants."
     end
   end
 

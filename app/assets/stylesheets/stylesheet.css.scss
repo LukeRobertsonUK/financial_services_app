@@ -8,6 +8,12 @@ $light_grey: #cccccc;
 $dark_grey: #888888;
 
 
+h2 {
+  font-family: $droid;
+  line-height: 1.2;
+}
+
+
 body {
     background: image_url('ETTradingFloor.jpg') no-repeat center center fixed;
     background-size: cover;
@@ -21,16 +27,17 @@ body {
   top: 50%;
   left: 50%;
   width: 30em;
-  height: 10em;
+  min-height: 10em;
   margin-left: -15em;
   border-radius: 5px;
-  border: 1px solid #dddddd;
+
   box-shadow:rgba(0,0,0,0.5) 0px 0px 24px;
   display: none;
+  border: 2px solid $electric_blue
 }
 
 #title_bar {
-  background: rgba(0,0,0,0.7);
+  background: rgba(0,0,0,0.8);
   height: 160px;
   width: 100%;
   text-align: center;
@@ -65,7 +72,7 @@ body {
 
 
 .highlight {
-  background: $light_blue;
+  border: 3px solid $light_blue
 
 }
 
@@ -116,7 +123,7 @@ body {
 .container {
   margin: auto;
 
-  background: rgba(255,255,255,0.95);
+  background: rgba(255,255,255, 0.96);
   position: relative;
   min-height: 1200px;
 }
@@ -191,6 +198,20 @@ margin_bottom: 20px !important;
   color: white;
   width: 226px;
 
+}
+
+#friendship_proposer_sharing_pref {
+  background: $light_blue;
+  color: white;
+  width: 226px;
+  text-align: center;
+}
+
+#friendship_proposee_sharing_pref {
+  background: $light_blue;
+  color: white;
+  width: 226px;
+  text-align: center;
 }
 
 
@@ -303,7 +324,82 @@ form.new_post input[type=submit] {
 }
 
 
+form.new_friendship input[type=submit] {
+  width: 226px;
+  margin-top: -1px;
+  border: none;
+  color: white;
+  font-family: $droid;
+  background: $light_blue;
+  text-decoration: none;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  border-radius: 2px;
+   &:hover {
+    color: #fff;
+    background-color: $electric_blue;
+  }
+}
 
+form.edit_friendship input[type=submit] {
+  width: 226px;
+  margin-top: -1px;
+  border: none;
+  color: white;
+  font-family: $droid;
+  background: $light_blue;
+  text-decoration: none;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  border-radius: 2px;
+   &:hover {
+    color: #fff;
+    background-color: $electric_blue;
+  }
+}
+
+
+form.new_comment input[type=submit] {
+  margin-top: -1px;
+  border: none;
+  color: white;
+  font-family: $droid;
+  background: $light_blue;
+  text-decoration: none;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  border-radius: 2px;
+  margin-left: 150px;
+   &:hover {
+    color: #fff;
+    background-color: $electric_blue;
+  }
+}
+
+form.edit_comment input[type=submit] {
+  margin-top: -1px;
+  border: none;
+  color: white;
+  font-family: $droid;
+  background: $light_blue;
+  text-decoration: none;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  border-radius: 2px;
+  margin-left: 150px;
+   &:hover {
+    color: #fff;
+    background-color: $electric_blue;
+  }
+}
 
 
 
@@ -335,15 +431,28 @@ a.alternative {
 
 
 a.tone_down {
-  background: $light_grey
+  background: $light_grey;
+  &:hover{
+    background: black;
+  }
 
 }
 
+a.admin_button {
+  background: green;
+  &:hover{
+    background: black;
+  }
+}
 
+#admin_inappropriate_post_reset {
+  display: inline-block;
 
+}
 
-
-
+.admin_inappropriate_comment_reset {
+  display: inline-block;
+}
 
 .custom_button {
   margin-top: -1px;
@@ -365,6 +474,18 @@ a.tone_down {
 }
 
 
+#logout_button {
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  border-radius: 2px;
+  &:hover {
+    color: #fff;
+    background-color: $electric_blue;
+  }
+}
+
 
 
 .post_title_bar h1 {
@@ -376,7 +497,8 @@ a.tone_down {
 
 h3 {
   font-family: $roboto;
-  border-bottom: 2px solid #dddddd
+
+  // border-bottom: 2px solid #dddddd
 }
 
 #comment_content {
@@ -405,7 +527,8 @@ background: white;
 
 .comments_box {
   padding: 5px;
-  border-bottom: 1px solid $light_blue;
+  border-bottom: 2px solid $light_grey;
+
 }
 
 #disclaimer_text {
@@ -413,17 +536,49 @@ background: white;
   background: white;
   padding: 10px;
   border-radius: 5px;
-  border: 1px solid #dddddd;
+  border: 1px solid $light_grey;
   overflow: auto;
+  margin-top: -10px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 #main_content {
-background: white;
+  background: white;
   padding: 10px;
   border-radius: 5px;
-  border: 1px solid #dddddd;
+  border: 2px solid $light_grey;
+  box-shadow:rgba(204,204,204,0.8) 0px 0px 20px;
+  position: relative;
+  overflow: auto;
+}
+
+#comments_content {
+  background: white;
+  padding: 10px;
+  border-radius: 5px;
+  border: 2px solid $light_grey;
+  box-shadow:rgba(204,204,204,0.8) 0px 0px 20px;
+  position: relative;
+  overflow: auto;
+  margin-top: 5px;
+}
+
+#firm_content {
+  background: white;
+  padding: 10px;
+  border-radius: 5px;
+  border: 2px solid $light_grey;
+  box-shadow:rgba(204,204,204,0.8) 0px 0px 20px;
+  position: relative;
+  overflow: auto;
+  text-align: center;
+  font-family: $droid;
 
 }
+
+
+
 
 #firm_select {
   display: none;
@@ -439,8 +594,8 @@ background: white;
 // }
 
 a.clicker {
-  font-size: 85%;
-  text-decoration: underline;
+
+
 }
 
 
@@ -687,9 +842,11 @@ p.introduction {
 
 p.instructions {
   color: black;
-  font-family: $title_font;
+  font-family: $droid;
   font-size: 1em;
   font-weight: bold;
+  margin-top: 3px;
+  margin-bottom: 3px;
 }
 
 
@@ -704,7 +861,7 @@ p.instructions {
 display: inline-block;
 color: white;
 font-size: 1em;
-margin-bottom: 0.5em;
+margin-bottom: 10px;
 padding-left: 1em;
 padding-right: 1em;
 
@@ -822,10 +979,7 @@ padding-right: 1em;
   text-align: center;
 }
 
-.friends_column h3 {
 
-
-}
 
 
 #list_of_users ul {
@@ -838,7 +992,7 @@ padding-right: 1em;
   margin-bottom: 10px;
   background: white;
   padding: 10px;
-  border-bottom: 1px solid $light_blue;
+  border-bottom: 2px solid $light_grey;
 }
 
 #list_of_suers li a {
@@ -855,10 +1009,11 @@ padding-right: 1em;
 }
 
 .small_text {
+
   font-size: 0.8em;
   font-style: italic;
   color: $light_blue;
-  padding-left: 0px;
+  padding-left: 5px;
 }
 
 .small_text a {
@@ -988,4 +1143,23 @@ p.sorry {
 li.bold_list_item {
   color: black;
   font-weight: bold;
+}
+
+.side_bar {
+  text-align: center;
+}
+
+.post_title_bar h2 {
+  font-family: $droid;
+  padding-left: 10px;
+}
+
+.blue {
+  color: $electric_blue
+}
+
+.sign_ups {
+  width: 200px;
+  padding-top: 4px;
+  padding-bottom: 4px;
 }

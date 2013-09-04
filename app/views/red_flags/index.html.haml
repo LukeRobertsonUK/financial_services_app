@@ -2,7 +2,7 @@
   %h1.form_heading Wall of Shame
   %h2.wall_of_shame We welcome non-investors but they must identify themselves as such. A number of our users believe the following individuals are not investors. Do you agree?
   - if @flagged_users.count == 0
-    The wall is clean. Everyone is behaving themselves!
+    %p.sorry The wall is clean. Everyone is behaving themselves!
   %ul.wall_of_shame_list
     #users_on_wall_of_shame
       =render partial: 'red_flags/walled_users', locals: {users: @flagged_users}

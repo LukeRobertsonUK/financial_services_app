@@ -4,7 +4,7 @@
     %h1.form_heading Admin Messsages
     %ul.admin_lists
       -if @admin_messages.blank?
-        Nothing to display
+        %p.sorry Nothing to display
       -else
         -@admin_messages.each do |message|
           %li
@@ -31,7 +31,7 @@
 
     %ul.admin_lists
       -if @users.blank?
-        Nothing to display
+        %p.sorry Nothing to display
       -else
         -@users.each do |user|
           %li
@@ -53,7 +53,7 @@
 
     %ul.admin_lists
       -if @posts.blank?
-        Nothing to display
+        %p.sorry Nothing to display
       -else
         -@posts.each do |post|
           %li

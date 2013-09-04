@@ -10,7 +10,7 @@
 
   - if current_user.id == @friendship.proposer_id
     .field
-      = f.label :proposer_sharing_pref, "Please give a sharing preference for #{@proposee.email}"
+      = f.label :proposer_sharing_pref, "Please indicate a sharing preference for #{@proposee.full_name}"
       %br
       = f.select :proposer_sharing_pref, ['Kindred Spirit', 'Respected Peer', 'Industry Participant']
   - if current_user.id == @friendship.proposee_id
