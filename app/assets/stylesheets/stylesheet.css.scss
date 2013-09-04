@@ -45,6 +45,13 @@ body {
   padding-right: 5px;
 }
 
+#black_ball_bar {
+  background: $light_blue;
+  color: white;
+  margin: 0px;
+  text-align: center;
+  padding: 3px;
+}
 
 
 .highlight {
@@ -95,6 +102,7 @@ body {
   margin: auto;
   background: rgba(255,255,255,0.9);
   position: relative;
+  min-height: 1200px;
 }
 
 .container.landing_page{
@@ -314,6 +322,7 @@ background: white;
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #dddddd;
+  overflow: auto;
 }
 
 #main_content {
@@ -740,5 +749,35 @@ ul.wall_of_shame_list {
 #incoming_friend_requests_block h2 {
   color: white;
 
+}
 
+.pagination {
+  background: $light_blue;
+  display: inline-block;;
+  color: white;
+  font-size: 1em;
+  font-family: $title_font;
+  padding: 3px;
+  margin-top: 5px;
+}
+
+.pagination a {
+  color: white;
+  text-decoration: none;
+}
+
+ul.admin_lists {
+  padding: 0px;
+  list-style: none;
+}
+
+.admin_lists li {
+    list-style: none;
+    padding: 5px;
+
+}
+
+.disclaimer_window {
+  overflow: auto !important;
+  display: none;
 }

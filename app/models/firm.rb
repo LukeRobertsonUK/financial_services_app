@@ -5,6 +5,8 @@ class Firm < ActiveRecord::Base
   geocoded_by :full_street_address
   after_validation :geocode, :if => :address_changed?
   default_scope order('name ASC')
+  # validates :name, presence: true
+  # validates :city, presence: true
 
 
   def full_street_address

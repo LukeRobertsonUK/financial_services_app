@@ -16,16 +16,16 @@
       .login
         - if current_user
           = current_user.email
+          |
           = link_to "Log out", destroy_user_session_path, method: :delete
           %br
         - else
           = link_to "Sign In", new_user_session_path
-          = link_to "Register", new_user_registration_path
+          |
+          = link_to "Sign Up", new_user_registration_path
           %br
-        -if current_user
-          = "you have #{current_user.number_of_black_balls} black balls"
-        -if current_user && current_user.exceeds_black_ball_limit?
-          You have received 10 or more black balls within the last 30 days and, therefore, are unable to send friend requests
+
+
       %h1.hoot_box
         HootBox
       - if current_user
@@ -49,6 +49,10 @@
                   =link_to "Site Admin", admin_messages_path
       -else
         %p.introduction &ldquo;Intellectual content from your global network of investment professionals&rdquo;
+    -if current_user && current_user.exceeds_black_ball_limit?
+      %p#black_ball_bar
+        You have received 10 Black Balls within the last 30 days. You will not be unable to send friend requests until you drop below this threshold.
+
 
     -unless current_user
 

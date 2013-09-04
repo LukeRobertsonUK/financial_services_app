@@ -1,9 +1,12 @@
-$('#friend_requests').html("<p>You accepted the friend request</p>")
 $('#drag_and_drop_friend_list').html("<%=escape_javascript(render partial: 'friends/friends_list') %>")
+checkRequestDisplay();
+$('#friend_requests').html("<p>You accepted the friend request</p>")
+
 $('#incoming_friend_requests_block').html("<%=escape_javascript(render partial: 'friends/incoming_requests') %>")
-runConnectedSortable();
+
   setTimeout(function(){
     $('#friend_requests').fadeOut(300);
-    checkRequestDisplay();
+    runConnectedSortable();
   }, 300);
   checkFriendRequests();
+

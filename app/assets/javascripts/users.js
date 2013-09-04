@@ -7,20 +7,19 @@ if($('#admin_user_search').length == 0){
   })
 }
 
+  if($('.landing_page').length > 0){
+      $.getJSON('/tag_count.json', function(data){
+        $("#user_tag_cloud").jQCloud(data, {
+          // delayedMode: true,
+          removeOverflowing: false
+        });
+      }) //closes the getJSON
 
 
-  $.getJSON('/tag_count.json', function(data){
-    $("#user_tag_cloud").jQCloud(data, {
-      // delayedMode: true,
-      removeOverflowing: false
-    });
-  }) //closes the getJSON
-
-
-  $.getJSON('/tag_count_post.json', function(data){
-    $("#post_tag_cloud").jQCloud(data, {
-      delayedMode: true,
-    });
-  }) //closes the getJSON
-
+      $.getJSON('/tag_count_post.json', function(data){
+        $("#post_tag_cloud").jQCloud(data, {
+          delayedMode: true,
+        });
+      }) //closes the getJSON
+    }
 });
