@@ -13,7 +13,7 @@ gem 'ransack'
 gem 'nested_form'
 gem 'fog', "~>1.3.1"
 gem 'kaminari'
-gem 'bootstrap-kaminari-views'
+
 gem 'devise'
 gem 'haml'
 gem 'acts_as_votable', '~> 0.6.0'

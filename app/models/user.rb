@@ -264,6 +264,9 @@ end
     end
   end
 
+  def has_blackballed?(user)
+     user.votes.where({voter_id: self.id, vote_scope: "black_ball", vote_flag: true}).size > 0
+  end
 
   def has_raised_flag_against(user)
     user.votes.where({voter_id: self.id, vote_scope: "red_flag", vote_flag: true}).size > 0

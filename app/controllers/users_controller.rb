@@ -7,7 +7,7 @@ class UsersController < ApplicationController
 
 
     @current_users_friends = current_user.all_friends
-    @visible_users = @users - @current_users_friends - [current_user]
+    @visible_users = (@users - @current_users_friends - [current_user]).reject{|user| user.has_blackballed?(current_user)}
     @tag_count = User.tag_counts_on(:investment_styles).map {|tag| {text: tag.name, weight: tag.count}}
 
     respond_to do |format|
