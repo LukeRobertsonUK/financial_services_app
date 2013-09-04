@@ -47,7 +47,7 @@
         Author:
         = @post.user.full_name
       - unless @post.user.user_image.blank?
-        = image_tag @post.user.user_image.thumb.url
+        = image_tag @post.user.user_image.thumb.url, class: "thumb_image"
         %br
       %h3
         ="Posted: #{@post.created_at.to_formatted_s(:long_ordinal)}"

@@ -14,9 +14,9 @@
 .row
   .span6
     .inner_column
-      - unless @user.user_image.blank?
-        = image_tag @user.user_image.detail.url
-        %br
+
+      = image_tag @user.user_image.detail.url, class: "detail_image"
+      %br
       =mail_to @user.email
       #main_content
         %h3 Biography

@@ -2,8 +2,11 @@
   %li.walled_user
     %h2.wall_of_shame
       =user.full_name
-    =image_tag user.user_image.thumb.url
-    %br
+    -if user.firm
+      = user.firm.to_string
+    -else
+      %br
+    =image_tag user.user_image.thumb.url, class: "wall_card"
     - unless can? :admin_vote_reset, user
       -if current_user == user
         %br

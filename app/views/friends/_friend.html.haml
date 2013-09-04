@@ -1,10 +1,9 @@
 - friend = locals[:friend] if defined?(locals)
 
 %li{:class => "ui-state-default friend_box", "data-user_id" => friend.id, :id => "user_#{friend.id}"}
-
-  = link_to "#{friend.full_name}", user_path(friend)
-  %br
-  =image_tag friend.user_image.thumb.url
+  %h2.wall_of_shame
+    = link_to "#{friend.full_name}", user_path(friend)
+  =image_tag friend.user_image.thumb.url, class: "wall_card"
   %br
   - unless friend.business == "Other"
     =friend.business
