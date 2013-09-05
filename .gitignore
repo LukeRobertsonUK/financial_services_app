@@ -33,3 +33,4 @@ rerun.txt
 pickle-email-*.html
 .project
 .DS_Store
+/public/uploads/
