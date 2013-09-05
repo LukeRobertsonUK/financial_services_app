@@ -66,33 +66,15 @@ FinancialServicesApp::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
-
-
-
-CarrierWave.configure do |config|
-  config.storage = :fog
-  config.fog_credentials = {
-    :provider               => 'AWS',
-    :aws_access_key_id      => ENV['AWS_ACCESS_KEY'],
-    :aws_secret_access_key  => ENV['AWS_SECRET_ACCESS_KEY']
-  }
-  config.fog_directory  = 'mybuckettestapp'
-end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  CarrierWave.configure do |config|
+    config.storage = :fog
+    config.fog_credentials = {
+      :provider               => 'AWS',
+      :aws_access_key_id      => ENV['AWS_ACCESS_KEY'],
+      :aws_secret_access_key  => ENV['AWS_SECRET_ACCESS_KEY'],
+      :region => 'us-west-2'
+    }
+    config.fog_directory  = 'mybuckettestapp'
+  end
 
 end
