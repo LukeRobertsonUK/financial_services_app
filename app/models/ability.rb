@@ -26,6 +26,8 @@ class Ability
         # can :read, RedFlags
 
         can :create, Post
+
+
         can :read, Post do |p|
             (p.shareable_with(user)) || p.user_id == user.id
         end

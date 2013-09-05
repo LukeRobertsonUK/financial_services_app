@@ -3,10 +3,10 @@
     .wrapper
       %div.login_field
         = f.label :email
-        = f.email_field :email, :autofocus => true
+        = f.email_field :email, :autofocus => true, :autocomplete => false
       %div.login_field
         = f.label :password
-        = f.password_field :password
+        = f.password_field :password, :autocomplete => false
 
 
       %div.login_field
