@@ -9,9 +9,9 @@ function runConnectedSortable(){
 
    stop: function(event, ui) {
     $(ui.item).removeClass("myClass");
-
     var user_id = ui.item.data("user_id");
     var new_preference = ui.item.parent().data("field");
+
     $.post('/users/' + user_id + '/friendships/update_sharing_pref', {
       'new_preference': new_preference,
       });

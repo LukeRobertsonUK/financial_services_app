@@ -5,6 +5,7 @@ class Comment < ActiveRecord::Base
   belongs_to :post
   attr_accessible :comment_file, :content, :user_id, :post_id, :visible_poster_only
   acts_as_votable
+  before_destroy :delete_admin_messages
 
   aasm do
   state :ok, initial: true, :before_enter => :mark_admin_alert_resolved
@@ -21,6 +22,12 @@ class Comment < ActiveRecord::Base
   end
 
 end
+
+def delete_admin_messages
+  AdminMessage.where({subject_id: self.id, subject_class: "Comment"}).each{|message| message.destroy}
+end
+
+
 
 def generate_inappropriate_admin_alert
   AdminMessage.create({

@@ -1,6 +1,10 @@
 // Place all the styles related to the Friendships controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+$light_grey: #cccccc;
+$dark_grey: #888888;
+
+
 
 .connectedSortable {
   list-style-type: none;
@@ -15,9 +19,20 @@
 -ms-transform: rotate(10deg);
 -webkit-transform: rotate(10deg);
 box-shadow:rgba(0,0,0,0.5) 0px 0px 24px;
+
  transition: box-shadow 0.15s ease 0.05s;
  transition: transform  0.15s ease 0.05s;
  transition: -ms-transform 0.15s ease 0.05s;
  transition: -webkit-transform 0.15s ease 0.05s;
 
+}
+
+.purgatory {
+  border: 2px solid $light_grey;
+  color: $dark_grey
+
+}
+
+.purgatory h2 {
+  color: $light_grey;
 }

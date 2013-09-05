@@ -14,7 +14,7 @@ class Post < ActiveRecord::Base
   default_scope order('updated_at DESC')
   acts_as_taggable
   acts_as_votable
-  before_destroy :delete_comments
+  before_destroy :delete_comments_and_admin_messages
 
 aasm do
   state :ok, initial: true, :before_enter => :mark_admin_alert_resolved
@@ -32,8 +32,9 @@ aasm do
 
 end
 
-def delete_comments
+def delete_comments_and_admin_messages
   Comment.where(post_id: self.id).each{|comment| comment.destroy}
+  AdminMessage.where({subject_id: self.id, subject_class: "Post"}).each{|message| message.destroy}
 end
 
 

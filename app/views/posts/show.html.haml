@@ -13,19 +13,20 @@
   .span8
     .inner_column
       .post_column
-        - if @post.content.blank?
-          %p.sorry This post has no content
-        -else
-          #main_content
+        #main_content
+          - if @post.content.blank?
+            %p.sorry This post has no content
+          -else
+
             = raw @post.content
-            %a.custom_link.tone_down.view_disclaimer Disclaimer Text
-            - if can? :edit, @post
-              = link_to 'Edit', edit_post_path(@post), class: "custom_link alternative"
-            - if can? :destroy, @post
-              = link_to "Delete", post_path(@post), method: :delete, data: { confirm: 'Are you sure?'}, class: "custom_link"
-            - if can? :manage, :all
-              #admin_inappropriate_post_reset
-                = render partial: 'posts/admin_reset_button'
+          %a.custom_link.tone_down.view_disclaimer Disclaimer Text
+          - if can? :edit, @post
+            = link_to 'Edit', edit_post_path(@post), class: "custom_link alternative"
+          - if can? :destroy, @post
+            = link_to "Delete", post_path(@post), method: :delete, data: { confirm: 'Are you sure?'}, class: "custom_link"
+          - if can? :manage, :all
+            #admin_inappropriate_post_reset
+              = render partial: 'posts/admin_reset_button'
 
 
         #disclaimer_text

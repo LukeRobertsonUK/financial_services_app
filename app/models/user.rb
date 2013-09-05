@@ -28,6 +28,7 @@ class User < ActiveRecord::Base
   acts_as_taggable_on "investment_styles"
   acts_as_votable
   default_scope order('last_name')
+  before_destroy :destroy_frienships_posts_comments_admin_messages
 
 
 
@@ -303,4 +304,18 @@ end
   def connected_with(user)
     (Friendship.where({proposee_id: self.id, proposer_id: user.id}) + Friendship.where({proposee_id: user.id, proposer_id: self.id})).count > 0
   end
+
+  def destroy_frienships_posts_comments_admin_messages
+    Friendship.where(proposer_id: self.id).each {|friendship| friendship.destroy}
+    Friendship.where(proposee_id: self.id).each {|friendship| friendship.destroy}
+    Post.where(user_id: self.id).each { |post| post.destroy }
+    Comment.where(user_id: self.id).each{ |comment| comment.destroy}
+    AdminMessage.where({subject_id: self.id, subject_class: "User"}).each{|message| message.destroy}
+
+  end
+
+
+
+
+
 end

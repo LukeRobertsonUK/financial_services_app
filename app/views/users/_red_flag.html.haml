@@ -4,9 +4,10 @@
     ="#{user.business}, "
   - if user.firm
     =user.firm.to_string
+  = link_to "Profile", user_path(user), class: "custom_link"
   -unless current_user.exceeds_black_ball_limit?
     -unless current_user.connected_with(user)
-      = link_to "Send Friend Request", new_friendship_path(proposee_id: user.id), remote: true, class: "custom_link alternative"
+      = link_to "Connect", new_friendship_path(proposee_id: user.id), remote: true, class: "custom_link alternative"
   - if user.business == "Investor"
     -if current_user.has_raised_flag_against(user)
       %br
