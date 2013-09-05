@@ -32,12 +32,13 @@
     .post_column
       #users_posts
         %h1.form_heading Your Posts
-        -if current_user.has_posts?
+
+        #users_post_list
           %ul
-            #users_post_list
+            -if current_user.has_posts?
               = render partial: 'post', locals: {posts: @user_posts}
-        -else
-          %p.sorry You don't have any posts
+            -else
+              %p.sorry You don't have any posts
   .span6
     .post_column
       #friends_posts

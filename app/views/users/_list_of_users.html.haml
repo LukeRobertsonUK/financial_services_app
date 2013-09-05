@@ -1,4 +1,8 @@
 %ul
-  -@visible_users.each do |user|
-    %div{id: "red_flag_raiser_#{user.id}"}
-      =render partial: 'users/red_flag', locals: {user: user}
+  - if @visible_users.blank?
+    %p.sorry No records match your search criteria
+  -else
+
+    -@visible_users.each do |user|
+      %div{id: "red_flag_raiser_#{user.id}"}
+        =render partial: 'users/red_flag', locals: {user: user}

@@ -475,7 +475,7 @@ a.admin_button {
 }
 
 
-#logout_button {
+.logout_button {
   padding-left: 5px;
   padding-right: 5px;
   padding-top: 2px;
@@ -617,6 +617,7 @@ a.clicker {
   font-family: $droid;
   color: $dark_grey;
   padding-left: 5px;
+  list-style: none;
 }
 
 
@@ -644,6 +645,7 @@ a.clicker {
   font-family: $droid;
   color: black;
   padding-left: 5px;
+  list-style: none;
 }
 
 
@@ -1163,4 +1165,12 @@ li.bold_list_item {
   width: 206px;
   padding-top: 4px;
   padding-bottom: 4px;
+}
+
+.post_list_item.read_post h3 {
+  list-style: none;
+}
+
+.post_list_item {
+  list-style: none;
 }

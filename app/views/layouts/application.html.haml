@@ -18,7 +18,8 @@
           = current_user.email
           = link_to "Log Out", destroy_user_session_path, method: :delete, id: "logout_button"
         - else
-          = link_to "New Users Sign Up Here!", new_user_registration_path, id: "logout_button"
+          = link_to "Sign In", new_user_session_path, class: "logout_button"
+          = link_to "Sign Up", new_user_registration_path, class: "logout_button"
 
 
       %h1.hoot_box
