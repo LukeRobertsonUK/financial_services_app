@@ -1,6 +1,7 @@
 $light_blue: #00CCFF;
 $electric_blue: #3399DD;
 $droid: 'Droid Sans', sans-serif;
+$pink: #F95759;
 
 body {
   background-color: #fff;
@@ -45,34 +46,52 @@ div {
 }
 
 #notice {
-  color: green;
+  color: $electric_blue;
+  font: $droid;
+  padding: 5px;
+  padding-left: 10px;
+  margin: 0px;
+  font-style: italic;
 }
 
 .field_with_errors {
-  padding: 2px;
-  background-color: red;
+  border-radius: 5px;
+  color: white;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  background-color: $pink;
   display: table;
 }
 
 #error_explanation {
+  font-family: $droid;
+  margin-left: 10px;
   width: 450px;
-  border: 2px solid red;
-  padding: 7px;
+  padding: 5px;
   padding-bottom: 0;
-  margin-bottom: 20px;
-  background-color: #f0f0f0;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  background-color: white;
   h2 {
     text-align: left;
     font-weight: bold;
     padding: 5px 5px 5px 15px;
-    font-size: 12px;
+    font-size: 10px;
     margin: -7px;
     margin-bottom: 0px;
-    background-color: #c00;
+    background-color: $pink;
     color: #fff;
   }
   ul li {
-    font-size: 12px;
-    list-style: square;
+    font-size: 10px;
+    list-style: none;
+    margin-top: 0px;
+  }
+
+  ul {
+    padding: 0px;
+    margin: 0px;
   }
 }

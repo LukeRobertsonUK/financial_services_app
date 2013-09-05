@@ -1,7 +1,8 @@
 = nested_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f|
-  = devise_error_messages!
+
   .row
     .span12
+      = devise_error_messages!
       #your_details_button.inner_column
         %p.instructions Click on the headings below to update each section of the form
         %p.instructions You must confirm your password in section 4 to save your changes

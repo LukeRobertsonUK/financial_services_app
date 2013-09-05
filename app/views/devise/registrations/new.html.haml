@@ -1,8 +1,8 @@
 .container
   = nested_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
-    = devise_error_messages!
     .row
       .span12
+        = devise_error_messages!
         #your_details_button.inner_column
           %p.instructions Please click on the headings below to complete each section of the form
           %p.instructions Required fields: First Name; Last Name; Email; Industry Role; Password; Password Confirmation

@@ -6,6 +6,7 @@ $droid: 'Droid Sans', sans-serif;
 $light_blue: #00CCFF;
 $light_grey: #cccccc;
 $dark_grey: #888888;
+$pink: #F95759;
 
 
 h2 {
@@ -439,7 +440,7 @@ a.tone_down {
 }
 
 a.admin_button {
-  background: green;
+  background: $pink;
   &:hover{
     background: black;
   }

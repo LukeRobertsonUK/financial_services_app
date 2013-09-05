@@ -26,6 +26,6 @@
             = link_to "show", post_path(post), class: "custom_link"
             -if can? :edit, post
               -if current_user == post.user
-                = link_to "edit", edit_post_path(post), remote: true,  class: "custom_link alternative"
+                = link_to "edit", edit_post_path(post), remote: true,  class: "custom_link alternative post_edit_buttons"
 
               = link_to "delete", post_path(post), method: :delete, data: { confirm: 'Are you sure?'}, remote: true,  class: "custom_link tone_down"
