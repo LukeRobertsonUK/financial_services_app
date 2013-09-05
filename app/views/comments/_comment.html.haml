@@ -15,7 +15,7 @@
           .admin_inappropriate_comment_reset
             = link_to "Comment OK: Reset Vote", reset_comment_vote_comment_path(id: comment.id), remote: true, method: :post, class: "custom_link admin_button"
 
-      #inappropriate_comment.small_text
+      .small_text{id: "inappropriate_comment_#{comment.id}"}
         =render partial: 'comments/mark_inappropriate_comment', locals: {comment: comment}
 
 - else
@@ -32,6 +32,6 @@
       - if comment.aasm_state == "inappropriate"
         .admin_inappropriate_comment_reset
           = link_to "Comment OK: Reset Vote", reset_comment_vote_comment_path(id: comment.id), remote: true, method: :post, class: "custom_link admin_button"
-    #inappropriate_comment.small_text
+    .small_text{id: "inappropriate_comment_#{comment.id}"}
       =render partial: 'comments/mark_inappropriate_comment', locals: {comment: comment}
 

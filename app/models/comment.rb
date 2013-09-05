@@ -6,6 +6,7 @@ class Comment < ActiveRecord::Base
   attr_accessible :comment_file, :content, :user_id, :post_id, :visible_poster_only
   acts_as_votable
   before_destroy :delete_admin_messages
+  default_scope order('created_at DESC')
 
   aasm do
   state :ok, initial: true, :before_enter => :mark_admin_alert_resolved
