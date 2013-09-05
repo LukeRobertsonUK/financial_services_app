@@ -1,16 +1,21 @@
     var checkFriendRequests = function(){
 
-      if($('.landing_page').length === 0){
-        $.getJSON('/friends.json', function(data){
-          if(data > 0){
-            $('#friends_alert').addClass('highlight');
+      if($('#investment_interests_button').length === 0){
 
-          }else{
-            $('#friends_alert').removeClass('highlight');
+          if($('.landing_page').length === 0){
+            $.getJSON('/friends.json', function(data){
+              if(data > 0){
+                $('#friends_alert').addClass('highlight');
 
+              }else{
+                $('#friends_alert').removeClass('highlight');
+
+              }
+             }) //closes getJSON
           }
-         }) //closes getJSON
-      }
+        }
+
+
     } //closes checkFriendRequests
 
 
