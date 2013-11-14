@@ -3,6 +3,7 @@ load_and_authorize_resource
 
   def index
 
+
     @admin_messages = AdminMessage.where(addressed_by_admin: nil).page params[:page]
 
     @q = User.search(params[:q])
